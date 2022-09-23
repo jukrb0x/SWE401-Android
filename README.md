@@ -2,7 +2,7 @@
 This repository holds for the client-side application (Android Native).
 
 
-# Branches
+## Branches
 - `main`: the active development in the progress
 - `release`: the versioning release of the project
 
