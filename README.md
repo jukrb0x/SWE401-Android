@@ -1,5 +1,5 @@
 # Android ![broken-brains](https://img.shields.io/badge/Broken-Brains-2463eb) ![SWE401-frontend](https://img.shields.io/badge/SWE401-Frontend-orange?logo=Counter-Strike) ![SWE401-frontend](https://img.shields.io/badge/SWE401-Backend-green?logo=Counter-Strike)
-This repository holds for the client-side application (Android Native).
+This repository holds for both the client-side application (Android Native) and Express.js server app.
 
 
 ## Branches
