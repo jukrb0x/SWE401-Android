@@ -1,4 +1,4 @@
-package com.brokenbrains.app
+package com.brokenbrains.fitness
 
 import org.junit.Test
 
