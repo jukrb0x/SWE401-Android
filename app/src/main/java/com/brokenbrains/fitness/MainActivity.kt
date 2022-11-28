@@ -5,16 +5,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.brokenbrains.fitness.ui.screens.HomeScreen
+import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,12 +36,16 @@ class MainActivity : ComponentActivity() {
 fun App() {
     FitnessTheme {
         var currentScreen: ScreenRoute by remember { mutableStateOf(Home) }
+        val navController = rememberNavController()
         Scaffold(
             bottomBar = {
-                Row {
+                Row(Modifier.padding(16.dp)) {
                     TabRoutes.forEach {
-                        Button(onClick = { currentScreen = it }) {
-                            Text(text=it.route)
+                        Button(
+                            onClick = { currentScreen = it },
+//                            modifier = Modifier.clip(Shapes.large)
+                        ) {
+                            Text(text = it.route)
                         }
                         Spacer(modifier = Modifier.width(5.dp))
                     }
@@ -44,12 +53,22 @@ fun App() {
             }
         ) {
             // A surface container using the 'background' color from the theme
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colors.background
-            ) {
-                currentScreen.screen()
+            NavHost(navController = navController, startDestination = currentScreen.route) {
+                // todo: use a nav graph to navigate between screens
+                composable(route = Home.route) {
+                    HomeScreen()
+                }
+                composable(route = Profile.route) {
+                    ProfileScreen()
+                }
             }
         }
     }
+}
+
+// todo
+private fun NavGraphBuilder.appNavGraph(
+
+) {
+
 }
