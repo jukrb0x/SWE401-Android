@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 fun App() {
     FitnessTheme {
-        var currentScreen: ScreenRoute by remember { mutableStateOf(Home) }
+        var currentScreen: ScreenRoute by remember { mutableStateOf(Home) } // todo remove this
         val navController = rememberNavController()
         Scaffold(
             bottomBar = {
@@ -43,7 +44,6 @@ fun App() {
                     TabRoutes.forEach {
                         Button(
                             onClick = { currentScreen = it },
-//                            modifier = Modifier.clip(Shapes.large)
                         ) {
                             Text(text = it.route)
                         }
@@ -52,7 +52,8 @@ fun App() {
                 }
             }
         ) {
-            // A surface container using the 'background' color from the theme
+            // todo A surface container using the 'background' color from the theme
+
             NavHost(navController = navController, startDestination = currentScreen.route) {
                 // todo: use a nav graph to navigate between screens
                 composable(route = Home.route) {

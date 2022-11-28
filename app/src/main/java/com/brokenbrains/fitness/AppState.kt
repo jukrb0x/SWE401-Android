@@ -1,12 +1,20 @@
 package com.brokenbrains.fitness
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
-fun rememberAppState() {
-//    return AppState()
+@Composable
+fun rememberAppState(
+    navController: NavHostController = rememberNavController(),
+) = remember(navController) {
+    AppState(navController)
 }
 
 
@@ -36,6 +44,19 @@ class AppState(
         }
     }
 }
+
+/**
+ * If the lifecycle is not resumed it means this NavBackStackEntry already processed a nav event.
+ *
+ * This is used to de-duplicate navigation events.
+ *
+ * from: https://github.com/android/compose-samples/blob/main/Jetsnack/app/src/main/java/com/example/jetsnack/ui/JetsnackAppState.kt
+ */
+private fun NavBackStackEntry.lifecycleIsResumed() =
+    this.lifecycle.currentState == Lifecycle.State.RESUMED
+
+private val NavGraph.startDestination: NavDestination?
+    get() = findNode(startDestinationId)
 
 /**
  * Reference to NavigationUI.kt
