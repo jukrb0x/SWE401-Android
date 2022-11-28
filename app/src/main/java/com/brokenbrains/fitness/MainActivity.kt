@@ -27,29 +27,34 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-@Preview(showBackground = true)
 fun App() {
-    FitnessTheme {
-        var currentScreen: ScreenRoute by remember { mutableStateOf(Home) }
-        Scaffold(
-            bottomBar = {
-                Row {
-                    TabRoutes.forEach {
-                        Button(onClick = { currentScreen = it }) {
-                            Text(text=it.route)
-                        }
-                        Spacer(modifier = Modifier.width(5.dp))
+    var currentScreen: ScreenRoute by remember { mutableStateOf(Home) }
+    Scaffold(
+        bottomBar = {
+            Row {
+                TabRoutes.forEach {
+                    Button(onClick = { currentScreen = it }) {
+                        Text(text = it.route)
                     }
+                    Spacer(modifier = Modifier.width(5.dp))
                 }
             }
-        ) {
-            // A surface container using the 'background' color from the theme
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colors.background
-            ) {
-                currentScreen.screen()
-            }
         }
+    ) {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            currentScreen.screen()
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun previewScreen() {
+    FitnessTheme {
+        App()
     }
 }
