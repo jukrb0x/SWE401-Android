@@ -5,9 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
@@ -25,24 +28,25 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 fun App() {
     FitnessTheme {
+        // | change later
+        // v
+        val currentScreen: ScreenRoute by remember { mutableStateOf(Home) }
         // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+        Scaffold(
+            bottomBar = {
+//                BottomBar(
+//                    allScreens = TabRoutes,
+//                    onTabSelected = { screen -> currentScreen = screen },
+//                    currentScreen = currentScreen
+//                )
+            }
         ) {
-            DefaultPreview()
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colors.background
+            ) {
+                currentScreen.screen()
+            }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Composable
-fun DefaultPreview() {
-    FitnessTheme {
-        Greeting("Android")
     }
 }
