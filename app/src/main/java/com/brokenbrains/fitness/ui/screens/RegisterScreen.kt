@@ -97,7 +97,7 @@ fun RegisterScreen() {
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .padding(top = 30.dp)
-                    .size(170.dp, 50.dp)
+                    .size(180.dp, 50.dp)
                     .clip(RoundedCornerShape(20.dp)),
                 shape = RoundedCornerShape(40.dp)
             ) {
