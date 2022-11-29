@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.R
 
 
@@ -74,12 +75,40 @@ fun LoginScreen() {
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .padding(top = 30.dp)
-                    .size(170.dp, 50.dp)
+                    .size(180.dp, 50.dp)
                     .clip(RoundedCornerShape(20.dp)),
                 shape = RoundedCornerShape(40.dp)
             ) {
                 Text(text = "Login", fontWeight = FontWeight.Bold)
             }
+
+            //Sign Up Button
+            Button(
+                onClick = { /*TODO*/ },
+                modifier = Modifier
+                    .padding(top = 15.dp)
+                    .size(180.dp, 50.dp)
+                    .clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(40.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF2E9AD5))
+            ) {
+                Text(text = "Sign Up", fontWeight = FontWeight.Bold)
+            }
+
+            Text(
+                text = "Don't have an account yet?",
+                modifier = Modifier.padding(top = 10.dp),
+                color = Color.Gray,
+                fontSize = 12.sp
+            )
+
+            Text(
+                text = "Sign up now!",
+                modifier = Modifier.padding(top = 5.dp),
+                color = Color.Gray,
+                fontSize = 12.sp
+            )
+
         }
     }
 }
