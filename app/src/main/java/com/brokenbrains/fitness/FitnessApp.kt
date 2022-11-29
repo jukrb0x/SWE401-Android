@@ -32,7 +32,7 @@ fun FitnessApp() {
                         tabRoutes = appState.bottomBarRoutes
                     )
                 }
-            }
+            },
         ) { innerPadding ->
             NavHost(
                 navController = appState.navController,

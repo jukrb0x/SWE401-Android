@@ -35,7 +35,7 @@ fun ProfileScreen() {
     var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
 
-    FitnessTheme() { // JB FIXME: 不要这么做，一个app就一个theme container
+    // FitnessTheme() { // JB FIXME: 不要这么做，一个app就一个theme container
         Box() {
             Column(
                 modifier = Modifier
@@ -252,7 +252,7 @@ fun ProfileScreen() {
                 ) { Text("Edit Profile") }
             }
         }
-    }
+//    }
 }
 
 //TODO: Encapsulation
