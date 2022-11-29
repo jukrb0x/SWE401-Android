@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.brokenbrains.fitness.ui.components.TestHello
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun HomeScreen() {
     var text by remember { mutableStateOf("") }
     fun handleTextChange(newText: String) {
