@@ -52,7 +52,7 @@ fun ProfileScreen() {
                     .size(100.dp)
                     .clip(CircleShape)
                     .border(
-                        BorderStroke(5.dp, Color(0xFFCAA0D1)),
+                        BorderStroke(5.dp, Color(0xFF9055F7)),
                         CircleShape
                     )
             )
@@ -66,7 +66,7 @@ fun ProfileScreen() {
                 Text(
                     text = "ID: xxxxxxxx", modifier = Modifier.wrapContentSize(),
                     fontSize = 13.sp,
-                    color = Color.LightGray
+                    color = Color.Gray
                 )
             }
 
