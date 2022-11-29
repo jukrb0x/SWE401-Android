@@ -14,31 +14,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+data class SharingCardData(
+    val name: String,
+    val description: String,
+    val avatar: String, // todo
+    val color: Color
+)
+
 @Composable
-fun SharingCard(/*modifier: Modifier*/) {
+fun SharingCard(modifier: Modifier = Modifier) {
     Card() {
-        Row(Modifier.padding(5.dp)) {
+        Row(modifier.padding(5.dp)) {
             Surface(
                 shape = CircleShape,
-                modifier = Modifier
+                modifier = modifier
                     .size(30.dp)
-                    .clip(shape = CircleShape)
-                    .background(Color.Blue)
                     .fillMaxSize()
                     .align(Alignment.CenterVertically)
             ) {
                 Box(
-                    Modifier
+                    modifier
                         .fillMaxSize()
-                        .background(Color.Blue)
+                        .background(Color.Gray)
                 ) {
                     // avatar
                 }
             }
-            Spacer(modifier = Modifier.width(5.dp))
+            Spacer(modifier.width(5.dp))
             Column() {
-                Text("Title")
-                Text("Subtitle")
+                Text("Name")
+                Text("Subtitle", modifier = modifier.size(10.dp))
             }
         }
     }
