@@ -27,7 +27,13 @@ import com.brokenbrains.fitness.ui.theme.FitnessTheme
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreen() {
+    //TODO: Add background image or theme, try to figure out hardcoded padding of textfield
     val image = painterResource(id = R.drawable.ic_account)
+    var text_DOB by rememberSaveable { mutableStateOf("Date of Birthday") }
+    var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
+    var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
+    var text_email by rememberSaveable { mutableStateOf("Enter your email") }
+
     FitnessTheme() {
         Column(
             modifier = Modifier
@@ -36,6 +42,7 @@ fun ProfileScreen() {
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            //User Account Image
             Image(
                 painter = image, contentDescription = "User Account Image",
                 modifier = Modifier
@@ -47,7 +54,7 @@ fun ProfileScreen() {
                     )
             )
 
-            //User name
+            //User name & ID
             Column(
                 modifier = Modifier.padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -94,7 +101,6 @@ fun ProfileScreen() {
                                 textDecoration = TextDecoration.Underline
                             )
                         }
-                        var text_DOB by rememberSaveable { mutableStateOf("Date of Birthday") }
                         OutlinedTextField(
                             readOnly = true,
                             value = text_DOB,
@@ -138,7 +144,6 @@ fun ProfileScreen() {
                                 textDecoration = TextDecoration.Underline
                             )
                         }
-                        var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
                         OutlinedTextField(
                             readOnly = true,
                             value = text_sex,
@@ -182,7 +187,6 @@ fun ProfileScreen() {
                                 textDecoration = TextDecoration.Underline
                             )
                         }
-                        var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
                         OutlinedTextField(
                             readOnly = true,
                             value = text_bt,
@@ -226,7 +230,6 @@ fun ProfileScreen() {
                                 textDecoration = TextDecoration.Underline
                             )
                         }
-                        var text_email by rememberSaveable { mutableStateOf("Enter your email") }
                         OutlinedTextField(
                             readOnly = true,
                             value = text_email,
@@ -239,6 +242,7 @@ fun ProfileScreen() {
                     }
                 }
             }
+
             //Edit Button
             Button(
                 onClick = { /* Do something! */ },
