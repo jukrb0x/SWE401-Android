@@ -66,7 +66,6 @@ fun App() {
     }
 }
 
-// todo
 private fun NavGraphBuilder.appNavGraph( // custom name..
     upPress: () -> Unit
 ) {
@@ -84,5 +83,4 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             ProfileScreen()
         }
     }
-
 }
