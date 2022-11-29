@@ -68,7 +68,7 @@ fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun HeaderRow(
+private fun HeaderRow(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -80,6 +80,6 @@ fun HeaderRow(
 
 @Preview(showBackground = true)
 @Composable
-fun HeaderRowPreview() {
+private fun HeaderRowPreview() {
     MainScreenHeader("Title")
 }

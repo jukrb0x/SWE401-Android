@@ -8,11 +8,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.screens.SharingScreen
+import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 
@@ -37,28 +39,40 @@ fun FitnessApp() {
                 startDestination = AppDestinations.MAIN_ROUTE,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                appNavGraph(appState::upPress)
+                appNavGraph({ route -> appState.navController.navigate(route) }, appState::upPress)
             }
         }
     }
 }
 
-// main navigation graph
 private fun NavGraphBuilder.appNavGraph( // custom name..
-    upPress: () -> Unit
+    /* TODO test use */ navigateTo: (route: String) -> Unit,
+                        upPress: () -> Unit
 ) {
+    // todo: default transition between tabs should be off
+    // main route for tabs
     navigation(
         route = AppDestinations.MAIN_ROUTE,
         startDestination = TabRoutes.Home.route
     ) {
         composable(TabRoutes.Home.route) {
-            HomeScreen()
+            HomeScreen(navigateTo)
         }
         composable(TabRoutes.HealthPlus.route) {
-            ProfileScreen()
+            HealthPlusScreen()
         }
         composable(TabRoutes.Sharing.route) {
             SharingScreen()
+        }
+    }
+
+    // user related routes
+    navigation(
+        route = AppDestinations.USER_ROUTE,
+        startDestination = UserRoutes.Profile.route
+    ) {
+        composable(UserRoutes.Profile.route) {
+            ProfileScreen()
         }
     }
 }

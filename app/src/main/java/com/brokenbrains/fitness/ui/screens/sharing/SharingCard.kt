@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.components
+package com.brokenbrains.fitness.ui.screens.sharing
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
