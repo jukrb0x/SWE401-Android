@@ -27,7 +27,8 @@ import com.brokenbrains.fitness.ui.theme.FitnessTheme
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreen() {
-    //TODO: Add background image or theme, try to figure out hardcoded padding of textfield
+    //TODO: Add background image or theme
+    //TODO: Try to figure out hardcoded padding of textfield
     val image = painterResource(id = R.drawable.ic_account)
     var text_DOB by rememberSaveable { mutableStateOf("Date of Birthday") }
     var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
