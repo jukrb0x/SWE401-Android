@@ -6,13 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.ProfileScreen
@@ -31,19 +30,17 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 fun App() {
     FitnessTheme {
-//        val currentScreen: ScreenRoute by remember { mutableStateOf(Home) } // todo remove this
-        val navController = rememberNavController()
         val appState = rememberAppState();
         Scaffold(
             bottomBar = {
                 Row {
                     BottomNavigation {
-                        TabRoutes.forEach {
+                        appState.bottomBarRoutes.forEach {
                             BottomNavigationItem(
                                 icon = {
                                     Icon(
                                         it.icon,
-                                        contentDescription = null
+                                        contentDescription = null,
                                     )
                                 },
                                 label = { Text(it.displayName) },
@@ -60,19 +57,10 @@ fun App() {
             // todo A surface container using the 'background' color from the theme
             NavHost(
                 navController = appState.navController,
-                startDestination = Home.route,
+                startDestination = AppDestinations.MAIN_ROUTE,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                // todo: change later
-                composable(route = Home.route) {
-                    HomeScreen()
-                }
-                composable(route = HealthPlus.route){
-                    ProfileScreen()
-                }
-                composable(route=Sharing.route){
-                    ProfileScreen()
-                }
+                appNavGraph(appState::upPress)
             }
         }
     }
@@ -80,14 +68,20 @@ fun App() {
 
 // todo
 private fun NavGraphBuilder.appNavGraph( // custom name..
-
+    upPress: () -> Unit
 ) {
     navigation(
-        startDestination = Home.route,
-        route = Home.route
+        route = AppDestinations.MAIN_ROUTE,
+        startDestination = TabRoutes.Home.route
     ) {
-        composable(route = Home.route) {
+        composable(TabRoutes.Home.route) {
             HomeScreen()
+        }
+        composable(TabRoutes.HealthPlus.route) {
+            ProfileScreen()
+        }
+        composable(TabRoutes.Sharing.route) {
+            ProfileScreen()
         }
     }
 
