@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.screens.HomeScreen
+import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 class MainActivity : ComponentActivity() {
@@ -62,9 +63,15 @@ fun App() {
                 startDestination = Home.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                // todo: use a nav graph to navigate between screens
+                // todo: change later
                 composable(route = Home.route) {
                     HomeScreen()
+                }
+                composable(route = HealthPlus.route){
+                    ProfileScreen()
+                }
+                composable(route=Sharing.route){
+                    ProfileScreen()
                 }
             }
         }

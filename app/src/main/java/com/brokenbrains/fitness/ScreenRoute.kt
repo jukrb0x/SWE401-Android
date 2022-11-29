@@ -19,30 +19,30 @@ interface ScreenRoute{
     val route: String
     val displayName: String
     val icon: ImageVector
-    val screen: @Composable () -> Unit
+//    val screen: @Composable () -> Unit
 }
 
 object Home : ScreenRoute {
-    override val route = "Tabs/Home"
+    override val route = "Home"
     override val displayName = "Home"
     override val icon =  Icons.Default.Home
-    override val screen: @Composable () -> Unit = { HomeScreen() }
+//    override val screen: @Composable () -> Unit = { HomeScreen() }
 }
 
 object HealthPlus : ScreenRoute {
-    override val route = "Tabs/HealthPlus"
+    override val route = "HealthPlus"
     override val displayName = "Health +"
     override val icon = Icons.Rounded.Add //Icon(painter=painterResource(R.drawable.ic_health_plus), "Health +")
-    override val screen: @Composable () -> Unit = { ProfileScreen() }
+//    override val screen: @Composable () -> Unit = { ProfileScreen() }
 }
 
 object Sharing : ScreenRoute {
-    override val route = "Tabs/Sharing"
+    override val route = "Sharing"
     override val displayName = "Sharing"
     override val icon = Icons.Default.Share
-    override val screen: @Composable () -> Unit = { ProfileScreen() }
+//    override val screen: @Composable () -> Unit = { ProfileScreen() }
 }
 
 val TabRoutes = listOf(
-    Home, Sharing
+    Home, Sharing, HealthPlus
 )
