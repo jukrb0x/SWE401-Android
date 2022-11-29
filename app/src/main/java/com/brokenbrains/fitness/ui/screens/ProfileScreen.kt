@@ -36,7 +36,7 @@ fun ProfileScreen() {
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
 
     FitnessTheme() {
-        //TODO: Reserve a place for an exit button
+        //TODO: Encapsulation
         Box() {
             Column(
                 modifier = Modifier
