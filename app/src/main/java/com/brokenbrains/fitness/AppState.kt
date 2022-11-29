@@ -10,6 +10,9 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
+/**
+ * Create the AppState Instance
+ */
 @Composable
 fun rememberAppState(
     navController: NavHostController = rememberNavController(),
@@ -18,6 +21,9 @@ fun rememberAppState(
 }
 
 
+/**
+ * Holding UI related states as SSOT.
+ */
 @Stable // JB todo: see docs about @Stable
 class AppState(
     val navController: NavHostController
@@ -31,7 +37,8 @@ class AppState(
 
     fun upPress() = navController.navigateUp()
 
-    fun navigateToTabBarRoute(route: String) {
+    // responsible for the bottom bar navigation
+    fun navigateToTabBottomRoute(route: String) {
         if (route != currentRoute) {
             navController.navigate(route) {
                 // this will go back to the first destination and save state
