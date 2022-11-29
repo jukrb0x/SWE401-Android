@@ -36,7 +36,6 @@ fun ProfileScreen() {
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
 
     FitnessTheme() {
-        //TODO: Encapsulation
         Box() {
             Column(
                 modifier = Modifier
@@ -72,7 +71,7 @@ fun ProfileScreen() {
 
                 //User Info
                 Column(
-                    modifier = Modifier.padding(13.dp)
+                    modifier = Modifier.padding(13.dp).align(Alignment.CenterHorizontally)
                 ) {
                     //D.O.B Info
                     Box(
@@ -252,6 +251,55 @@ fun ProfileScreen() {
                     modifier = Modifier.padding(top = 5.dp)
                 ) { Text("Edit Profile") }
             }
+        }
+    }
+}
+
+//TODO: Encapsulation
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun test() {
+    var text by rememberSaveable { mutableStateOf("Enter your") }
+    //Blood Type
+    Box(
+        modifier = Modifier
+            .padding(top = 14.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color(0xFFE2E0E0))
+            .height(70.dp)
+    ) {
+        Row(modifier = Modifier.matchParentSize()) {
+            TextButton(
+                onClick = { false },
+                modifier = Modifier
+                    .padding(10.dp, 10.dp, end = 2.dp, 10.dp)
+                    .align(Alignment.CenterVertically)
+                    .size(70.dp, 40.dp)
+                    .clickable(onClick = { false })
+            ) {
+                Text(
+                    "Blood Type",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    color = Color(
+                        0xFF746099
+                    ),
+                    textAlign = TextAlign.Center,
+                    letterSpacing = 0.15.sp,
+                    textDecoration = TextDecoration.Underline
+                )
+            }
+            OutlinedTextField(
+                readOnly = true,
+                value = text,
+                onValueChange = { text = it },
+                shape = RoundedCornerShape(30.dp),
+                singleLine = true,
+                modifier = Modifier
+                    .padding(5.dp, 10.dp, 10.dp, 10.dp)
+            )
         }
     }
 }
