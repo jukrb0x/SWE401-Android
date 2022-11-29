@@ -10,7 +10,7 @@ object AppDestinations {
     const val MAIN_ROUTE = "main"
 }
 
-enum class TabRoutes(val route: String, val displayName: String, val icon: ImageVector) {
+enum class TabRoutes(val route: String, val title: String, val icon: ImageVector) {
     Home("main/home", "Home", Icons.Filled.Home),
     HealthPlus("main/profile", "Profile", Icons.Filled.Person),
     Sharing("main/share", "Share", Icons.Filled.Share)

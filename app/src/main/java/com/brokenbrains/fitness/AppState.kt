@@ -8,6 +8,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 /**
@@ -35,7 +36,7 @@ class AppState(
 
     val currentRoute: String? get() = navController.currentDestination?.route
 
-    fun upPress() = navController.navigateUp()
+    fun upPress() = navController.navigateUp() // back button
 
     // responsible for the bottom bar navigation
     fun navigateToTabBottomRoute(route: String) {
@@ -55,6 +56,12 @@ class AppState(
     // Bottom Bar
     // --------------
     val bottomBarRoutes = TabRoutes.values(); // todo: change later
+
+    // Secure the current route is available, not all routes need to show the bottom bar
+    val shouldShowBottomBar: Boolean
+        @Composable get() = navController
+            .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes.map { it.route }
+
 }
 
 /**
