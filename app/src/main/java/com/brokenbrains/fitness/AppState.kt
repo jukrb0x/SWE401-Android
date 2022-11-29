@@ -52,12 +52,18 @@ class AppState(
         }
     }
 
+/*
+    fun navigateToXXX(){
+
+    }
+*/
+
     // --------------
-    // Bottom Bar
+    // Bottom Navigation Bar
     // --------------
     val bottomBarRoutes = TabRoutes.values(); // todo: change later
 
-    // Secure the current route is available, not all routes need to show the bottom bar
+    // Secure the current route is available and is in the bottom bar routes
     val shouldShowBottomBar: Boolean
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes.map { it.route }

@@ -40,10 +40,8 @@ fun App() {
                         tabRoutes = appState.bottomBarRoutes
                     )
                 }
-
             }
         ) { innerPadding ->
-            // todo A surface container using the 'background' color from the theme
             NavHost(
                 navController = appState.navController,
                 startDestination = AppDestinations.MAIN_ROUTE,
@@ -55,6 +53,7 @@ fun App() {
     }
 }
 
+// main navigation graph
 private fun NavGraphBuilder.appNavGraph( // custom name..
     upPress: () -> Unit
 ) {
