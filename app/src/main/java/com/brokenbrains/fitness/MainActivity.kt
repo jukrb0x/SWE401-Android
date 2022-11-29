@@ -4,23 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,37 +30,41 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 fun App() {
     FitnessTheme {
-        var currentScreen: ScreenRoute by remember { mutableStateOf(Home) } // todo remove this
+//        val currentScreen: ScreenRoute by remember { mutableStateOf(Home) } // todo remove this
         val navController = rememberNavController()
         val appState = rememberAppState();
         Scaffold(
             bottomBar = {
-                Row(Modifier.padding(16.dp)) {
-                    TabRoutes.forEach {
-                        Button(
-                            onClick = {
-                                // currentScreen = it
-                                appState.navigateToTabBottomRoute(it.route)
-                            },
-                        ) {
-                            Text(text = it.route)
+                Row {
+                    BottomNavigation {
+                        TabRoutes.forEach {
+                            BottomNavigationItem(
+                                icon = {
+                                    Icon(
+                                        it.icon,
+                                        contentDescription = null
+                                    )
+                                },
+                                label = { Text(it.displayName) },
+                                selected = appState.currentRoute == it.route,
+                                onClick = {
+                                    appState.navigateToTabBottomRoute(it.route)
+                                }
+                            )
                         }
-                        Spacer(modifier = Modifier.width(5.dp))
                     }
                 }
             }
-        ) {
+        ) { innerPadding ->
             // todo A surface container using the 'background' color from the theme
             NavHost(
                 navController = appState.navController,
-                startDestination = currentScreen.route
+                startDestination = Home.route,
+                modifier = Modifier.padding(innerPadding)
             ) {
                 // todo: use a nav graph to navigate between screens
                 composable(route = Home.route) {
                     HomeScreen()
-                }
-                composable(route = Profile.route) {
-                    ProfileScreen()
                 }
             }
         }
@@ -83,9 +81,6 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     ) {
         composable(route = Home.route) {
             HomeScreen()
-        }
-        composable(route = Profile.route) {
-            ProfileScreen()
         }
     }
 

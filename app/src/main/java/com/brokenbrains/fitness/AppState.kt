@@ -50,6 +50,11 @@ class AppState(
             }
         }
     }
+
+    // --------------
+    // Bottom Bar
+    // --------------
+    val bottomBarRoutes = TabRoutes; // todo: change later
 }
 
 /**
