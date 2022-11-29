@@ -8,6 +8,10 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.HandHoldingHeart
 
+/**
+ *  the router navigation is defined in [AppState].
+ */
+
 object AppDestinations {
     const val MAIN_ROUTE = "main"
 }
@@ -19,5 +23,5 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
         "Health+",
         FontAwesomeIcons.Solid.HandHoldingHeart
     ),
-    Sharing("main/share", "Share", Icons.Filled.Share)
+    Sharing("main/share", "Sharing", Icons.Filled.Share)
 }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.TestHello
@@ -24,8 +25,7 @@ fun HomeScreen() {
     }
 
     MainScreenColumn {
-        MainScreenHeader("Home")
-
+        MainScreenHeader(TabRoutes.Home.title)
         Column(
             Modifier.align(Alignment.CenterHorizontally),
             verticalArrangement = Arrangement.Center,

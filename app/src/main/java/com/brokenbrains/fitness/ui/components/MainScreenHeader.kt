@@ -13,7 +13,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
@@ -43,7 +42,7 @@ fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
                     modifier = modifier
                         .height(8.dp)
                         .width(8.dp)
-                        .weight(1f)
+                        .weight(1f) // fill the space
                 )
 
                 // avatar
@@ -71,15 +70,10 @@ fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
 @Composable
 fun HeaderRow(
     modifier: Modifier = Modifier,
-    xPaddingValue: Dp = 16.dp,
     content: @Composable RowScope.() -> Unit,
 ) {
-    Row(
-        modifier = modifier.windowInsetsPadding(insets = WindowInsets.systemBars)
-    ) {
-        Spacer(modifier.width(xPaddingValue))
+    Row(modifier = modifier.windowInsetsPadding(insets = WindowInsets.systemBars)) {
         content()
-        Spacer(modifier.width(xPaddingValue))
     }
 }
 

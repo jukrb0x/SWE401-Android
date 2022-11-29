@@ -21,54 +21,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            App()
-        }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun App() {
-    val appState = rememberAppState()
-    FitnessTheme {
-        Scaffold(
-            bottomBar = {
-                if (appState.shouldShowBottomBar) {
-                    AppBottomBar(
-                        navigateTo = appState::navigateToTabBottomRoute,
-                        currentRoute = appState.currentRoute,
-                        tabRoutes = appState.bottomBarRoutes
-                    )
-                }
-            }
-        ) { innerPadding ->
-            NavHost(
-                navController = appState.navController,
-                startDestination = AppDestinations.MAIN_ROUTE,
-                modifier = Modifier.padding(innerPadding)
-            ) {
-                appNavGraph(appState::upPress)
-            }
-        }
-    }
-}
-
-// main navigation graph
-private fun NavGraphBuilder.appNavGraph( // custom name..
-    upPress: () -> Unit
-) {
-    navigation(
-        route = AppDestinations.MAIN_ROUTE,
-        startDestination = TabRoutes.Home.route
-    ) {
-        composable(TabRoutes.Home.route) {
-            HomeScreen()
-        }
-        composable(TabRoutes.HealthPlus.route) {
-            ProfileScreen()
-        }
-        composable(TabRoutes.Sharing.route) {
-            ProfileScreen()
+            FitnessApp()
         }
     }
 }
