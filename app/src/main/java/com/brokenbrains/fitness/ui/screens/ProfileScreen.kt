@@ -106,7 +106,7 @@ fun ProfileScreen() {
                             readOnly = true,
                             value = text_DOB,
                             onValueChange = { text_DOB = it },
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(30.dp),
                             singleLine = true,
                             modifier = Modifier
                                 .padding(5.dp, 10.dp, 10.dp, 10.dp)
@@ -149,7 +149,7 @@ fun ProfileScreen() {
                             readOnly = true,
                             value = text_sex,
                             onValueChange = { text_sex = it },
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(30.dp),
                             singleLine = true,
                             modifier = Modifier
                                 .padding(5.dp, 10.dp, 10.dp, 10.dp)
@@ -192,7 +192,7 @@ fun ProfileScreen() {
                             readOnly = true,
                             value = text_bt,
                             onValueChange = { text_bt = it },
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(30.dp),
                             singleLine = true,
                             modifier = Modifier
                                 .padding(5.dp, 10.dp, 10.dp, 10.dp)
@@ -235,7 +235,7 @@ fun ProfileScreen() {
                             readOnly = true,
                             value = text_email,
                             onValueChange = { text_email = it },
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(30.dp),
                             singleLine = true,
                             modifier = Modifier
                                 .padding(5.dp, 10.dp, 10.dp, 10.dp)
