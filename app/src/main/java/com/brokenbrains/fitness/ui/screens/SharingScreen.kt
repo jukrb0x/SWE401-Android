@@ -3,7 +3,6 @@ package com.brokenbrains.fitness.ui.screens
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,10 +12,10 @@ import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.screens.sharing.PersonShareData
-import com.brokenbrains.fitness.ui.screens.sharing.SharingCard
+import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
 
 // person sharing with you list
-val personShareDataList:List<PersonShareData> = listOf(
+val personShareDataList: List<PersonShareData> = listOf(
     PersonShareData(
         id = "1",
         name = "Sal Amnoodles",
@@ -35,18 +34,39 @@ val personShareDataList:List<PersonShareData> = listOf(
         id = "1",
         name = "Hai Dilao",
         avatar = "",
-        alert= "1 Alert",
+        alert = "1 Alert",
         latestUpdate = "No updates",
         updateTime = "12:00"
     ),
     PersonShareData(
         id = "1",
-        name = "John Doe",
+        name = "Donal Trump",
+        avatar = "",
+        latestUpdate = "No updates",
+        updateTime = "8 Aug"
+    ),
+    PersonShareData(
+        id = "1",
+        name = "Holy Moly",
         avatar = "",
         latestUpdate = "No updates",
         updateTime = "01:12"
     ),
-    )
+    PersonShareData(
+        id = "1",
+        name = "Jabriel",
+        avatar = "",
+        latestUpdate = "No updates",
+        updateTime = "19:00"
+    ),
+    PersonShareData(
+        id = "1",
+        name = "Denver Lee",
+        avatar = "",
+        latestUpdate = "No updates",
+        updateTime = "23 Oct"
+    ),
+)
 
 @Composable
 @Preview(showBackground = true)
@@ -56,7 +76,7 @@ fun SharingScreen() {
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             personShareDataList.forEach {
                 item {
-                    SharingCard(personShareData = it)
+                    PersonCard(personShareData = it)
                     Spacer(modifier = Modifier.height(10.dp))
                 }
             }

@@ -56,7 +56,7 @@ object Styles {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SharingCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
+fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.elevatedCardElevation(5.dp),
@@ -126,6 +126,6 @@ fun SharingCardPreview() {
         latestUpdate = "No updates",
         updateTime = "12:34"
     ).let {
-        SharingCard(personShareData = it)
+        PersonCard(personShareData = it)
     }
 }

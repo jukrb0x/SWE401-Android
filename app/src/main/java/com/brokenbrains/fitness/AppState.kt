@@ -52,6 +52,10 @@ class AppState(
         }
     }
 
+    fun navigateToProfile() {
+        navController.navigate(UserRoutes.Profile.route)
+    }
+
 /* TODO
     fun navigateToXXX(){
 
