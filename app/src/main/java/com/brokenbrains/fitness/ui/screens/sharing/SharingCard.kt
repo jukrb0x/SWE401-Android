@@ -102,12 +102,12 @@ fun SharingCard(modifier: Modifier = Modifier, personShareData: PersonShareData)
                     )
                 }
                 Column() {
-                    Text(personShareData.latestUpdate, style = LatestUpdateStyle, maxLines = 1)
                     if (!personShareData.alert.isNullOrEmpty()) Text(
                         text = personShareData.alert,
                         style = AlertStyle,
                         maxLines = 1
                     )
+                    Text(personShareData.latestUpdate, style = LatestUpdateStyle, maxLines = 1)
                 }
             }
         }
