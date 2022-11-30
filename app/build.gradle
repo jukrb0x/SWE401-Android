@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false // TODO should be true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -59,10 +59,13 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation 'androidx.compose.material:material:1.3.1'
+    implementation "androidx.navigation:navigation-compose:$rootProject.composeNavigationVersion"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    // Android Studio support
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
-    implementation "androidx.navigation:navigation-compose:$rootProject.composeNavigationVersion"
 
     // Material 3
     implementation("androidx.compose.material3:material3:1.0.1")
