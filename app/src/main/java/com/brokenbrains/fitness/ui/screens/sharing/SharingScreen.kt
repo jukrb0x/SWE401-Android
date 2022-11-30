@@ -1,21 +1,66 @@
 package com.brokenbrains.fitness.ui.screens
 
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
+import com.brokenbrains.fitness.ui.screens.sharing.PersonShareData
+import com.brokenbrains.fitness.ui.screens.sharing.SharingCard
+
+// person sharing with you list
+val personShareDataList:List<PersonShareData> = listOf(
+    PersonShareData(
+        id = "1",
+        name = "Sal Amnoodles",
+        avatar = "",
+        latestUpdate = "No updates",
+        updateTime = "08:20"
+    ),
+    PersonShareData(
+        id = "2",
+        name = "Ke Hu",
+        avatar = "",
+        latestUpdate = "i eat a lot of food",
+        updateTime = "28 Nov"
+    ),
+    PersonShareData(
+        id = "1",
+        name = "Hai Dilao",
+        avatar = "",
+        alert= "1 Alert",
+        latestUpdate = "No updates",
+        updateTime = "12:00"
+    ),
+    PersonShareData(
+        id = "1",
+        name = "John Doe",
+        avatar = "",
+        latestUpdate = "No updates",
+        updateTime = "01:12"
+    ),
+    )
 
 @Composable
 @Preview(showBackground = true)
 fun SharingScreen() {
     MainScreenColumn {
         MainScreenHeader(title = TabRoutes.Sharing.title)
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = "OKK")
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
+            personShareDataList.forEach {
+                item {
+                    SharingCard(personShareData = it)
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
         }
     }
 }
+

@@ -26,7 +26,7 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
         "Health+",
         FontAwesomeIcons.Solid.HandHoldingHeart
     ),
-    Sharing("$MAIN_ROUTE/share", "Sharing", Icons.Filled.Share)
+    Sharing("$MAIN_ROUTE/sharing", "Sharing", Icons.Filled.Share)
 }
 
 
