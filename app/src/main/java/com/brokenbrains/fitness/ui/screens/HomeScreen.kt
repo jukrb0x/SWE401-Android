@@ -4,6 +4,7 @@ package com.brokenbrains.fitness.ui.screens
 //import androidx.compose.material.TextField
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,7 +30,7 @@ fun HomeScreen(/*TODO test use*/ navigateTo: (route: String) -> Unit) {
     MainScreenColumn {
         MainScreenHeader(TabRoutes.Home.title)
         LazyColumn(
-            Modifier.align(Alignment.CenterHorizontally),
+            Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

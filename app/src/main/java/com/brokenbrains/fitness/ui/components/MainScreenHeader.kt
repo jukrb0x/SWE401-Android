@@ -5,7 +5,6 @@ package com.brokenbrains.fitness.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.TopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,59 +20,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
 
-// TODO temp
-val Neutral0 = Color(0xffffffff)
-
 /**
  * The header in the main screens
+ * @TODO: currently we fixed header bar, but we should make it scrollable.
  */
 @Composable
 fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
-    TopAppBar(
-        modifier.height(IntrinsicSize.Min),
-        backgroundColor = Neutral0.copy(alpha = 0.95f),
-//            contentColor = FitnessTheme.colors.,
-        elevation = 0.dp
-    ) {
-        Column {
-            Spacer(modifier = Modifier.height(25.dp))
+    Column {
+        Spacer(modifier = Modifier.height(25.dp))
 
-            Box(
-                modifier.height(80.dp)
-            ) {
-                HeaderRow(modifier = modifier.align(Alignment.Center)) {
-                    // title of the screen
+        Box(
+            modifier.height(80.dp)
+        ) {
+            HeaderRow(modifier = modifier.align(Alignment.Center)) {
+                // title of the screen
+                Text(
+                    title,
+                    modifier.align(Alignment.CenterVertically),
+                    style = TitleBarStyle,
+                    textAlign = TextAlign.Start
+                )
+
+                Spacer(
+                    modifier = modifier
+                        .height(8.dp)
+                        .width(8.dp)
+                        .weight(1f) // fill the space
+                )
+
+                // avatar
+                Box(
+                    modifier
+                        .align(Alignment.CenterVertically)
+                        .clip(CircleShape)
+                        .background(Color.Gray)
+                        .size(50.dp)
+                ) {
                     Text(
-                        title,
-                        modifier.align(Alignment.CenterVertically),
-                        style = TitleBarStyle,
-                        textAlign = TextAlign.Start
-                    )
-
-                    Spacer(
+                        "KH",
+                        overflow = Ellipsis,
                         modifier = modifier
-                            .height(8.dp)
-                            .width(8.dp)
-                            .weight(1f) // fill the space
+                            .align(Alignment.Center),
+                        style = TextStyle(fontSize = 20.sp),
+                        textAlign = TextAlign.Center
                     )
-
-                    // avatar
-                    Box(
-                        modifier
-                            .align(Alignment.CenterVertically)
-                            .clip(CircleShape)
-                            .background(Color.Gray)
-                            .size(50.dp)
-                    ) {
-                        Text(
-                            "KH",
-                            overflow = Ellipsis,
-                            modifier = modifier
-                                .align(Alignment.Center),
-                            style = TextStyle(fontSize = 20.sp),
-                            textAlign = TextAlign.Center
-                        )
-                    }
                 }
             }
         }
@@ -88,6 +78,12 @@ private fun HeaderRow(
     Row(modifier = modifier.windowInsetsPadding(insets = WindowInsets.systemBars)) {
         content()
     }
+}
+
+@Composable
+private fun ScrolledHeader(){
+    // scrollable, smaller height, center title, no avatar, clear divider
+    TODO()
 }
 
 
