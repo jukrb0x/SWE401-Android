@@ -72,6 +72,7 @@ fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) 
                     .padding(5.dp)
             ) {
                 // generate random light color
+                // TODO: remove this out (recomposing)
                 val bgColor = Color(
                     (0..255).random(),
                     (0..255).random(),
