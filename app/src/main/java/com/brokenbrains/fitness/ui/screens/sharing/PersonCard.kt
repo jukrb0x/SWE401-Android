@@ -74,7 +74,7 @@ fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) 
                 Box( // TODO avatar
                     modifier
                         .fillMaxSize()
-                        .background(Color.Gray)
+                        .background(Color.LightGray)
                 ) {
                     // avatar
                 }

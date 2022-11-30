@@ -2,7 +2,10 @@
 
 package com.brokenbrains.fitness.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+//import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,7 +29,12 @@ import com.brokenbrains.fitness.ui.theme.TitleBarSubtitleStyle
  * @TODO: currently we fixed header bar, but we should make it scrollable.
  */
 @Composable
-fun MainScreenHeader(modifier: Modifier = Modifier, title: String, subtitle: String = "") {
+fun MainScreenHeader(
+    modifier: Modifier = Modifier,
+    title: String,
+    subtitle: String = "",
+//    onAvatarPressed: () -> Unit,
+) {
     Column {
         Spacer(modifier = Modifier.height(25.dp))
 
@@ -39,7 +47,7 @@ fun MainScreenHeader(modifier: Modifier = Modifier, title: String, subtitle: Str
                     Column(modifier = modifier) {
                         Text(
                             title,
-                            modifier= modifier.height(30.dp),
+                            modifier = modifier.height(30.dp),
                             style = TitleBarStyle,
                             textAlign = TextAlign.Start
                         )
@@ -72,8 +80,11 @@ fun MainScreenHeader(modifier: Modifier = Modifier, title: String, subtitle: Str
                     modifier
                         .align(Alignment.CenterVertically)
                         .clip(CircleShape)
-                        .background(Color.Gray)
+                        .background(Color.LightGray)
                         .size(50.dp)
+                        .clickable {
+                            Log.d("Header", "Avatar pressed.")
+                        }
                 ) {
                     Text(
                         "KH",
