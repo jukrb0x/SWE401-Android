@@ -59,7 +59,7 @@ object Styles {
 fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.elevatedCardElevation(5.dp),
+        elevation = CardDefaults.elevatedCardElevation(4.dp),
         onClick = { /*TODO*/ }
     ) {
         Row(modifier = modifier.padding(10.dp)) {

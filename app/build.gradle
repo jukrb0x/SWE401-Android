@@ -53,6 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     // Compose
+    // TODO(low priority): use Compose BOM to specify the versions
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.6.1'

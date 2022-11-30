@@ -71,15 +71,19 @@ fun SharingScreen(navigateTo: (route: String) -> Unit) {
 
 @Composable
 fun SharingWithYou() {
-    LazyColumn {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
         item {
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(1.dp))
         }
-        itemsIndexed(personShareDataList) { index, item -> // TODO: index
+        itemsIndexed(personShareDataList/* key = {person:PersonShareData-> person.id}*/) { index, person -> // TODO: index
             Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
-                PersonCard(personShareData = item)
+                PersonCard(personShareData = person)
             }
-            Spacer(modifier = Modifier.height(10.dp))
+        }
+        item {
+            Spacer(modifier = Modifier.height(1.dp))
         }
     }
 }
