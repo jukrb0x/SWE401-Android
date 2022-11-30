@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
+import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
@@ -34,16 +35,15 @@ val tabs = listOf(
     Tab("Sharing With") { YouAreSharingWith() }
 )
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-@Preview(showBackground = true)
-fun SharingScreen() {
+fun SharingScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = 16.dp)) {
-            MainScreenHeader(title = TabRoutes.Sharing.title)
+            MainScreenHeader(title = TabRoutes.Sharing.title, onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
         }
-        val pagerState: PagerState = rememberPagerState(initialPage = 0)
         Column(modifier = Modifier.fillMaxWidth()) {
+            val pagerState: PagerState = rememberPagerState(initialPage = 0)
             val coroutineScope = rememberCoroutineScope()
             TabRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -100,6 +100,12 @@ fun YouAreSharingWith() {
     }
 
 
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SharingScreenPreview() {
+    SharingScreen(navigateTo = {})
 }
 
 // person sharing with you list

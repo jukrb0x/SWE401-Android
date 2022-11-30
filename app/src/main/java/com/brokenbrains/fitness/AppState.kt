@@ -52,9 +52,14 @@ class AppState(
         }
     }
 
-    fun navigateToProfile() {
-        navController.navigate(UserRoutes.Profile.route)
+    // general navigation method, use with caution
+    fun navigateTo(route: String, from: NavBackStackEntry) {
+        // prevent duplicated navigation events
+        if (from.lifecycleIsResumed()) {
+            navController.navigate(route)
+        }
     }
+
 
 /* TODO
     fun navigateToXXX(){

@@ -53,7 +53,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     // main route for tabs
     navigation(
         route = AppDestinations.MAIN_ROUTE,
-        startDestination = TabRoutes.Home.route
+        startDestination = TabRoutes./*Home*/Sharing.route
     ) {
         composable(TabRoutes.Home.route) {
             HomeScreen(navigateTo)

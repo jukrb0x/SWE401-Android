@@ -33,7 +33,7 @@ fun MainScreenHeader(
     modifier: Modifier = Modifier,
     title: String,
     subtitle: String = "",
-//    onAvatarPressed: () -> Unit,
+    onAvatarPressed: () -> Unit = {},
 ) {
     Column {
         Spacer(modifier = Modifier.height(25.dp))
@@ -83,7 +83,7 @@ fun MainScreenHeader(
                         .background(Color.LightGray)
                         .size(50.dp)
                         .clickable {
-                            Log.d("Header", "Avatar pressed.")
+                            onAvatarPressed()
                         }
                 ) {
                     Text(
