@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,11 +75,9 @@ fun SharingScreen() {
     MainScreenColumn {
         MainScreenHeader(title = TabRoutes.Sharing.title)
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            personShareDataList.forEach {
-                item {
-                    PersonCard(personShareData = it)
-                    Spacer(modifier = Modifier.height(10.dp))
-                }
+            itemsIndexed(personShareDataList) { index, item -> // TODO: index
+                PersonCard(personShareData = item)
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
     }

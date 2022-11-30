@@ -42,6 +42,7 @@ fun HomeScreen(/*TODO test use*/ navigateTo: (route: String) -> Unit) {
                     value = text,
                     onValueChange = ::handleTextChange
                 )
+
                 Button(onClick = { navigateTo("user/profile") }) {
                     Text(text = "PROFILE")
                 }
