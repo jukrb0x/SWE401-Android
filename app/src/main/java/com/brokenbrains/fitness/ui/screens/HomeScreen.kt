@@ -3,22 +3,26 @@ package com.brokenbrains.fitness.ui.screens
 
 //import androidx.compose.material.TextField
 import android.content.res.Configuration
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
+import com.brokenbrains.fitness.ui.components.TrendCard
+
+val MainScreenHorizontalPaddingValue: Dp = 16.dp
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,13 +32,16 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
         text = newText
     }
 
-    MainScreenColumn {
-        MainScreenHeader(
-            title = /*TabRoutes.Home.title*/ "Fitness",
-            onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
+    MainScreenColumn(horizontalPadding = 0.dp) {
+        Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
+            MainScreenHeader(
+                title = /*TabRoutes.Home.title*/ "Fitness",
+                onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
+        }
         LazyColumn(
             Modifier
                 .align(Alignment.CenterHorizontally)
+                .padding(horizontal = MainScreenHorizontalPaddingValue)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -46,7 +53,8 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
                     onValueChange = ::handleTextChange
                 )
 
-            Box(modifier = Modifier.height(800.dp).background(Color.LightGray).fillMaxSize())
+                TrendCard()
+
             }
         }
     }

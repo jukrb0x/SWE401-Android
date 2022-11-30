@@ -1,6 +1,5 @@
 package com.brokenbrains.fitness.ui.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -39,8 +38,10 @@ val tabs = listOf(
 @Composable
 fun SharingScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
-        Box(modifier = Modifier.padding(horizontal = 16.dp)) {
-            MainScreenHeader(title = TabRoutes.Sharing.title, onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
+        Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
+            MainScreenHeader(
+                title = TabRoutes.Sharing.title,
+                onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
         }
         Column(modifier = Modifier.fillMaxWidth()) {
             val pagerState: PagerState = rememberPagerState(initialPage = 0)
@@ -61,7 +62,6 @@ fun SharingScreen(navigateTo: (route: String) -> Unit) {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
             HorizontalPager(count = tabs.size, state = pagerState) { page ->
                 tabs[page].component()
             }
@@ -72,12 +72,14 @@ fun SharingScreen(navigateTo: (route: String) -> Unit) {
 @Composable
 fun SharingWithYou() {
     LazyColumn {
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+        }
         itemsIndexed(personShareDataList) { index, item -> // TODO: index
-            Box(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
                 PersonCard(personShareData = item)
             }
             Spacer(modifier = Modifier.height(10.dp))
-
         }
     }
 }
