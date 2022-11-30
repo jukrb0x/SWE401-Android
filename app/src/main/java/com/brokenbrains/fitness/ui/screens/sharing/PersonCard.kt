@@ -71,12 +71,33 @@ fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) 
                     .align(Alignment.CenterVertically)
                     .padding(5.dp)
             ) {
-                Box( // TODO avatar
+                // generate random light color
+                val bgColor = Color(
+                    (0..255).random(),
+                    (0..255).random(),
+                    (0..255).random()
+                ).copy(alpha = 0.5f)
+
+                Box(
                     modifier
                         .fillMaxSize()
-                        .background(Color.LightGray)
+                        .background(/*Color.LightGray*/bgColor),
+                    contentAlignment = Alignment.Center
                 ) {
-                    // avatar
+                    // TODO: use avatar if avatar exists
+                    val nameParts = personShareData.name.split(" ")
+                    var name:String = nameParts[0][0].toString()
+                    if(nameParts.size>1) {
+                        name = "${nameParts[0][0]}${nameParts[1][0]}"
+                    }
+                    Text(
+                        text = name,
+                        modifier = modifier.align(Alignment.Center),
+                        style = TextStyle(
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight(700),
+                        )
+                    )
                 }
             }
 
