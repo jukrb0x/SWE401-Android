@@ -2,8 +2,9 @@ package com.brokenbrains.fitness.ui.screens
 
 
 //import androidx.compose.material.TextField
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -27,20 +28,29 @@ fun HomeScreen(/*TODO test use*/ navigateTo: (route: String) -> Unit) {
 
     MainScreenColumn {
         MainScreenHeader(TabRoutes.Home.title)
-        Column(
+        LazyColumn(
             Modifier.align(Alignment.CenterHorizontally),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TestHello(name = text.trim())
-            TextField(
-                value = text,
-                onValueChange = ::handleTextChange
-            )
-            Button(onClick = { navigateTo("user/profile") }) {
-                Text(text = "PROFILE")
-            }
+            item {
 
+                TestHello(name = text.trim())
+                TextField(
+                    value = text,
+                    onValueChange = ::handleTextChange
+                )
+                Button(onClick = { navigateTo("user/profile") }) {
+                    Text(text = "PROFILE")
+                }
+
+                for (i in 0..19) {
+                    Button(onClick = { navigateTo("user/profile") }) {
+                        Text(text = "PROFILE")
+                    }
+                }
+//            Box(modifier = Modifier.height(800.dp).background(Color.LightGray).fillMaxSize())
+            }
         }
     }
 }
@@ -48,6 +58,8 @@ fun HomeScreen(/*TODO test use*/ navigateTo: (route: String) -> Unit) {
 
 @Composable
 @Preview(showBackground = true)
+@Preview("dark theme", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun HomeScreenPreview() {
     HomeScreen(navigateTo = {})
+
 }

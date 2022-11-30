@@ -1,8 +1,12 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,50 +21,59 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
 
+// TODO temp
+val Neutral0 = Color(0xffffffff)
 
 /**
  * The header in the main screens
  */
 @Composable
 fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
-    Column {
-        Spacer(modifier = Modifier.height(25.dp))
+    TopAppBar(
+        modifier.height(IntrinsicSize.Min),
+        backgroundColor = Neutral0.copy(alpha = 0.95f),
+//            contentColor = FitnessTheme.colors.,
+        elevation = 0.dp
+    ) {
+        Column {
+            Spacer(modifier = Modifier.height(25.dp))
 
-        Box(
-            modifier.height(80.dp)
-        ) {
-            HeaderRow(modifier = modifier.align(Alignment.Center)) {
-                // title of the screen
-                Text(
-                    title,
-                    modifier.align(Alignment.CenterVertically),
-                    style = TitleBarStyle,
-                    textAlign = TextAlign.Start
-                )
-
-                Spacer(
-                    modifier = modifier
-                        .height(8.dp)
-                        .width(8.dp)
-                        .weight(1f) // fill the space
-                )
-
-                // avatar
-                Box(
-                    modifier
-                        .align(Alignment.CenterVertically)
-                        .clip(CircleShape)
-                        .background(Color.Gray)
-                        .size(50.dp)
-                ) {
+            Box(
+                modifier.height(80.dp)
+            ) {
+                HeaderRow(modifier = modifier.align(Alignment.Center)) {
+                    // title of the screen
                     Text(
-                        "KH",
-                        overflow = Ellipsis,
-                        modifier = modifier
-                            .align(Alignment.Center),
-                        style = TextStyle(fontSize = 20.sp),
-                        textAlign = TextAlign.Center
+                        title,
+                        modifier.align(Alignment.CenterVertically),
+                        style = TitleBarStyle,
+                        textAlign = TextAlign.Start
                     )
+
+                    Spacer(
+                        modifier = modifier
+                            .height(8.dp)
+                            .width(8.dp)
+                            .weight(1f) // fill the space
+                    )
+
+                    // avatar
+                    Box(
+                        modifier
+                            .align(Alignment.CenterVertically)
+                            .clip(CircleShape)
+                            .background(Color.Gray)
+                            .size(50.dp)
+                    ) {
+                        Text(
+                            "KH",
+                            overflow = Ellipsis,
+                            modifier = modifier
+                                .align(Alignment.Center),
+                            style = TextStyle(fontSize = 20.sp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }
