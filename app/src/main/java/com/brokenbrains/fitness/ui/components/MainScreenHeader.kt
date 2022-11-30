@@ -19,13 +19,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
+import com.brokenbrains.fitness.ui.theme.TitleBarSubtitleStyle
 
 /**
  * The header in the main screens
  * @TODO: currently we fixed header bar, but we should make it scrollable.
  */
 @Composable
-fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
+fun MainScreenHeader(modifier: Modifier = Modifier, title: String, subtitle: String = "") {
     Column {
         Spacer(modifier = Modifier.height(25.dp))
 
@@ -34,12 +35,30 @@ fun MainScreenHeader(title: String, modifier: Modifier = Modifier) {
         ) {
             HeaderRow(modifier = modifier.align(Alignment.Center)) {
                 // title of the screen
-                Text(
-                    title,
-                    modifier.align(Alignment.CenterVertically),
-                    style = TitleBarStyle,
-                    textAlign = TextAlign.Start
-                )
+                if (subtitle.isNotEmpty()) {
+                    Column(modifier = modifier) {
+                        Text(
+                            title,
+                            modifier= modifier.height(30.dp),
+                            style = TitleBarStyle,
+                            textAlign = TextAlign.Start
+                        )
+                        Text(
+                            subtitle,
+                            style = TitleBarSubtitleStyle,
+                            textAlign = TextAlign.Start,
+                            maxLines = 1,
+                            overflow = Ellipsis
+                        )
+                    }
+                } else {
+                    Text(
+                        title,
+                        modifier = modifier.align(Alignment.CenterVertically),
+                        style = TitleBarStyle,
+                        textAlign = TextAlign.Start
+                    )
+                }
 
                 Spacer(
                     modifier = modifier
@@ -81,7 +100,7 @@ private fun HeaderRow(
 }
 
 @Composable
-private fun ScrolledHeader(){
+private fun ScrolledHeader() {
     // scrollable, smaller height, center title, no avatar, clear divider
     TODO()
 }
@@ -90,5 +109,11 @@ private fun ScrolledHeader(){
 @Preview(showBackground = true)
 @Composable
 private fun HeaderRowPreview() {
-    MainScreenHeader("Title")
+    MainScreenHeader(title = "Title")
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HeaderRowPreview2() {
+    MainScreenHeader(title = "Title", subtitle = "subtitle")
 }

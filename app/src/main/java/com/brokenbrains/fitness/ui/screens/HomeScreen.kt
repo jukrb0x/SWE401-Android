@@ -14,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.TestHello
@@ -28,9 +27,11 @@ fun HomeScreen(/*TODO test use*/ navigateTo: (route: String) -> Unit) {
     }
 
     MainScreenColumn {
-        MainScreenHeader(TabRoutes.Home.title)
+        MainScreenHeader(title = /*TabRoutes.Home.title*/ "Fitness")
         LazyColumn(
-            Modifier.align(Alignment.CenterHorizontally).fillMaxWidth(),
+            Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

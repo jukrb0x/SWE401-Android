@@ -65,4 +65,11 @@ val TitleBarStyle = TextStyle(
     fontFamily = FontFamily.Default
 )
 
+val TitleBarSubtitleStyle = TextStyle(
+    fontSize = 16.sp,
+    fontWeight = FontWeight(400),
+    letterSpacing = 0.5.sp,
+    fontFamily = FontFamily.Default
+)
+
 // TODO: font family we like

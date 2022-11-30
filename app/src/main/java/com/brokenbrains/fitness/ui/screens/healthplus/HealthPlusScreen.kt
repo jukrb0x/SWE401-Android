@@ -9,7 +9,7 @@ import com.brokenbrains.fitness.ui.components.MainScreenHeader
 @Composable
 fun HealthPlusScreen() {
     MainScreenColumn() {
-        MainScreenHeader(title = TabRoutes.HealthPlus.title )
+        MainScreenHeader(title = TabRoutes.HealthPlus.title)
         Text(text = "OK")
     }
 }
