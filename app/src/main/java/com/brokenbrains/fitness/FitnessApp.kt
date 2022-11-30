@@ -5,10 +5,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.screens.HomeScreen
@@ -39,30 +39,30 @@ fun FitnessApp() {
                 startDestination = AppDestinations.MAIN_ROUTE,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                appNavGraph({ route -> appState.navController.navigate(route) }, appState::upPress)
+                appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
             }
         }
     }
 }
 
 private fun NavGraphBuilder.appNavGraph( // custom name..
-    /* TODO test use */ navigateTo: (route: String) -> Unit,
-                        upPress: () -> Unit
+    navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
+    upPress: () -> Unit
 ) {
     // todo: default transition between tabs should be off
     // main route for tabs
     navigation(
         route = AppDestinations.MAIN_ROUTE,
-        startDestination = TabRoutes./*Home*/Sharing.route
+        startDestination = TabRoutes.Home.route
     ) {
-        composable(TabRoutes.Home.route) {
-            HomeScreen(navigateTo)
+        composable(TabRoutes.Home.route) { from ->
+            HomeScreen(navigateTo = { route -> navigateTo(route, from) })
         }
-        composable(TabRoutes.HealthPlus.route) {
-            HealthPlusScreen()
+        composable(TabRoutes.HealthPlus.route) { from ->
+            HealthPlusScreen(navigateTo = { route -> navigateTo(route, from) })
         }
-        composable(TabRoutes.Sharing.route) {
-            SharingScreen()
+        composable(TabRoutes.Sharing.route) { from->
+            SharingScreen(navigateTo = { route -> navigateTo(route, from) })
         }
     }
 
