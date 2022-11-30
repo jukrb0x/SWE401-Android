@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,11 +54,14 @@ object Styles {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SharingCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
-
-
-    Card(modifier = modifier.fillMaxWidth()) {
+    ElevatedCard(
+        modifier = modifier.fillMaxWidth(),
+        elevation = CardDefaults.elevatedCardElevation(5.dp),
+        onClick = { /*TODO*/ }
+    ) {
         Row(modifier = modifier.padding(10.dp)) {
             // avatar
             Surface(
