@@ -1,10 +1,13 @@
 package com.brokenbrains.fitness.ui.screens
 
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -56,17 +59,14 @@ fun ProfileScreen() {
             )
 
             //User name & ID
-            Column(
-                modifier = Modifier.padding(10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "User Name")
-                Text(
-                    text = "ID: xxxxxxxx", modifier = Modifier.wrapContentSize(),
-                    fontSize = 13.sp,
-                    color = Color.Gray
-                )
-            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "User Name")
+            Text(
+                text = "ID: xxxxxxxx", modifier = Modifier.wrapContentSize(),
+                fontSize = 13.sp,
+                color = Color.Gray
+            )
+
 
             //User Info
             Column(
@@ -75,175 +75,36 @@ fun ProfileScreen() {
                     .align(Alignment.CenterHorizontally)
             ) {
                 //D.O.B Info
-                Box(
+                ProfileComponent(
+                    "D.O.B",
+                    text_DOB,
+                    onValueChanged = { text_DOB = it },
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(Color(0xFFE2E0E0))
-                        .height(70.dp)
-                ) {
-                    Row(modifier = Modifier.matchParentSize()) {
-                        TextButton(
-                            onClick = { false },
-                            modifier = Modifier
-                                .padding(10.dp, 10.dp, end = 2.dp, 10.dp)
-                                .align(Alignment.CenterVertically)
-                                .size(70.dp, 40.dp)
-                                .clickable(onClick = { false })
-                        ) {
-                            Text(
-                                "D.O.B",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = Color(
-                                    0xFF746099
-                                ),
-                                textAlign = TextAlign.Center,
-                                letterSpacing = 0.15.sp,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        }
-                        OutlinedTextField(
-                            readOnly = true,
-                            value = text_DOB,
-                            onValueChange = { text_DOB = it },
-                            shape = RoundedCornerShape(30.dp),
-                            singleLine = true,
-                            modifier = Modifier
-                                .padding(5.dp, 10.dp, 10.dp, 10.dp)
-                        )
-                    }
-                }
+                )
 
                 //Sex info
-                Box(
+                ProfileComponent(
+                    "Sex",
+                    text_sex,
+                    onValueChanged = { text_sex = it },
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 14.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(Color(0xFFE2E0E0))
-                        .height(70.dp)
-                ) {
-                    Row(modifier = Modifier.matchParentSize()) {
-                        TextButton(
-                            onClick = { false },
-                            modifier = Modifier
-                                .padding(10.dp, 10.dp, end = 2.dp, 10.dp)
-                                .align(Alignment.CenterVertically)
-                                .size(70.dp, 40.dp)
-                                .clickable(onClick = { false })
-                        ) {
-                            Text(
-                                "Sex",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = Color(
-                                    0xFF746099
-                                ),
-                                textAlign = TextAlign.Center,
-                                letterSpacing = 0.15.sp,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        }
-                        OutlinedTextField(
-                            readOnly = true,
-                            value = text_sex,
-                            onValueChange = { text_sex = it },
-                            shape = RoundedCornerShape(30.dp),
-                            singleLine = true,
-                            modifier = Modifier
-                                .padding(5.dp, 10.dp, 10.dp, 10.dp)
-                        )
-                    }
-                }
+                )
 
                 //Blood Type
-                Box(
+                ProfileComponent(
+                    "Blood Type",
+                    text_bt,
+                    onValueChanged = { text_bt = it },
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 14.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(Color(0xFFE2E0E0))
-                        .height(70.dp)
-                ) {
-                    Row(modifier = Modifier.matchParentSize()) {
-                        TextButton(
-                            onClick = { false },
-                            modifier = Modifier
-                                .padding(10.dp, 10.dp, end = 2.dp, 10.dp)
-                                .align(Alignment.CenterVertically)
-                                .size(70.dp, 40.dp)
-                                .clickable(onClick = { false })
-                        ) {
-                            Text(
-                                "Blood Type",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = Color(
-                                    0xFF746099
-                                ),
-                                textAlign = TextAlign.Center,
-                                letterSpacing = 0.15.sp,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        }
-                        OutlinedTextField(
-                            readOnly = true,
-                            value = text_bt,
-                            onValueChange = { text_bt = it },
-                            shape = RoundedCornerShape(30.dp),
-                            singleLine = true,
-                            modifier = Modifier
-                                .padding(5.dp, 10.dp, 10.dp, 10.dp)
-                        )
-                    }
-                }
+                )
 
                 //Email
-                Box(
+                ProfileComponent(
+                    "Email",
+                    text_email,
+                    onValueChanged = { text_email = it },
                     modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 14.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(Color(0xFFE2E0E0))
-                        .height(70.dp)
-                ) {
-                    Row(modifier = Modifier.matchParentSize()) {
-                        TextButton(
-                            onClick = { false },
-                            modifier = Modifier
-                                .padding(10.dp, 10.dp, end = 2.dp, 10.dp)
-                                .align(Alignment.CenterVertically)
-                                .size(70.dp, 40.dp)
-                                .clickable(onClick = { false })
-                        ) {
-                            Text(
-                                "Email",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = Color(
-                                    0xFF746099
-                                ),
-                                textAlign = TextAlign.Center,
-                                letterSpacing = 0.15.sp,
-                                textDecoration = TextDecoration.Underline
-                            )
-                        }
-                        OutlinedTextField(
-                            readOnly = true,
-                            value = text_email,
-                            onValueChange = { text_email = it },
-                            shape = RoundedCornerShape(30.dp),
-                            singleLine = true,
-                            modifier = Modifier
-                                .padding(5.dp, 10.dp, 10.dp, 10.dp)
-                        )
-                    }
-                }
+                )
             }
 
             //Edit Button
@@ -255,16 +116,18 @@ fun ProfileScreen() {
     }
 }
 
-//TODO: Encapsulation
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun test() {
-    var text by rememberSaveable { mutableStateOf("Enter your") }
+fun ProfileComponent(
+    label: String,
+    value: String,
+    onValueChanged: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Spacer(modifier = Modifier.height(14.dp))
     //Blood Type
     Box(
         modifier = Modifier
-            .padding(top = 14.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
             .background(Color(0xFFE2E0E0))
@@ -276,11 +139,11 @@ fun test() {
                 modifier = Modifier
                     .padding(10.dp, 10.dp, end = 2.dp, 10.dp)
                     .align(Alignment.CenterVertically)
-                    .size(70.dp, 40.dp)
-                    .clickable(onClick = { false })
+                    .size(70.dp, 40.dp),
+                enabled = false
             ) {
                 Text(
-                    "Blood Type",
+                    label,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
                     color = Color(
@@ -293,13 +156,21 @@ fun test() {
             }
             OutlinedTextField(
                 readOnly = true,
-                value = text,
-                onValueChange = { text = it },
+                value = value,
+                onValueChange = onValueChanged,
                 shape = RoundedCornerShape(30.dp),
                 singleLine = true,
                 modifier = Modifier
                     .padding(5.dp, 10.dp, 10.dp, 10.dp)
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    MaterialTheme {
+//        ProfileComponent()
     }
 }
