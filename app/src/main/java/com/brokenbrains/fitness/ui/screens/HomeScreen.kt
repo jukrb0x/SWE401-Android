@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
-import com.brokenbrains.fitness.ui.components.TestHello
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,8 +40,7 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-
-                TestHello(name = text.trim())
+                Text("Hello, ${text.trim()}")
                 TextField(
                     value = text,
                     onValueChange = ::handleTextChange
