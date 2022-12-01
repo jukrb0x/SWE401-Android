@@ -3,10 +3,7 @@ package com.brokenbrains.fitness.ui.screens.healthplus
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -71,13 +68,16 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
     else if (healthInfoItemData.type == "Video") painterNow = videoIC
     else painterNow = visbilityOffIC
 
-    ElevatedCard(
+    OutlinedCard(
         modifier = modifier
             .fillMaxWidth()
-            .height(140.dp)
-            .clip(RoundedCornerShape(20.dp)),
+            .height(140.dp),
+            //.clip(RoundedCornerShape(20.dp))
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        onClick = { /*TODO*/ }
+        onClick = { /*TODO*/ },
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = Color(0xFFE5E5E5),
+        )
     ) {
         Row(
             modifier = modifier
