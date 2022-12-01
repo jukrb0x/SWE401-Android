@@ -35,7 +35,7 @@ data class HealthInfoItemData(
 
 object itemStyles {
     val TitleStyle = TextStyle(
-        fontSize = 24.sp,
+        fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         textDecoration = TextDecoration.Underline,
     )
@@ -88,7 +88,7 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
                 painter = painterNow,
                 contentDescription = "Type index",
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(100.dp)
                     .align(Alignment.CenterVertically)
                     .fillMaxSize()
             )
