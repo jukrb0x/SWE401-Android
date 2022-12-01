@@ -89,10 +89,14 @@ fun HealthInfoPage() {
 
 @Composable
 fun MedicalPage() {
+    //Lee TODO: Add Medical Page
     //Hospital List
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
 
     }
+
+    //Diveder or something else to separate two list
+
     //Doctor List
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
 

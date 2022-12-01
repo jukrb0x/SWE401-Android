@@ -29,7 +29,7 @@ object MedicalItemStyles {
         color = Color.Gray
     )
 
-    val timeSetStyle = TextStyle(
+    val ratingStyle = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         color = Color(0xFF3D96C0)
