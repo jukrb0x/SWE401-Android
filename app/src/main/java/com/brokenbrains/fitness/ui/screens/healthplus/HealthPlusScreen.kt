@@ -1,6 +1,8 @@
 package com.brokenbrains.fitness.ui.screens.healthplus
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Text
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -14,6 +16,7 @@ import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.screens.*
+import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
 import com.brokenbrains.fitness.ui.screens.tabs
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -69,10 +72,18 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
 
 @Composable
 fun HealthInfoPage() {
-    Column {
-        Text(
-            text = "Health Info test"
-        )
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
+        item {
+            Spacer(modifier = Modifier.height(3.dp))
+        }
+        itemsIndexed(HealtInfoItemList) { index, healthItem ->
+            Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+                HealthInfoItem(healthInfoItemData = healthItem)
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(3.dp))
+        }
     }
 }
 
