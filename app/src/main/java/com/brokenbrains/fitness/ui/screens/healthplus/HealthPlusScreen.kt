@@ -3,9 +3,9 @@ package com.brokenbrains.fitness.ui.screens.healthplus
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Text
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -59,7 +59,7 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
                                 pagerState.animateScrollToPage(index)
                             }
                         },
-                        text = { androidx.compose.material3.Text(tab.title) }
+                        text = { Text(tab.title) }
                     )
                 }
             }
