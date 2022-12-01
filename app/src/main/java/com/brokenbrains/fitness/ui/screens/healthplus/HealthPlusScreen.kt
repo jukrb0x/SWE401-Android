@@ -89,10 +89,13 @@ fun HealthInfoPage() {
 
 @Composable
 fun MedicalPage() {
-    Column {
-        Text(
-            text = "Medical test"
-        )
+    //Hospital List
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
+
+    }
+    //Doctor List
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
+
     }
 }
 

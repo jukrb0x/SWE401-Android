@@ -30,7 +30,7 @@ data class HealthInfoItemData(
 
     )
 
-object itemStyles {
+object HealthItemStyles {
     val TitleStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
@@ -99,7 +99,7 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
             ) {
                 Text(
                     text = healthInfoItemData.title,
-                    style = itemStyles.TitleStyle,
+                    style = HealthItemStyles.TitleStyle,
                     modifier = Modifier
                         .padding(top = 8.dp, start = 5.dp),
                     maxLines = 1,
@@ -109,7 +109,7 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
                 Spacer(modifier = Modifier.height(1.dp))
                 Text(
                     text = healthInfoItemData.description,
-                    style = itemStyles.DescriptionStyle,
+                    style = HealthItemStyles.DescriptionStyle,
                     modifier = Modifier.padding(start = 5.dp, end = 10.dp),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -127,13 +127,13 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
                     )
                     Text(
                         text = healthInfoItemData.timeSet,
-                        style = itemStyles.timeSetStyle,
+                        style = HealthItemStyles.timeSetStyle,
                         modifier = Modifier.padding(1.dp)
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
                         text = healthInfoItemData.type,
-                        style = itemStyles.typeStyle,
+                        style = HealthItemStyles.typeStyle,
                         modifier = Modifier.padding(start = 5.dp)
                     )
                 }
