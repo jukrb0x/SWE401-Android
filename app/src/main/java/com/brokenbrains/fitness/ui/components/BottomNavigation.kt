@@ -1,13 +1,16 @@
 package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,25 +23,29 @@ fun AppBottomBar(
     currentRoute: String?,
     tabRoutes: Array<TabRoutes>
 ) {
-    Box(modifier = Modifier
-        .shadow(10.dp)) {
-            NavigationBar {
-                tabRoutes.forEach {
-                    NavigationBarItem(
-                        icon = {
-                            Icon(
-                                it.icon,
-                                contentDescription = it.title,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        },
-                        label = { Text(it.title) },
-                        selected = currentRoute == it.route,
-                        onClick = { navigateTo(it.route) },
-                        alwaysShowLabel = false,
-
+    Box(
+        modifier = Modifier
+            .shadow(10.dp)
+    ) {
+        NavigationBar(
+            modifier = Modifier
+                .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))
+                .height(80.dp),
+        ) {
+            tabRoutes.forEach {
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            it.icon,
+                            contentDescription = it.title,
+                            modifier = Modifier.size(20.dp)
                         )
-                }
+                    },
+                    label = { Text(it.title) },
+                    selected = currentRoute == it.route,
+                    onClick = { navigateTo(it.route) },
+                )
+            }
         }
     }
 }
