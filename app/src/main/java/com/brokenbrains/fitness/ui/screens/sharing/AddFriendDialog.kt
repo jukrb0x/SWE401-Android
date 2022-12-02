@@ -14,17 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.brokenbrains.fitness.ui.components.CustomDialog
-import com.brokenbrains.fitness.ui.components.CustomDialogPosition
-import com.brokenbrains.fitness.ui.components.NormalFloatingActionButton
-import com.brokenbrains.fitness.ui.components.customPosition
+import com.brokenbrains.fitness.ui.components.*
 
 
 @Composable
-fun AddFriendDialog(onDismiss: () -> Unit, visibility: Boolean) {
+fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
     CustomDialog(
         modifier = Modifier.customPosition(CustomDialogPosition.BOTTOM),
-        onDismissRequest = { onDismiss() },
+        onDismissRequest = { onDismiss(!visibility) },
         visibility = visibility
     ) {
         ElevatedCard(
@@ -36,7 +33,7 @@ fun AddFriendDialog(onDismiss: () -> Unit, visibility: Boolean) {
         ) {
             Column() {
                 Text("ok")
-                Button(onClick = { onDismiss() }) {
+                Button(onClick = { onDismiss(!visibility) }) {
                 }
             }
 
@@ -49,13 +46,13 @@ fun AddFriendDialog(onDismiss: () -> Unit, visibility: Boolean) {
  */
 @Composable
 fun AddFriendFabScreen() {
-    var addFriendDialogVisibility by rememberSaveable { mutableStateOf(false) }
-    NormalFloatingActionButton(onFabClicked = {
-        addFriendDialogVisibility = true
+    var dialogState by rememberSaveable { mutableStateOf(FabState.Collapsed) }
+    NormalFloatingActionButton(fabState = dialogState, onFabStateChange = {
+        dialogState = it
     })
     AddFriendDialog(
-        onDismiss = { addFriendDialogVisibility = false },
-        visibility = addFriendDialogVisibility
+        onDismiss = { dialogState = FabState.Collapsed },
+        visibility = dialogState.isExpanded
     )
 }
 

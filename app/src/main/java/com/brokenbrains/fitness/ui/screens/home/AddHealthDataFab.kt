@@ -2,18 +2,18 @@ package com.brokenbrains.fitness.ui.screens.home
 
 import androidx.compose.runtime.*
 import com.brokenbrains.fitness.ui.components.MultiFloatingActionButton
-import com.brokenbrains.fitness.ui.components.MultiFloatingState
+import com.brokenbrains.fitness.ui.components.FabState
 
 @Composable
 fun AddHealthDataFab() {
-    var multiFloatingState by remember {
-        mutableStateOf(MultiFloatingState.Collapsed)
+    var fabState by remember {
+        mutableStateOf(FabState.Collapsed)
     }
 
     MultiFloatingActionButton(
-        multiFloatingState = multiFloatingState,
+        fabState = fabState,
         onFabStateChange = {
-            multiFloatingState = it
+            fabState = it
         })
 
 }

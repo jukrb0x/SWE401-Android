@@ -41,7 +41,7 @@ object AlertCardStyles {
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         color = Color(0xFFD6554C),
-        textDecoration = TextDecoration.Underline
+        textDecoration = TextDecoration.None
     )
 
     val itemStyle = TextStyle(

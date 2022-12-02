@@ -220,7 +220,7 @@ fun ProfileComponent(
                     ),
                     textAlign = TextAlign.Center,
                     letterSpacing = 0.15.sp,
-                    textDecoration = TextDecoration.Underline
+                    textDecoration = TextDecoration.None
                 )
             }
             OutlinedTextField(

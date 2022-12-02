@@ -34,7 +34,7 @@ object HealthItemStyles {
     val TitleStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        textDecoration = TextDecoration.Underline,
+        textDecoration = TextDecoration.None,
     )
 
     val DescriptionStyle = TextStyle(

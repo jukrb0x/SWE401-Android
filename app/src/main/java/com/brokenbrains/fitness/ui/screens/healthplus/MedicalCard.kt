@@ -47,7 +47,7 @@ object MedicalItemStyles {
     val nameStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        textDecoration = TextDecoration.Underline,
+        textDecoration = TextDecoration.None,
     )
 
     val descriptionStyle = TextStyle(
@@ -315,7 +315,7 @@ val HospitalCardList: List<HospitalCardData> = listOf(
         score = "4.9"
     ),HospitalCardData(
         id = "2",
-        name = "Quanjude Hospital",
+        name = "Bingchiling Hospital",
         address = "adsgaasgagadsgasdgadsgasdga",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.8"
