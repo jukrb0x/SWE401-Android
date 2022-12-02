@@ -68,27 +68,16 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
     when (healthInfoItemData.type) {
         "Article" -> {
             painterNow = articleIC
-            colorNow = Color(0xFF3D96C0)
+            colorNow = Color(0xFFF86132)
         }
         "Video" -> {
             painterNow = videoIC
-            colorNow = Color(0xFF3D96C0)
+            colorNow = Color(0xFF16A093)
         }
-        "Hidden" -> {
+        else -> {
             painterNow = visbilityOffIC
-            colorNow = Color(0xFF3D96C0)
         }
     }
-    if (healthInfoItemData.type == "Article") {
-        painterNow = articleIC
-        colorNow = Color(0xFFF86132)
-    } else if (healthInfoItemData.type == "Video") {
-        painterNow = videoIC
-        colorNow = Color(0xFF16A093)
-    } else {
-        painterNow = visbilityOffIC
-    }
-
     ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
