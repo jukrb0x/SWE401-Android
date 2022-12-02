@@ -1,9 +1,17 @@
 package com.brokenbrains.fitness
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
@@ -24,6 +32,7 @@ fun FitnessApp() {
     val appState = rememberAppState()
     FitnessTheme {
         Scaffold(
+            backgroundColor = Color.White.copy(alpha = 0.0f), // not really working
             bottomBar = {
                 if (appState.shouldShowBottomBar) {
                     AppBottomBar(
@@ -33,13 +42,30 @@ fun FitnessApp() {
                     )
                 }
             },
+            floatingActionButton = {
+                if (appState.shouldShowFloatingActionButton) {
+                    FloatingActionButton(
+                        onClick = {},
+//                        backgroundColor = MaterialTheme.colors.primary
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Add",
+                            tint = MaterialTheme.colors.onPrimary
+                        )
+                    }
+                }
+            }
         ) { innerPadding ->
-            NavHost(
-                navController = appState.navController,
-                startDestination = AppDestinations.MAIN_ROUTE,
-                modifier = Modifier.padding(innerPadding)
-            ) {
-                appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
+            Column() {
+                NavHost(
+                    navController = appState.navController,
+                    startDestination = AppDestinations.MAIN_ROUTE,
+                    modifier = Modifier.padding(innerPadding)
+                ) {
+                    appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
+                }
+
             }
         }
     }
