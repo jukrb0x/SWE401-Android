@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.brokenbrains.fitness.R
+import com.brokenbrains.fitness.ui.components.AppDialog
 import com.brokenbrains.fitness.ui.components.AppScaffold
 
 
@@ -41,51 +42,50 @@ fun ProfileScreen(onDismiss: () -> Unit) {
     var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
     var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
-    Dialog(onDismissRequest = { /*TODO*/ },
-        properties = DialogProperties(usePlatformDefaultWidth = false)) {
+    AppDialog(
+        onDismissRequest = onDismiss,
+    ) {
         AppScaffold(
-            modifier = Modifier.fillMaxSize(),
             backgroundColor = MaterialTheme.colors.background,
             topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    androidx.compose.material.IconButton(onClick = onDismiss) {
-                        androidx.compose.material.Icon(
-                            imageVector = Icons.Filled.Close,
-                            contentDescription = "Close Profile"
-                        )
-                    }
-                },
-                title = {
-                    androidx.compose.material.Text(
-                        text = "Profile",
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.h6
-                    )
-                },
-                actions = {
-                    androidx.compose.material.IconButton(
-                        onClick = { /* TODO */ },
-                        enabled = /*resetEnabled*/false
-                    ) {
-                        val alpha = if (/*resetEnabled*/false) {
-                            ContentAlpha.high
-                        } else {
-                            ContentAlpha.disabled
-                        }
-                        CompositionLocalProvider(LocalContentAlpha provides alpha) {
-                            androidx.compose.material.Text(
-                                text = "Edit",
-                                style = MaterialTheme.typography.body2
+                TopAppBar(
+                    navigationIcon = {
+                        androidx.compose.material.IconButton(onClick = onDismiss) {
+                            androidx.compose.material.Icon(
+                                imageVector = Icons.Filled.Close,
+                                contentDescription = "Close Profile"
                             )
                         }
-                    }
-                },
-
+                    },
+                    title = {
+                        androidx.compose.material.Text(
+                            text = "Profile",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.h6
+                        )
+                    },
+                    actions = {
+                        androidx.compose.material.IconButton(
+                            onClick = { /* TODO */ },
+                            enabled = /*resetEnabled*/false
+                        ) {
+                            val alpha = if (/*resetEnabled*/false) {
+                                ContentAlpha.high
+                            } else {
+                                ContentAlpha.disabled
+                            }
+                            CompositionLocalProvider(LocalContentAlpha provides alpha) {
+                                androidx.compose.material.Text(
+                                    text = "Edit",
+                                    style = MaterialTheme.typography.body2
+                                )
+                            }
+                        }
+                    },
 //        backgroundColor = JetsnackTheme.colors.uiBackground
-            )
-        }) {
+                )
+            }) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(
                     modifier = Modifier
