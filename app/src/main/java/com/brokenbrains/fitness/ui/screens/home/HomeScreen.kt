@@ -15,12 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.UserRoutes
-import com.brokenbrains.fitness.ui.components.MainScreenColumn
-import com.brokenbrains.fitness.ui.components.MainScreenHeader
-import com.brokenbrains.fitness.ui.components.TrendCard
-import com.brokenbrains.fitness.ui.components.TrendCardData
+import com.brokenbrains.fitness.ui.components.*
 
-val MainScreenHorizontalPaddingValue: Dp = 16.dp
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)

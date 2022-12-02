@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import compose.icons.FeatherIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.feathericons.Star
@@ -95,7 +96,7 @@ fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(MainScreenHorizontalPaddingValue),
         ) {
             Spacer(modifier = Modifier.width(15.dp))
             //Lee TODO: change image to doctor's avatar

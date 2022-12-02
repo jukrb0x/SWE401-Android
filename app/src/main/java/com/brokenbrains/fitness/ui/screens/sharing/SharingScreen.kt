@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
-import com.brokenbrains.fitness.ui.screens.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendDialog
 import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
 import com.brokenbrains.fitness.ui.screens.sharing.PersonShareData

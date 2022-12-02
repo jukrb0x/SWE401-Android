@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
-import com.brokenbrains.fitness.ui.screens.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -71,13 +71,13 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
 }
 
 @Composable
-fun HealthInfoPage() {
+fun HealthInfoPage() { //media
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
         }
         itemsIndexed(HealtInfoItemList) { index, healthItem ->
-            Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+            Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
                 HealthInfoItem(healthInfoItemData = healthItem)
             }
         }
@@ -94,7 +94,7 @@ fun MedicalPage() {
                 Spacer(modifier = Modifier.height(3.dp))
             }
             itemsIndexed(DoctorCardList) { index, doctorCardItem ->
-                Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+                Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
                     DoctorCard(doctorCardData = doctorCardItem)
                 }
             }
@@ -111,7 +111,7 @@ fun HospitalPage() {
             Spacer(modifier = Modifier.height(3.dp))
         }
         itemsIndexed(HospitalCardList) { index, hospitalCardItem ->
-            Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+            Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
                 HospitalCard(hospitalCardData = hospitalCardItem)
             }
         }
