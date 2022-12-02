@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
-import com.brokenbrains.fitness.ui.theme.YaleBlue3
+import com.brokenbrains.fitness.ui.theme.YaleBlue4
 
 
 @Composable
@@ -27,14 +27,10 @@ fun AppBottomBar(
 ) {
     Box(
         modifier = Modifier
-//            .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp))
-//            .shadow(10.dp)
     ) {
         /*NavigationBar*/BottomNavigation(
         modifier = Modifier
             .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp)),
-//                .height(75.dp)
-//                .shadow(10.dp),
         backgroundColor = Color.White,
         contentColor = Color.Black,
         elevation = 10.dp
@@ -54,7 +50,7 @@ fun AppBottomBar(
                 selected = currentRoute == it.route,
                 onClick = { navigateTo(it.route) },
                 alwaysShowLabel = false,
-                selectedContentColor = YaleBlue3,
+                selectedContentColor = YaleBlue4,
                 unselectedContentColor = Color.Gray,
             )
             }
