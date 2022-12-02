@@ -2,13 +2,8 @@ package com.brokenbrains.fitness
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,6 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
+import com.brokenbrains.fitness.ui.components.AppFloatingActionButton
+import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.screens.SharingScreen
@@ -31,7 +28,7 @@ import com.brokenbrains.fitness.ui.theme.FitnessTheme
 fun FitnessApp() {
     val appState = rememberAppState()
     FitnessTheme {
-        Scaffold(
+        AppScaffold(
             backgroundColor = Color.White.copy(alpha = 0.0f), // not really working
             bottomBar = {
                 if (appState.shouldShowBottomBar) {
@@ -43,18 +40,7 @@ fun FitnessApp() {
                 }
             },
             floatingActionButton = {
-                if (appState.shouldShowFloatingActionButton) {
-                    FloatingActionButton(
-                        onClick = {},
-//                        backgroundColor = MaterialTheme.colors.primary
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Add",
-                            tint = MaterialTheme.colors.onPrimary
-                        )
-                    }
-                }
+                if (appState.shouldShowFloatingActionButton) AppFloatingActionButton()
             }
         ) { innerPadding ->
             Column() {
@@ -65,7 +51,6 @@ fun FitnessApp() {
                 ) {
                     appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
                 }
-
             }
         }
     }
@@ -87,7 +72,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         composable(TabRoutes.HealthPlus.route) { from ->
             HealthPlusScreen(navigateTo = { route -> navigateTo(route, from) })
         }
-        composable(TabRoutes.Sharing.route) { from->
+        composable(TabRoutes.Sharing.route) { from ->
             SharingScreen(navigateTo = { route -> navigateTo(route, from) })
         }
     }
