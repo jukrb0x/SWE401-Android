@@ -12,10 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
-import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
-import com.brokenbrains.fitness.ui.screens.*
+import com.brokenbrains.fitness.ui.screens.MainScreenHorizontalPaddingValue
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -40,7 +39,7 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
                 title = TabRoutes.HealthPlus.title,
-                onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
+            )
         }
         Column(modifier = Modifier.fillMaxWidth()) {
             val pagerState: PagerState = rememberPagerState(initialPage = 0)
@@ -70,7 +69,7 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
 
 @Composable
 fun HealthInfoPage() {
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
         }
@@ -89,14 +88,14 @@ fun HealthInfoPage() {
 fun MedicalPage() {
     //Lee TODO: Add Medical Page
     //Hospital List
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
 
     }
 
     //Diveder or something else to separate two list
 
     //Doctor List
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)){
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
 
     }
 }

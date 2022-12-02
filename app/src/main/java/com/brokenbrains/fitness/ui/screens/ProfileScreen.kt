@@ -1,17 +1,20 @@
 package com.brokenbrains.fitness.ui.screens
 
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,14 +25,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.brokenbrains.fitness.R
-import com.brokenbrains.fitness.ui.theme.FitnessTheme
+import com.brokenbrains.fitness.ui.components.AppScaffold
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(onDismiss: () -> Unit) {
     //TODO: Add background image or theme
     //TODO: Try to figure out hardcoded padding of textfield
     val image = painterResource(id = R.drawable.ic_account)
@@ -37,82 +41,130 @@ fun ProfileScreen() {
     var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
     var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
-
-    Box() {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 20.dp, start = 30.dp, end = 30.dp)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            //User Account Image
-            Image(
-                painter = image, contentDescription = "User Account Image",
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(CircleShape)
-                    .border(
-                        BorderStroke(5.dp, Color(0xFF9055F7)),
-                        CircleShape
+    Dialog(onDismissRequest = { /*TODO*/ },
+        properties = DialogProperties(usePlatformDefaultWidth = false)) {
+        AppScaffold(
+            modifier = Modifier.fillMaxSize(),
+            backgroundColor = MaterialTheme.colors.background,
+            topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    androidx.compose.material.IconButton(onClick = onDismiss) {
+                        androidx.compose.material.Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = "Close Profile"
+                        )
+                    }
+                },
+                title = {
+                    androidx.compose.material.Text(
+                        text = "Profile",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.h6
                     )
+                },
+                actions = {
+                    androidx.compose.material.IconButton(
+                        onClick = { /* TODO */ },
+                        enabled = /*resetEnabled*/false
+                    ) {
+                        val alpha = if (/*resetEnabled*/false) {
+                            ContentAlpha.high
+                        } else {
+                            ContentAlpha.disabled
+                        }
+                        CompositionLocalProvider(LocalContentAlpha provides alpha) {
+                            androidx.compose.material.Text(
+                                text = "Edit",
+                                style = MaterialTheme.typography.body2
+                            )
+                        }
+                    }
+                },
+
+//        backgroundColor = JetsnackTheme.colors.uiBackground
             )
-
-            //User name & ID
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "User Name")
-            Text(
-                text = "ID: xxxxxxxx", modifier = Modifier.wrapContentSize(),
-                fontSize = 13.sp,
-                color = Color.Gray
-            )
-
-
-            //User Info
-            Column(
-                modifier = Modifier
-                    .padding(13.dp)
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                //D.O.B Info
-                ProfileComponent(
-                    "D.O.B",
-                    text_DOB,
-                    onValueChanged = { text_DOB = it },
+        }) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Column(
                     modifier = Modifier
-                )
+                        .fillMaxSize()
+                        .padding(top = 20.dp, start = 30.dp, end = 30.dp)
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    //User Account Image
+                    Image(
+                        painter = image, contentDescription = "User Account Image",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape)
+                            .border(
+                                BorderStroke(5.dp, Color(0xFF9055F7)),
+                                CircleShape
+                            )
+                    )
 
-                //Sex info
-                ProfileComponent(
-                    "Sex",
-                    text_sex,
-                    onValueChanged = { text_sex = it },
-                    modifier = Modifier
-                )
+                    //User name & ID
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(text = "User Name")
+                    Text(
+                        text = "ID: xxxxxxxx", modifier = Modifier.wrapContentSize(),
+                        fontSize = 13.sp,
+                        color = Color.Gray
+                    )
 
-                //Blood Type
-                ProfileComponent(
-                    "Blood Type",
-                    text_bt,
-                    onValueChanged = { text_bt = it },
-                    modifier = Modifier
-                )
 
-                //Email
-                ProfileComponent(
-                    "Email",
-                    text_email,
-                    onValueChanged = { text_email = it },
-                    modifier = Modifier
-                )
+                    //User Info
+                    Column(
+                        modifier = Modifier
+                            .padding(13.dp)
+                            .align(Alignment.CenterHorizontally)
+                    ) {
+                        //D.O.B Info
+                        ProfileComponent(
+                            "D.O.B",
+                            text_DOB,
+                            onValueChanged = { text_DOB = it },
+                            modifier = Modifier
+                        )
+
+                        //Sex info
+                        ProfileComponent(
+                            "Sex",
+                            text_sex,
+                            onValueChanged = { text_sex = it },
+                            modifier = Modifier
+                        )
+
+                        //Blood Type
+                        ProfileComponent(
+                            "Blood Type",
+                            text_bt,
+                            onValueChanged = { text_bt = it },
+                            modifier = Modifier
+                        )
+
+                        //Email
+                        ProfileComponent(
+                            "Email",
+                            text_email,
+                            onValueChanged = { text_email = it },
+                            modifier = Modifier
+                        )
+                    }
+
+                    //Edit Button
+                    Button(
+                        onClick = { /* Do something! */ },
+                        modifier = Modifier.padding(top = 5.dp)
+                    ) { Text("Edit Profile") }
+                }
             }
 
-            //Edit Button
-            Button(
-                onClick = { /* Do something! */ },
-                modifier = Modifier.padding(top = 5.dp)
-            ) { Text("Edit Profile") }
         }
+
     }
 }
 
@@ -170,7 +222,5 @@ fun ProfileComponent(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MaterialTheme {
-//        ProfileComponent()
-    }
+    ProfileScreen(onDismiss = {})
 }

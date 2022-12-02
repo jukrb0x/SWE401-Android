@@ -30,6 +30,7 @@ fun FitnessApp() {
     var multiFloatingState by remember {
         mutableStateOf(MultiFloatingState.Collapsed)
     }
+
     FitnessTheme {
         AppScaffold(
             backgroundColor = Color.White.copy(alpha = 0.0f), // not really working
@@ -87,12 +88,12 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     }
 
     // user related routes
+/*
     navigation(
         route = AppDestinations.USER_ROUTE,
         startDestination = UserRoutes.Profile.route
     ) {
-        composable(UserRoutes.Profile.route) {
-            ProfileScreen()
-        }
+
     }
+*/
 }

@@ -31,6 +31,6 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
 
 
 enum class UserRoutes(val route: String, val title: String) {
-    Profile("$USER_ROUTE/profile", "Profile"),
+//    Profile("$USER_ROUTE/profile", "Profile"),
     Settings("$USER_ROUTE/settings", "Settings") // TODO
 }
