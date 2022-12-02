@@ -14,10 +14,10 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.SharingScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
+import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 
@@ -45,7 +45,6 @@ fun FitnessApp() {
                         TabRoutes.Sharing.route -> AddFriendFabScreen()
                     }
                 }
-
             }
         ) { innerPadding ->
             Column() {
