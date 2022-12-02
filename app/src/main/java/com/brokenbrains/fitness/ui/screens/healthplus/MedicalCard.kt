@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.R
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ data class HospitalCardData(
     val id: String,
     val name: String,
     val address: String,
+    val description: String,
     val score: String,
 )
 
@@ -57,7 +59,7 @@ object MedicalItemStyles {
     val addressStyle = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
-        color = Color.Gray
+        color = Color(0xFF308A9B)
     )
 
     val scoreStyle = TextStyle(
@@ -111,28 +113,22 @@ fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
                     .fillMaxWidth()
                     .padding(start = 10.dp),
             ) {
-
-                Text(
-                    text = doctorCardData.name,
-                    style = MedicalItemStyles.nameStyle,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    text = doctorCardData.description,
-                    style = MedicalItemStyles.descriptionStyle,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
                 Row(
                     modifier = Modifier
                 ) {
+                    Text(
+                        text = doctorCardData.name,
+                        style = MedicalItemStyles.nameStyle,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Spacer(modifier = Modifier.width(15.dp))
                     Icon(
                         Icons.Filled.Star, contentDescription = "star",
                         tint = Color(0xFFD8D623),
                         modifier = Modifier
                             .size(25.dp)
-                            .padding(end = 5.dp)
+                            .padding(end = 5.dp, top = 3.dp)
                             .align(Alignment.CenterVertically)
                     )
                     Text(
@@ -142,17 +138,22 @@ fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
-                    )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    Text(
-                        text = doctorCardData.type,
-                        style = MedicalItemStyles.typeStyle,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
+                            .padding(top = 3.dp)
                     )
                 }
+                Text(
+                    text = doctorCardData.type,
+                    style = MedicalItemStyles.typeStyle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                )
+                Text(
+                    text = doctorCardData.description,
+                    style = MedicalItemStyles.descriptionStyle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
     }
@@ -209,7 +210,7 @@ fun HospitalCard(modifier: Modifier = Modifier, hospitalCardData: HospitalCardDa
                         tint = Color(0xFFD8D623),
                         modifier = Modifier
                             .size(25.dp)
-                            .padding(end = 5.dp)
+                            .padding(end = 5.dp, top = 3.dp)
                             .align(Alignment.CenterVertically)
                     )
                     Text(
@@ -219,12 +220,32 @@ fun HospitalCard(modifier: Modifier = Modifier, hospitalCardData: HospitalCardDa
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
+                            .padding(top = 3.dp)
+                    )
+                }
+                Row() {
+                    Icon(
+                        Icons.Filled.LocationOn, contentDescription = "location",
+                        tint = Color(0xFF3D96C0),
+                        modifier = Modifier
+                            .size(22.dp)
+                            .padding(end = 3.dp)
+                            .align(Alignment.CenterVertically)
+                    )
+                    Text(
+                        text = hospitalCardData.address,
+                        style = MedicalItemStyles.addressStyle,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(top = 1.dp)
                     )
                 }
                 Text(
-                    text = hospitalCardData.address,
-                    style = MedicalItemStyles.addressStyle,
-                    maxLines = 2,
+                    text = hospitalCardData.description,
+                    style = MedicalItemStyles.descriptionStyle,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
             }
@@ -249,8 +270,67 @@ fun MedicalCardPreview1() {
 fun MedicalCardPreview2() {
     HospitalCardData(
         id = "1",
-        name = "Hospital Name",
-        address = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        name = "Hospital 1",
+        address = "adsgaasgagadsgasdgadsgasdga",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.5"
     ).let { HospitalCard(hospitalCardData = it) }
 }
+
+val DoctorCardList: List<DoctorCardData> = listOf(
+    DoctorCardData(
+        id = "1",
+        name = "Dr. Jb",
+        type = "Nerologist",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.9"
+    ),
+    DoctorCardData(
+        id = "2",
+        name = "Dr. KH",
+        type = "Cardiologist",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.8"
+    ), DoctorCardData(
+        id = "3",
+        name = "Dr. Jenny",
+        type = "Dentist",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "0"
+    ), DoctorCardData(
+        id = "4",
+        name = "Dr. John Doe",
+        type = "Cardiologist",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.5"
+    )
+)
+
+val HospitalCardList: List<HospitalCardData> = listOf(
+    HospitalCardData(
+        id = "1",
+        name = "Quanjude Hospital",
+        address = "adsgaasgagadsgasdgadsgasdga",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.9"
+    ),HospitalCardData(
+        id = "2",
+        name = "Quanjude Hospital",
+        address = "adsgaasgagadsgasdgadsgasdga",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.8"
+    ),HospitalCardData(
+        id = "3",
+        name = "Quanjude Hospital",
+        address = "adsgaasgagadsgasdgadsgasdga",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.7"
+    ),HospitalCardData(
+        id = "4",
+        name = "Quanjude Hospital",
+        address = "adsgaasgagadsgasdgadsgasdga",
+        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        score = "4.6"
+    )
+)
+

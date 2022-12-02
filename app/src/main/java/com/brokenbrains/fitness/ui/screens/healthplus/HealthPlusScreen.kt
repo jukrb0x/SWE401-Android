@@ -29,7 +29,7 @@ data class HealthPlusTab(
 )
 
 val healthPlusTab = listOf(
-    HealthPlusTab("Health Info") { HealthInfoPage() },
+    HealthPlusTab("Media") { HealthInfoPage() },
     HealthPlusTab("Medical") { MedicalPage() },
     HealthPlusTab("Community") { CommunityPage() },
 )
