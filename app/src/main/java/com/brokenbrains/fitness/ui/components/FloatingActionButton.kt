@@ -25,10 +25,24 @@ enum class MultiFloatingState {
 }
 
 @Composable
+fun NormalFloatingActionButton(onFabClicked: () -> Unit) {
+    FloatingActionButton(
+        onClick = { onFabClicked() },
+        backgroundColor = YaleBlue4,
+        contentColor = Color.White,
+        content = {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Add"
+            )
+        }
+    )
+}
+
+@Composable
 fun MultiFloatingActionButton(
     multiFloatingState: MultiFloatingState,
     onFabStateChange: (MultiFloatingState) -> Unit,
-
     ) {
 
     val transition =

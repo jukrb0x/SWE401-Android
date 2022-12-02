@@ -25,16 +25,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import com.brokenbrains.fitness.R
-import com.brokenbrains.fitness.ui.components.AppDialog
+import com.brokenbrains.fitness.ui.components.FullScreenDialog
 import com.brokenbrains.fitness.ui.components.AppScaffold
+import com.brokenbrains.fitness.ui.components.DialogTopBar
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun ProfileScreen(onDismiss: () -> Unit) {
+fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
     //TODO: Add background image or theme
     //TODO: Try to figure out hardcoded padding of textfield
     val image = painterResource(id = R.drawable.ic_account)
@@ -42,49 +41,67 @@ fun ProfileScreen(onDismiss: () -> Unit) {
     var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
     var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
-    AppDialog(
+    FullScreenDialog(
         onDismissRequest = onDismiss,
+        visibility = visibility
     ) {
         AppScaffold(
-            backgroundColor = MaterialTheme.colors.background,
+            backgroundColor = MaterialTheme.colors.background, // todo: unify theme
             topBar = {
-                TopAppBar(
-                    navigationIcon = {
-                        androidx.compose.material.IconButton(onClick = onDismiss) {
-                            androidx.compose.material.Icon(
-                                imageVector = Icons.Filled.Close,
-                                contentDescription = "Close Profile"
+//                TopAppBar(
+//                    navigationIcon = {
+//                        androidx.compose.material.IconButton(onClick = onDismiss) {
+//                            androidx.compose.material.Icon(
+//                                imageVector = Icons.Filled.Close,
+//                                contentDescription = "Close Profile"
+//                            )
+//                        }
+//                    },
+//                    title = {
+//                        androidx.compose.material.Text(
+//                            text = "Profile",
+//                            modifier = Modifier.fillMaxWidth(),
+//                            textAlign = TextAlign.Center,
+//                            style = MaterialTheme.typography.h6
+//                        )
+//                    },
+//                    actions = {
+//                        androidx.compose.material.IconButton(
+//                            onClick = { /* TODO */ },
+//                            enabled = /*resetEnabled*/false
+//                        ) {
+//                            val alpha = if (/*resetEnabled*/false) {
+//                                ContentAlpha.high
+//                            } else {
+//                                ContentAlpha.disabled
+//                            }
+//                            CompositionLocalProvider(LocalContentAlpha provides alpha) {
+//                                androidx.compose.material.Text(
+//                                    text = "Edit",
+//                                    style = MaterialTheme.typography.body2
+//                                )
+//                            }
+//                        }
+//                    },
+//                )
+                DialogTopBar(onDismiss = onDismiss, title = "Profile", actions = {
+                    IconButton(
+                        onClick = { /* TODO */ },
+                        enabled = /*resetEnabled*/false
+                    ) {
+                        val alpha = if (/*resetEnabled*/false) {
+                            ContentAlpha.high
+                        } else {
+                            ContentAlpha.disabled
+                        }
+                        CompositionLocalProvider(LocalContentAlpha provides alpha) {
+                            Text(
+                                text = "Edit",
+                                style = MaterialTheme.typography.body2
                             )
                         }
-                    },
-                    title = {
-                        androidx.compose.material.Text(
-                            text = "Profile",
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.h6
-                        )
-                    },
-                    actions = {
-                        androidx.compose.material.IconButton(
-                            onClick = { /* TODO */ },
-                            enabled = /*resetEnabled*/false
-                        ) {
-                            val alpha = if (/*resetEnabled*/false) {
-                                ContentAlpha.high
-                            } else {
-                                ContentAlpha.disabled
-                            }
-                            CompositionLocalProvider(LocalContentAlpha provides alpha) {
-                                androidx.compose.material.Text(
-                                    text = "Edit",
-                                    style = MaterialTheme.typography.body2
-                                )
-                            }
-                        }
-                    },
-//        backgroundColor = JetsnackTheme.colors.uiBackground
-                )
+                    }
+                })
             }) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(

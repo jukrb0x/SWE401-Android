@@ -2,7 +2,7 @@ package com.brokenbrains.fitness
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -13,12 +13,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
-import com.brokenbrains.fitness.ui.components.MultiFloatingActionButton
-import com.brokenbrains.fitness.ui.components.MultiFloatingState
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.screens.SharingScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
+import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
+import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 
@@ -26,10 +25,6 @@ import com.brokenbrains.fitness.ui.theme.FitnessTheme
 @Preview(showBackground = true)
 fun FitnessApp() {
     val appState = rememberAppState()
-
-    var multiFloatingState by remember {
-        mutableStateOf(MultiFloatingState.Collapsed)
-    }
 
     FitnessTheme {
         AppScaffold(
@@ -44,12 +39,12 @@ fun FitnessApp() {
                 }
             },
             floatingActionButton = {
-                if (appState.shouldShowFloatingActionButton)
-                    MultiFloatingActionButton(
-                        multiFloatingState = multiFloatingState,
-                        onFabStateChange = {
-                            multiFloatingState = it
-                        })
+                if (appState.shouldShowFloatingActionButton) {
+                    when(appState.currentRoute) {
+                        TabRoutes.Home.route -> AddHealthDataFab()
+                        TabRoutes.Sharing.route -> AddFriendFabScreen()
+                    }
+                }
 
             }
         ) { innerPadding ->

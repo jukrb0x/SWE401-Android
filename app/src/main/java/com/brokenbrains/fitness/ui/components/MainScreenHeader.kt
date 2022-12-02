@@ -107,16 +107,16 @@ fun MainScreenHeader(
         }
     }
 
-    AnimatedVisibility(
-        visible = profileVisibility, enter = slideInVertically() + expandVertically(
-            expandFrom = Alignment.Top
-        ) + fadeIn(initialAlpha = 0.3f),
-        exit = slideOutVertically() + shrinkVertically() + fadeOut()
+//    AnimatedVisibility(
+//        visible = profileVisibility, enter = slideInVertically() + expandVertically(
+//            expandFrom = Alignment.Top
+//        ) + fadeIn(initialAlpha = 0.3f),
+//        exit = slideOutVertically() + shrinkVertically() + fadeOut()
+//
+//    ) {
+        ProfileScreen(onDismiss = { profileVisibility = false }, visibility=profileVisibility)
 
-    ) {
-        ProfileScreen(onDismiss = { profileVisibility = false })
-
-    }
+//    }
 }
 
 @Composable

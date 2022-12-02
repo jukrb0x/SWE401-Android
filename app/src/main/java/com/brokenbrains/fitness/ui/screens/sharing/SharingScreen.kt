@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens
+package com.brokenbrains.fitness.ui.screens.sharing
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -6,16 +6,18 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
-import com.brokenbrains.fitness.UserRoutes
-import com.brokenbrains.fitness.rememberAppState
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
+import com.brokenbrains.fitness.ui.screens.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.screens.sharing.AddFriendDialog
 import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
 import com.brokenbrains.fitness.ui.screens.sharing.PersonShareData
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -38,6 +40,7 @@ val tabs = listOf(
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SharingScreen(navigateTo: (route: String) -> Unit) {
+
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
@@ -68,6 +71,7 @@ fun SharingScreen(navigateTo: (route: String) -> Unit) {
             }
         }
     }
+
 }
 
 @Composable
