@@ -16,6 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.theme.Shapes
+import compose.icons.FeatherIcons
+import compose.icons.FontAwesomeIcons
+import compose.icons.feathericons.ChevronRight
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.ChevronRight
 
 object Styles {
     val TitleStyle = TextStyle(
@@ -52,7 +57,7 @@ fun TrendCard(data: TrendCardData, onClick: () -> Unit = {}) {
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     modifier = Modifier.size(20.dp),
-                    imageVector = Icons.Filled.ArrowForward,
+                    imageVector = FeatherIcons.ChevronRight,
                     tint = Color.Gray,
                     contentDescription = "Go to trend details"
                 )

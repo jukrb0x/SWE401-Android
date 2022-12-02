@@ -19,6 +19,8 @@ import com.brokenbrains.fitness.ui.screens.sharing.Styles.AlertStyle
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.LatestUpdateStyle
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.TimeStyle
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.TitleStyle
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.ChevronRight
 
 
 data class PersonShareData(
@@ -118,7 +120,7 @@ fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) 
                     )
                     Icon(
                         modifier = modifier.size(20.dp),
-                        imageVector = Icons.Filled.ArrowForward,
+                        imageVector = FeatherIcons.ChevronRight,
                         tint = Color.Gray,
                         contentDescription = "Go to sharing details"
                     )
