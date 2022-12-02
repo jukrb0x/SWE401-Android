@@ -15,6 +15,7 @@ import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.screens.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -27,7 +28,7 @@ data class HealthPlusTab(
 )
 
 val healthPlusTab = listOf(
-    HealthPlusTab("Health Info") { HealthInfoPage() },
+    HealthPlusTab("Media") { HealthInfoPage() },
     HealthPlusTab("Medical") { MedicalPage() },
     HealthPlusTab("Community") { CommunityPage() },
 )
@@ -112,5 +113,7 @@ fun CommunityPage() {
 @Composable
 @Preview(showBackground = true)
 fun HealthPlusScreenPreview() {
-    HealthPlusScreen(navigateTo = {})
+    FitnessTheme() {
+        HealthPlusScreen(navigateTo = {})
+    }
 }
