@@ -16,6 +16,7 @@ import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.screens.*
+import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -113,5 +114,7 @@ fun CommunityPage() {
 @Composable
 @Preview(showBackground = true)
 fun HealthPlusScreenPreview() {
-    HealthPlusScreen(navigateTo = {})
+    FitnessTheme() {
+        HealthPlusScreen(navigateTo = {})
+    }
 }
