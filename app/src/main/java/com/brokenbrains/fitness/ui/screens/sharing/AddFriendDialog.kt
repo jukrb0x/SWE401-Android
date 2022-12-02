@@ -21,11 +21,14 @@ import com.brokenbrains.fitness.ui.components.CustomDialogPosition
 import com.brokenbrains.fitness.ui.components.NormalFloatingActionButton
 import com.brokenbrains.fitness.ui.components.customPosition
 
-}
 
 @Composable
 fun AddFriendDialog(onDismiss: () -> Unit, visibility: Boolean) {
-    CustomDialog(modifier = Modifier.customPosition(CustomDialogPosition.BOTTOM), onDismissRequest = { onDismiss() }, visibility = visibility) {
+    CustomDialog(
+        modifier = Modifier.customPosition(CustomDialogPosition.BOTTOM),
+        onDismissRequest = { onDismiss() },
+        visibility = visibility
+    ) {
         ElevatedCard(
             modifier = Modifier
                 .height(300.dp)
