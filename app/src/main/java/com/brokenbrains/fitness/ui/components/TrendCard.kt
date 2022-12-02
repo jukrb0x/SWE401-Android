@@ -2,9 +2,10 @@ package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material3.*
+import androidx.compose.material.*
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,8 +49,8 @@ data class TrendCardData(
 fun TrendCard(data: TrendCardData, onClick: () -> Unit = {}) {
     ElevatedCard(
         onClick = { onClick() }, modifier = Modifier
-            .fillMaxSize(),
-        elevation = CardDefaults.elevatedCardElevation(2.dp),
+            .fillMaxSize()/*.clickable(onClick = onClick)*/,
+        elevation = CardDefaults.elevatedCardElevation(2.dp)/*2.dp*/,
         ) {
         Column(modifier = Modifier.padding(13.dp)) {
             Row {

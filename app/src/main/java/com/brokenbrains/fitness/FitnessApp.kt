@@ -14,8 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
-import com.brokenbrains.fitness.ui.components.AppFloatingActionButton
 import com.brokenbrains.fitness.ui.components.AppScaffold
+import com.brokenbrains.fitness.ui.components.MultiFloatingActionButton
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.screens.SharingScreen
@@ -40,7 +40,7 @@ fun FitnessApp() {
                 }
             },
             floatingActionButton = {
-                if (appState.shouldShowFloatingActionButton) AppFloatingActionButton()
+//                if (appState.shouldShowFloatingActionButton) /*MultiFloatingActionButton()*/ TODO()
             }
         ) { innerPadding ->
             Column() {

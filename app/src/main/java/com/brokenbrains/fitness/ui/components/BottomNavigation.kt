@@ -1,22 +1,22 @@
 package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
+import com.brokenbrains.fitness.ui.theme.YaleBlue3
 
 
 @Composable
@@ -27,34 +27,40 @@ fun AppBottomBar(
 ) {
     Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp))
-            .shadow(10.dp)
+//            .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp))
+//            .shadow(10.dp)
     ) {
-        NavigationBar(
-            modifier = Modifier
-                .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp))
-                .height(75.dp)
-                .shadow(10.dp)
-        ) {
-            Row(Modifier.background(Color.Transparent)){
+        /*NavigationBar*/BottomNavigation(
+        modifier = Modifier
+            .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp)),
+//                .height(75.dp)
+//                .shadow(10.dp),
+        backgroundColor = Color.White,
+        contentColor = Color.Black,
+        elevation = 10.dp
+    ) {
+        Row(Modifier.background(Color.Transparent)) {
 
             tabRoutes.forEach {
-                NavigationBarItem(
-                    icon = {
-                        Icon(
-                            it.icon,
-                            contentDescription = it.title,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    },
-                    label = { Text(it.title) },
-                    selected = currentRoute == it.route,
-                    onClick = { navigateTo(it.route) },
-                )
+                /*NavigationBarItem*/BottomNavigationItem(
+                icon = {
+                    Icon(
+                        it.icon,
+                        contentDescription = it.title,
+                        modifier = Modifier.size(20.dp)
+                    )
+                },
+                label = { Text(it.title) },
+                selected = currentRoute == it.route,
+                onClick = { navigateTo(it.route) },
+                alwaysShowLabel = false,
+                selectedContentColor = YaleBlue3,
+                unselectedContentColor = Color.Gray,
+            )
             }
-            }
-
         }
+
+    }
     }
 }
 
