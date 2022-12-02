@@ -13,8 +13,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.brokenbrains.fitness.ui.screens.HomeScreen
+import com.brokenbrains.fitness.ui.theme.OceanGreen2
+import com.brokenbrains.fitness.ui.theme.YaleBlue1
+import com.brokenbrains.fitness.ui.theme.YaleBlue4
 
 enum class MultiFloatingState {
     Expanded, Collapsed
@@ -41,11 +45,13 @@ fun MultiFloatingActionButton(
                 else MultiFloatingState.Expanded
             )
         },
-        modifier = Modifier.rotate(rotation)
+        modifier = Modifier.rotate(rotation),
+        backgroundColor = Color.White
     ) {
         Icon(
             imageVector = Icons.Default.Add,
             contentDescription = "Add",
+            tint = YaleBlue4
         )
     }
 }

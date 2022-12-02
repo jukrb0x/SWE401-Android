@@ -62,7 +62,11 @@ fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) 
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        onClick = { /*TODO*/ }
+        onClick = { /*TODO*/ },
+        colors = CardDefaults.elevatedCardColors( // TODO awful colors
+            containerColor = Color(0XFFEDF6F9),
+            contentColor = Color.Black
+        )
     ) {
         Row(modifier = modifier.padding(10.dp)) {
             // avatar
