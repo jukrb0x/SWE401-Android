@@ -79,8 +79,10 @@ dependencies {
     implementation("br.com.devsrsouza.compose.icons.android:octicons:1.0.0")
 
     // Accompanist
-    implementation "com.google.accompanist:accompanist-pager:0.28.0"
-    implementation "com.google.accompanist:accompanist-pager-indicators:0.28.0"
+    implementation "com.google.accompanist:accompanist-pager:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-flowlayout:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
 
 
     implementation "com.github.skydoves:cloudy:0.1.1"

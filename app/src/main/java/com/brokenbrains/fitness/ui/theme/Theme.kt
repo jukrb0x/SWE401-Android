@@ -9,7 +9,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.style.TextForegroundStyle.Unspecified.alpha
 import androidx.core.view.ViewCompat
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 /* MATERIAL 2
 private val DarkColorPalette = darkColors(
@@ -97,12 +99,12 @@ fun FitnessTheme(
         }
     }
 
-    /*val sysUiController = rememberSystemUiController()
+    val sysUiController = rememberSystemUiController()
     SideEffect {
         sysUiController.setSystemBarsColor(
-            color = colors.uiBackground.copy(alpha = AlphaNearOpaque)
+            color =  Neutral0.copy(alpha = 0.3f) // TODO ok for now
         )
-    }*/
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,
