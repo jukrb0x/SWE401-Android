@@ -42,7 +42,7 @@ fun SharingScreen(navigateTo: (route: String) -> Unit) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
                 title = TabRoutes.Sharing.title,
-                onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
+            )
         }
         Column(modifier = Modifier.fillMaxWidth()) {
             val pagerState: PagerState = rememberPagerState(initialPage = 0)

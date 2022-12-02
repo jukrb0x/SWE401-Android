@@ -34,8 +34,7 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
                 title = /*TabRoutes.Home.title*/ "Fitness",
-                onAvatarPressed = { navigateTo(UserRoutes.Profile.route) })
-        }
+            )}
         LazyColumn(
             Modifier
                 .align(Alignment.CenterHorizontally)
