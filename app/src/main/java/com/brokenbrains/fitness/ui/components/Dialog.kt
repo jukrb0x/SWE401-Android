@@ -1,27 +1,46 @@
 package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+
+
+enum class CustomDialogPosition {
+    BOTTOM, TOP
+}
+
+/**
+ * Custom Screen Placement Modifier for Dialog
+ * @see: https://stackoverflow.com/a/70446279/8737623
+ */
+fun Modifier.customPosition(pos: CustomDialogPosition) = layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints);
+    layout(constraints.maxWidth, constraints.maxHeight) {
+        when (pos) {
+            CustomDialogPosition.BOTTOM -> {
+                placeable.place(0, constraints.maxHeight - placeable.height, 10f)
+            }
+            CustomDialogPosition.TOP -> {
+                placeable.place(0, 0, 10f)
+            }
+        }
+    }
+}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -90,6 +109,51 @@ fun DialogTopBar(onDismiss: () -> Unit, title: String, actions: @Composable () -
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun CustomDialog(
+    modifier: Modifier = Modifier,
+    onDismissRequest: () -> Unit,
+    visibility: Boolean = true,
+    isAnimated: Boolean = false,
+    properties: DialogProperties = DialogProperties(usePlatformDefaultWidth = false),
+    content: @Composable () -> Unit
+) {
+    if (visibility) {
+        if (isAnimated) {
+            AnimatedVisibility(
+                visible = visibility, enter = slideInVertically() + expandVertically(
+                    expandFrom = Alignment.Top
+                ) + fadeIn(initialAlpha = 0.3f),
+                exit = slideOutVertically() + shrinkVertically() + fadeOut()
+
+            ) {
+                Dialog(
+                    onDismissRequest = onDismissRequest,
+                    properties = properties
+                ) {
+                    Box(modifier = modifier) {
+                        content()
+                    }
+                }
+            }
+        } else {
+            Dialog(
+                onDismissRequest = onDismissRequest,
+                properties = properties
+            ) {
+                Box(modifier = modifier) {
+                    content()
+                }
+            }
+        }
+    }
+}
+
+
+// -----------------
+// Preview
+// -----------------
 @Preview
 @Composable
 fun DialogPreview() {
@@ -120,5 +184,22 @@ fun DialogPreview() {
 fun DialogNoActionPreview() {
     FullScreenDialog(visibility = true, onDismissRequest = {}) {
         DialogTopBar(onDismiss = {}, title = "Profile")
+    }
+}
+
+@Composable
+@Preview
+fun CustomDialogPreview() {
+    CustomDialog(visibility = true, onDismissRequest = {}) {
+        Card(
+            modifier = Modifier
+                .width(300.dp)
+//                .alpha(ContentAlpha.medium),
+        ) {
+            Column() {
+                Text(text = "Hello")
+                TextField(value = "test", onValueChange = {})
+            }
+        }
     }
 }
