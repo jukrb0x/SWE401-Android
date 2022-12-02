@@ -3,6 +3,8 @@ package com.brokenbrains.fitness.ui.screens.healthplus
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -29,8 +31,8 @@ data class HealthPlusTab(
 
 val healthPlusTab = listOf(
     HealthPlusTab("Media") { HealthInfoPage() },
-    HealthPlusTab("Medical") { MedicalPage() },
-    HealthPlusTab("Community") { CommunityPage() },
+    HealthPlusTab("Doctor") { MedicalPage() },
+    HealthPlusTab("Hospital") { HospitalPage() },
 )
 
 @OptIn(ExperimentalPagerApi::class)
@@ -87,26 +89,35 @@ fun HealthInfoPage() {
 
 @Composable
 fun MedicalPage() {
-    //Lee TODO: Add Medical Page
-    //Hospital List
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-
-    }
-
-    //Diveder or something else to separate two list
-
-    //Doctor List
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-
-    }
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            item {
+                Spacer(modifier = Modifier.height(3.dp))
+            }
+            itemsIndexed(DoctorCardList) { index, doctorCardItem ->
+                Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+                    DoctorCard(doctorCardData = doctorCardItem)
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(3.dp))
+            }
+        }
 }
 
 @Composable
-fun CommunityPage() {
-    Column {
-        Text(
-            text = "Community test"
-        )
+fun HospitalPage() {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        item {
+            Spacer(modifier = Modifier.height(3.dp))
+        }
+        itemsIndexed(HospitalCardList) { index, hospitalCardItem ->
+            Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+                HospitalCard(hospitalCardData = hospitalCardItem)
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(3.dp))
+        }
     }
 }
 
