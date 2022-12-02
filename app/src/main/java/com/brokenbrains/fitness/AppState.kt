@@ -76,6 +76,9 @@ class AppState(
     val shouldShowBottomBar: Boolean
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes.map { it.route }
+    val shouldShowFloatingActionButton: Boolean
+        @Composable get() = navController
+            .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes.map { it.route }
 
 }
 

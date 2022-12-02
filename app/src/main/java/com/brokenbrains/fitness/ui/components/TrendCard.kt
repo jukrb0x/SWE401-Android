@@ -49,9 +49,9 @@ fun TrendCard(data: TrendCardData, onClick: () -> Unit = {}) {
     ElevatedCard(
         onClick = { onClick() }, modifier = Modifier
             .fillMaxSize(),
-        elevation = CardDefaults.elevatedCardElevation(4.dp),
+        elevation = CardDefaults.elevatedCardElevation(2.dp),
         ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(13.dp)) {
             Row {
                 Text(text = data.title, style = Styles.TitleStyle)
                 Spacer(modifier = Modifier.weight(1f))
