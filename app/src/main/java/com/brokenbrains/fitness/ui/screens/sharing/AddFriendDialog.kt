@@ -1,9 +1,6 @@
 package com.brokenbrains.fitness.ui.screens.sharing
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -13,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,7 +45,7 @@ fun AddFriendDialog(onDismiss: () -> Unit, visibility: Boolean) {
 }
 
 /**
- * Compose of Floating Action Button and Health Sharing - Add Friend Screen
+ * Compose of Floating Action Button & Health Sharing - Add Friend Screen
  */
 @Composable
 fun AddFriendFabScreen() {
@@ -64,7 +62,13 @@ fun AddFriendFabScreen() {
 
 // Preview
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun AddFriendDialogPreview() {
-    AddFriendDialog(onDismiss = {}, visibility = true)
+    Row(
+        modifier = Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        AddFriendDialog(onDismiss = {}, visibility = true)
+    }
 }

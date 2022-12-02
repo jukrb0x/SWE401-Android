@@ -1,8 +1,10 @@
 package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -13,15 +15,12 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.zIndex
-import com.skydoves.cloudy.Cloudy
 
 
 enum class CustomDialogPosition {
@@ -47,7 +46,22 @@ fun Modifier.customPosition(pos: CustomDialogPosition) = layout { measurable, co
 }
 
 // dialog background modifier
-
+@Composable
+private fun DialogInternal(
+    modifier: Modifier = Modifier,
+    onDismissRequest: () -> Unit,
+    properties: DialogProperties,
+    content: @Composable () -> Unit
+) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = properties
+    ) {
+        Box(modifier = modifier) {
+            content()
+        }
+    }
+}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -68,27 +82,19 @@ fun FullScreenDialog(
                 exit = slideOutVertically() + shrinkVertically() + fadeOut()
 
             ) {
-                Dialog(
-                    onDismissRequest = onDismissRequest,
-                    properties = properties
-                ) {
-                    Box(modifier = modifier.fillMaxSize()) {
-                        content()
-                    }
-                }
-            }
-        } else {
-            Dialog(
-                onDismissRequest = onDismissRequest,
-                properties = properties
-            ) {
-                Box(modifier = modifier.fillMaxSize()) {
+                DialogInternal(onDismissRequest = onDismissRequest, properties = properties) {
                     content()
                 }
             }
+        } else {
+            DialogInternal(onDismissRequest = onDismissRequest, properties = properties) {
+                content()
+            }
+
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -123,29 +129,34 @@ fun CustomDialog(
     onDismissRequest: () -> Unit,
     visibility: Boolean = true,
     isAnimated: Boolean = false,
-    properties: DialogProperties = DialogProperties(usePlatformDefaultWidth = false),
+    properties: DialogProperties = DialogProperties(
+        usePlatformDefaultWidth = false,
+        dismissOnClickOutside = true
+    ),
     content: @Composable () -> Unit
 ) {
     if (visibility) {
         if (isAnimated) {
             AnimatedVisibility(
-                visible = visibility, enter = slideInVertically() + expandVertically(
+                visible = true, enter = slideInVertically() + expandVertically(
                     expandFrom = Alignment.Top
                 ) + fadeIn(initialAlpha = 0.3f),
                 exit = slideOutVertically() + shrinkVertically() + fadeOut()
 
             ) {
-                Dialog(
+                DialogInternal(
                     onDismissRequest = onDismissRequest,
                     properties = properties,
+                    modifier = modifier
                 ) {
                     content()
                 }
             }
         } else {
-            Dialog(
+            DialogInternal(
                 onDismissRequest = onDismissRequest,
-                properties = properties
+                properties = properties,
+                modifier = modifier
             ) {
                 content()
             }
