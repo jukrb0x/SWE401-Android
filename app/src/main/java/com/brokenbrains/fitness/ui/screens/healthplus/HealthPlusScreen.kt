@@ -16,8 +16,6 @@ import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.screens.*
-import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
-import com.brokenbrains.fitness.ui.screens.tabs
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState

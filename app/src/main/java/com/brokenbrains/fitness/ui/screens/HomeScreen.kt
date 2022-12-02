@@ -3,14 +3,11 @@ package com.brokenbrains.fitness.ui.screens
 
 //import androidx.compose.material.TextField
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +18,7 @@ import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.TrendCard
+import com.brokenbrains.fitness.ui.components.TrendCardData
 
 val MainScreenHorizontalPaddingValue: Dp = 16.dp
 
@@ -43,23 +41,46 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
                 .align(Alignment.CenterHorizontally)
                 .padding(horizontal = MainScreenHorizontalPaddingValue)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+//            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             item {
-                Text("Hello, ${text.trim()}")
-                TextField(
-                    value = text,
-                    onValueChange = ::handleTextChange
+                Text("display quick facts about your health") // TODO
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+
+            itemsIndexed(fakeData) { index, item ->
+                TrendCard(
+                    data = item
                 )
+            }
 
-                TrendCard()
-
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
     }
 }
 
+val fakeData: List<TrendCardData> = listOf(
+    TrendCardData(
+        title = "Weight",
+        subtitle = "Last week",
+    ),
+    TrendCardData(
+        title = "Sleep time",
+        subtitle = "Last week",
+    ),
+    TrendCardData(
+        title = "Steps",
+        subtitle = "2 Dec",
+    ),
+    TrendCardData(
+        title = "Heart rate",
+        subtitle = "2 Dec",
+    ),
+)
 
 @Composable
 @Preview(showBackground = true)

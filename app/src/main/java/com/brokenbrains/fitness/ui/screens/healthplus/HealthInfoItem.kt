@@ -68,7 +68,7 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
     else if (healthInfoItemData.type == "Video") painterNow = videoIC
     else painterNow = visbilityOffIC
 
-    OutlinedCard(
+    ElevatedCard(
         modifier = modifier
             .fillMaxWidth()
             .height(140.dp),
