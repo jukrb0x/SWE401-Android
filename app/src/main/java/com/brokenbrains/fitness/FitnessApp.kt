@@ -58,6 +58,7 @@ fun FitnessApp() {
                     navController = appState.navController,
                     startDestination = AppDestinations.MAIN_ROUTE,
                     modifier = Modifier.padding(innerPadding),
+                    // turn off animated transition of navigation
                     enterTransition = { fadeIn(animationSpec = tween(1)) },
                     exitTransition = { fadeOut(animationSpec = tween(1)) },
                 ) {
