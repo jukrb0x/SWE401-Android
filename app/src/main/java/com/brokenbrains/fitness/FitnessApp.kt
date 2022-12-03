@@ -1,8 +1,9 @@
 package com.brokenbrains.fitness
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -11,8 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
-//import androidx.navigation.compose.NavHost
-//import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
@@ -58,8 +57,8 @@ fun FitnessApp() {
                     navController = appState.navController,
                     startDestination = AppDestinations.MAIN_ROUTE,
                     modifier = Modifier.padding(innerPadding),
-                    enterTransition = { EnterTransition.None },
-                    exitTransition = { ExitTransition.None }
+                    enterTransition = { fadeIn(animationSpec = tween(1)) },
+                    exitTransition = { fadeOut(animationSpec = tween(1)) },
                 ) {
                     appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
                 }
