@@ -5,6 +5,9 @@ import androidx.compose.material3.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -13,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,7 +28,8 @@ import com.brokenbrains.fitness.R
 @Composable
 fun LoginScreen() {
     //TODO: Add background image or theme
-    Box() {
+    Box(Modifier.fillMaxSize()) {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -42,11 +47,13 @@ fun LoginScreen() {
             )
 
             Text(
-                text = "Login",
+                text = "Sign In",
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFAAA5A5)
             )
+
+            Spacer(modifier = Modifier.height(30.dp))
 
             //Email TextFiled
             var text_login_email by rememberSaveable { mutableStateOf("") }
@@ -56,7 +63,13 @@ fun LoginScreen() {
                 label = { Text("Email") },
                 modifier = Modifier
                     .padding(top = 20.dp),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.AccountBox,
+                        contentDescription = null
+                    )
+                }
             )
 
             //Password TextField
@@ -67,7 +80,14 @@ fun LoginScreen() {
                 label = { Text("Password") },
                 modifier = Modifier
                     .padding(top = 10.dp),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null
+                    )
+                },
+                visualTransformation = PasswordVisualTransformation()
             )
 
             //Login Button

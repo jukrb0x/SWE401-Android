@@ -24,6 +24,7 @@ import com.brokenbrains.fitness.R
 fun RegisterScreen() {
     //TODO: Add background image or theme
     Box(){
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -48,6 +49,8 @@ fun RegisterScreen() {
                 color = Color(0xFFAAA5A5)
             )
 
+            Spacer(modifier = Modifier.height(25.dp))
+
             //First Name TextFiled
             var text_firstname by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
@@ -64,7 +67,7 @@ fun RegisterScreen() {
             OutlinedTextField(
                 value = text_secondname,
                 onValueChange = { text_secondname = it },
-                label = { Text("First Name") },
+                label = { Text("Last Name") },
                 modifier = Modifier
                     .padding(top = 10.dp),
                 shape = RoundedCornerShape(20.dp)
@@ -75,7 +78,7 @@ fun RegisterScreen() {
             OutlinedTextField(
                 value = text_email,
                 onValueChange = { text_email = it },
-                label = { Text("First Name") },
+                label = { Text("Email") },
                 modifier = Modifier
                     .padding(top = 10.dp),
                 shape = RoundedCornerShape(20.dp)
@@ -86,7 +89,7 @@ fun RegisterScreen() {
             OutlinedTextField(
                 value = text_password,
                 onValueChange = { text_password = it },
-                label = { Text("First Name") },
+                label = { Text("Password") },
                 modifier = Modifier
                     .padding(top = 10.dp),
                 shape = RoundedCornerShape(20.dp)
