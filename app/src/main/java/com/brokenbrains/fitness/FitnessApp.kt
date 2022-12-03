@@ -1,5 +1,8 @@
 package com.brokenbrains.fitness
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -8,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+//import androidx.navigation.compose.NavHost
+//import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
@@ -19,8 +22,11 @@ import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 @Preview(showBackground = true)
 fun FitnessApp() {
@@ -40,7 +46,7 @@ fun FitnessApp() {
             },
             floatingActionButton = {
                 if (appState.shouldShowFloatingActionButton) {
-                    when(appState.currentRoute) {
+                    when (appState.currentRoute) {
                         TabRoutes.Home.route -> AddHealthDataFab()
                         TabRoutes.Sharing.route -> AddFriendFabScreen()
                     }
@@ -48,10 +54,12 @@ fun FitnessApp() {
             }
         ) { innerPadding ->
             Column() {
-                NavHost(
+                AnimatedNavHost(
                     navController = appState.navController,
                     startDestination = AppDestinations.MAIN_ROUTE,
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(innerPadding),
+                    enterTransition = { EnterTransition.None },
+                    exitTransition = { ExitTransition.None }
                 ) {
                     appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
                 }
@@ -60,6 +68,7 @@ fun FitnessApp() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.appNavGraph( // custom name..
     navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
     upPress: () -> Unit

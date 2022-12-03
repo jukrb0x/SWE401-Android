@@ -1,5 +1,6 @@
 package com.brokenbrains.fitness
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -10,13 +11,16 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 /**
  * Create the AppState Instance
  */
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun rememberAppState(
-    navController: NavHostController = rememberNavController(),
+//    navController: NavHostController = rememberNavController(),
+    navController: NavHostController = rememberAnimatedNavController(),
 ) = remember(navController) {
     AppState(navController)
 }
