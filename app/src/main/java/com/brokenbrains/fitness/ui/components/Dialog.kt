@@ -42,8 +42,6 @@ fun Modifier.customPosition(pos: CustomDialogPosition) = layout { measurable, co
     }
 }
 
-// dialog background modifier
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
