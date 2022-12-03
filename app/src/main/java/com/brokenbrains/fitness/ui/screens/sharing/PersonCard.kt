@@ -59,10 +59,10 @@ private object Styles {
 internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.elevatedCardElevation(4.dp),
+//        elevation = CardDefaults.elevatedCardElevation(2.dp),
         onClick = { /*TODO*/ },
         colors = CardDefaults.elevatedCardColors( // TODO awful colors
-            containerColor = Color(0XFFEDF6F9),
+            containerColor = Color/*(0XFFEDF6F9)*/.White,
             contentColor = Color.Black
         )
     ) {

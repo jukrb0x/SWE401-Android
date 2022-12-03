@@ -16,7 +16,6 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.ProfileScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
@@ -49,7 +48,7 @@ fun FitnessApp() {
                 if (appState.shouldShowFloatingActionButton) {
                     when (appState.currentRoute) {
                         TabRoutes.Home.route -> AddHealthDataFab()
-                        TabRoutes.Sharing.route -> AddFriendFabScreen()
+                        TabRoutes.Sharing.route -> AddFriendFabScreen(navigateTo = appState.navController::navigate)
                     }
                 }
             }
@@ -95,12 +94,12 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     }
 
     // user related routes
-/*
-    navigation(
-        route = AppDestinations.USER_ROUTE,
-        startDestination = UserRoutes.Profile.route
-    ) {
-
-    }
-*/
+//    navigation(
+//        route = AppDestinations.USER_ROUTE,
+//        startDestination = UserRoutes.ShareSettings.route
+//    ) {
+//        composable(UserRoutes.ShareSettings.route) { from ->
+////            ShareManageModal(onDismiss = upPress, visibility = true)
+//        }
+//    }
 }

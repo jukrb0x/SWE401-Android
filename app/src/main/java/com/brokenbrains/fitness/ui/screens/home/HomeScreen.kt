@@ -31,7 +31,7 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
                 .fillMaxWidth(),
 //            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             item {
                 Text("display quick facts about your health") // TODO
