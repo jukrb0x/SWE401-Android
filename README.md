@@ -5,3 +5,12 @@ This repository holds for both the client-side application (Android Native) and 
 ## Branches
 - `main`: the active development in the progress
 - `release`: the versioning release of the project
+
+
+## TODO
+- [ ] health data page
+- [ ] add record entry (multi FAB)
+- [ ] browse list
+- [ ] profile / settings
+- [ ] login routing
+- [ ] optimization - colors, fonts, etc.
