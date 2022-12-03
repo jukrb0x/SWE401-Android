@@ -33,10 +33,9 @@ fun AppBottomBar(
             .clip(RoundedCornerShape(18.dp, 18.dp, 0.dp, 0.dp)),
         backgroundColor = Color.White,
         contentColor = Color.Black,
-        elevation = 10.dp
+        elevation = 15.dp
     ) {
         Row(Modifier.background(Color.Transparent)) {
-
             tabRoutes.forEach {
                 /*NavigationBarItem*/BottomNavigationItem(
                 icon = {
