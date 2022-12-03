@@ -33,7 +33,7 @@ data class PersonShareData(
 private object Styles {
     val TitleStyle = TextStyle(
         fontSize = 20.sp,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight(650)
     )
     val LatestUpdateStyle = TextStyle(
         fontSize = 16.sp,
@@ -43,7 +43,7 @@ private object Styles {
 
     val AlertStyle = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight(650),
         color = Color.Black // todo: doesn't support dark schema in this way.
     )
 
