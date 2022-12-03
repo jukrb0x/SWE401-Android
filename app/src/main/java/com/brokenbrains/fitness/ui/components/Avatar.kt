@@ -33,7 +33,7 @@ fun getInitials(name: String): String {
 fun Avatar(
     modifier: Modifier = Modifier,
     avatarSize: Dp = 50.dp,
-    nameInitials: String = "",
+    nameInitials: String = "", // TODO: pass name and handle the initials inside the function
     backgroundColor: Color = Color.LightGray,
 //    image: @Composable (() -> Unit)? = null, TODO
     shape: Shape = CircleShape,
