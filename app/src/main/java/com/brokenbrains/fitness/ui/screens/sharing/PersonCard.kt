@@ -75,12 +75,12 @@ internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonSh
             ).copy(alpha = 0.5f)
 
             Avatar(
-                avatarSize = 75.dp,
+                modifier = Modifier.padding(5.dp),
+                avatarSize = 60.dp,
                 nameInitials = getInitials(personShareData.name),
                 backgroundColor = bgColor,
                 isClickable = false
             )
-
             Spacer(modifier.width(8.dp))
 
             // Info

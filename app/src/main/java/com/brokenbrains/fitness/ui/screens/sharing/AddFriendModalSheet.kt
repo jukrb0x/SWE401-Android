@@ -47,7 +47,7 @@ private val SubtitleStyle = TextStyle(
     ExperimentalSheetApi::class, ExperimentalMaterial3Api::class
 )
 @Composable
-fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
+fun AddFriendModal(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
     ModalSheet(
         visible = visibility,
         onVisibleChange = { onDismiss(it) },
@@ -90,7 +90,11 @@ fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
                 // avatar
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // avatar
-                    Avatar(modifier = Modifier.padding(8.dp), avatarSize = 65.dp, nameInitials = "KH", onClick = {})
+                    Avatar(
+                        modifier = Modifier.padding(10.dp),
+                        avatarSize = 50.dp,
+                        nameInitials = "KH",
+                        onClick = {})
                     // my code
                     Column(horizontalAlignment = Alignment.Start) {
                         Text(
@@ -132,7 +136,7 @@ fun AddFriendFabScreen() {
     NormalFloatingActionButton(fabState = dialogState, onFabStateChange = {
         dialogState = it
     })
-    AddFriendDialog(
+    AddFriendModal(
         onDismiss = { dialogState = FabState.Collapsed },
         visibility = dialogState.isExpanded
     )
@@ -148,6 +152,6 @@ fun AddFriendDialogPreview() {
 //        verticalAlignment = Alignment.CenterVertically,
 //        horizontalArrangement = Arrangement.Center
     ) {
-        AddFriendDialog(onDismiss = {}, visibility = true)
+        AddFriendModal(onDismiss = {}, visibility = true)
     }
 }
