@@ -8,12 +8,12 @@ This repository holds for both the client-side application (Android Native) and 
 
 
 ## TODO
-- [ ] health data page
-- [ ] add health data page
-- [ ] charts on card and data page (small / large)
-- [ ] quick facts chart on Home page
-- [ ] add record entry (multi FAB)
 - [ ] browse list page
+- [ ] FAB add record entry
+- [ ] add health data page (fields)
+- [ ] health data page
+- [ ] charts, on card and data page (small / large)
+- [ ] charts, maybe a circle, quick facts on Home page
 - [ ] profile / settings (logout, change password, etc.)
 - [ ] login routing
 - [ ] optimization - colors, fonts, etc.
