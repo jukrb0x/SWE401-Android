@@ -93,7 +93,7 @@ fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
         )
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            //verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MainScreenHorizontalPaddingValue),
@@ -176,7 +176,7 @@ fun HospitalCard(modifier: Modifier = Modifier, hospitalCardData: HospitalCardDa
         )
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            //verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp),
