@@ -60,14 +60,6 @@ fun BottomModalSheet(
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 actionButton()
-//                IconButton(onClick = { /*TODO*/ }) {
-//                    Icon(
-//                        modifier = Modifier.size(20.dp),
-//                        imageVector = FeatherIcons.Settings,
-//                        tint = Color.Gray,
-//                        contentDescription = ""
-//                    )
-//                }
             }
             content()
         }
