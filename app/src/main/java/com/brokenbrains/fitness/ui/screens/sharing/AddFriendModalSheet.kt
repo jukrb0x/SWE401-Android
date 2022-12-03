@@ -17,8 +17,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.components.*
+import com.brokenbrains.fitness.ui.theme.OceanGreen2
+import com.brokenbrains.fitness.ui.theme.OceanGreen3
+import com.brokenbrains.fitness.ui.theme.OceanGreen4
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Settings
+import compose.icons.feathericons.Users
 import compose.icons.feathericons.X
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -121,8 +125,15 @@ fun SharingSettingsModal(
         onDismiss = onDismiss,
         visibility = visibility
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) { // TODO: use constraint layout here
+            Icon(
+                modifier = Modifier.size(100.dp),
+                imageVector = FeatherIcons.Users,
+                tint = OceanGreen2,
+                contentDescription = ""
+            )
             Text("You are sharing your fitness activity with 2 friends")
+
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Switch(checked = true, onCheckedChange = {})

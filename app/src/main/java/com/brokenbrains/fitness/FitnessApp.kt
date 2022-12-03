@@ -74,7 +74,6 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
     upPress: () -> Unit
 ) {
-    // todo: default transition between tabs should be off
     // main route for tabs
     navigation(
         route = AppDestinations.MAIN_ROUTE,

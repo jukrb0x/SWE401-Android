@@ -64,17 +64,10 @@ class AppState(
         }
     }
 
-
-/* TODO
-    fun navigateToXXX(){
-
-    }
-*/
-
     // --------------
     // Bottom Navigation Bar
     // --------------
-    val bottomBarRoutes = TabRoutes.values(); // todo: change later
+    val bottomBarRoutes = TabRoutes.values();
 
     // Secure the current route is available and is in the bottom bar routes
     val shouldShowBottomBar: Boolean
