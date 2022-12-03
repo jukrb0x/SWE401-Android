@@ -36,7 +36,7 @@ fun NormalFloatingActionButton(
     onFabStateChange: (FabState) -> Unit,
 ) {
     val transition =
-        updateTransition(targetState = fabState, label = "multiFloatingState")
+        updateTransition(targetState = fabState, label = "FloatingState")
 
     val rotation by transition.animateFloat(label = "rotate") {
         fabRotateDegrees[it] ?: 0f

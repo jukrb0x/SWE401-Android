@@ -82,7 +82,7 @@ fun SharingWithYou() {
         item {
             Spacer(modifier = Modifier.height(1.dp))
         }
-        itemsIndexed(personShareDataList/* key = {person:PersonShareData-> person.id}*/) { index, person -> // TODO: index
+        itemsIndexed(personShareDataList/* key = {person:PersonShareData-> person.id}*/) { index, person ->
             Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
                 PersonCard(personShareData = person)
             }

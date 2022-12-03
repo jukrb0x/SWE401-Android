@@ -1,10 +1,7 @@
 package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -46,6 +43,35 @@ fun Modifier.customPosition(pos: CustomDialogPosition) = layout { measurable, co
 }
 
 // dialog background modifier
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DialogTopBar(onDismiss: () -> Unit, title: String, actions: @Composable () -> Unit = {}) {
+    CenterAlignedTopAppBar(
+        navigationIcon = {
+            IconButton(onClick = onDismiss) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Close $title"
+                )
+            }
+        },
+        title = {
+            Text(
+                text = title,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h6
+            )
+        },
+        actions = {
+            if (actions != {}) actions()
+        },
+    )
+}
+
+
 @Composable
 private fun DialogInternal(
     modifier: Modifier = Modifier,
@@ -82,68 +108,6 @@ fun FullScreenDialog(
                 exit = slideOutVertically() + shrinkVertically() + fadeOut()
 
             ) {
-                DialogInternal(onDismissRequest = onDismissRequest, properties = properties) {
-                    content()
-                }
-            }
-        } else {
-            DialogInternal(onDismissRequest = onDismissRequest, properties = properties) {
-                content()
-            }
-
-        }
-    }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DialogTopBar(onDismiss: () -> Unit, title: String, actions: @Composable () -> Unit = {}) {
-    CenterAlignedTopAppBar(
-        navigationIcon = {
-            IconButton(onClick = onDismiss) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = "Close $title"
-                )
-            }
-        },
-        title = {
-            Text(
-                text = title,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.h6
-            )
-        },
-        actions = {
-            if (actions != {}) actions()
-        },
-    )
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun CustomDialog(
-    modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit,
-    visibility: Boolean = true,
-    isAnimated: Boolean = false,
-    properties: DialogProperties = DialogProperties(
-        usePlatformDefaultWidth = false,
-        dismissOnClickOutside = true
-    ),
-    content: @Composable () -> Unit
-) {
-    if (visibility) {
-        if (isAnimated) {
-            AnimatedVisibility(
-                visible = true, enter = slideInVertically() + expandVertically(
-                    expandFrom = Alignment.Top
-                ) + fadeIn(initialAlpha = 0.3f),
-                exit = slideOutVertically() + shrinkVertically() + fadeOut()
-
-            ) {
                 DialogInternal(
                     onDismissRequest = onDismissRequest,
                     properties = properties,
@@ -160,6 +124,7 @@ fun CustomDialog(
             ) {
                 content()
             }
+
         }
     }
 }
@@ -198,22 +163,5 @@ fun DialogPreview() {
 fun DialogNoActionPreview() {
     FullScreenDialog(visibility = true, onDismissRequest = {}) {
         DialogTopBar(onDismiss = {}, title = "Profile")
-    }
-}
-
-@Composable
-@Preview
-fun CustomDialogPreview() {
-    CustomDialog(visibility = true, onDismissRequest = {}) {
-        Card(
-            modifier = Modifier
-                .width(300.dp)
-//                .alpha(ContentAlpha.medium),
-        ) {
-            Column() {
-                Text(text = "Hello")
-                TextField(value = "test", onValueChange = {})
-            }
-        }
     }
 }

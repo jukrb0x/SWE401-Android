@@ -48,42 +48,6 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
         AppScaffold(
             backgroundColor = MaterialTheme.colors.background, // todo: unify theme
             topBar = {
-//                TopAppBar(
-//                    navigationIcon = {
-//                        androidx.compose.material.IconButton(onClick = onDismiss) {
-//                            androidx.compose.material.Icon(
-//                                imageVector = Icons.Filled.Close,
-//                                contentDescription = "Close Profile"
-//                            )
-//                        }
-//                    },
-//                    title = {
-//                        androidx.compose.material.Text(
-//                            text = "Profile",
-//                            modifier = Modifier.fillMaxWidth(),
-//                            textAlign = TextAlign.Center,
-//                            style = MaterialTheme.typography.h6
-//                        )
-//                    },
-//                    actions = {
-//                        androidx.compose.material.IconButton(
-//                            onClick = { /* TODO */ },
-//                            enabled = /*resetEnabled*/false
-//                        ) {
-//                            val alpha = if (/*resetEnabled*/false) {
-//                                ContentAlpha.high
-//                            } else {
-//                                ContentAlpha.disabled
-//                            }
-//                            CompositionLocalProvider(LocalContentAlpha provides alpha) {
-//                                androidx.compose.material.Text(
-//                                    text = "Edit",
-//                                    style = MaterialTheme.typography.body2
-//                                )
-//                            }
-//                        }
-//                    },
-//                )
                 DialogTopBar(onDismiss = onDismiss, title = "Profile", actions = {
                     IconButton(
                         onClick = { /* TODO */ },

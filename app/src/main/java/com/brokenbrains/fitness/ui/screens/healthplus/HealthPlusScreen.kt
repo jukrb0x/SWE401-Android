@@ -71,7 +71,7 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
 }
 
 @Composable
-fun HealthInfoPage() { //media
+fun HealthInfoPage() { // media
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
@@ -88,7 +88,7 @@ fun HealthInfoPage() { //media
 }
 
 @Composable
-fun MedicalPage() {
+fun MedicalPage() { // doctor
         LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             item {
                 Spacer(modifier = Modifier.height(3.dp))

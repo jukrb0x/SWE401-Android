@@ -32,7 +32,7 @@ data class PersonShareData(
     val updateTime: String,
 )
 
-object Styles {
+private object Styles {
     val TitleStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold

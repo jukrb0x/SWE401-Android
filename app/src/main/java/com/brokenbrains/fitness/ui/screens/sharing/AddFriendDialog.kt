@@ -1,10 +1,10 @@
 package com.brokenbrains.fitness.ui.screens.sharing
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,30 +12,128 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.brokenbrains.fitness.ui.components.*
+import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.ui.components.FabState
+import com.brokenbrains.fitness.ui.components.NormalFloatingActionButton
+import com.brokenbrains.fitness.ui.components.isExpanded
+import com.brokenbrains.fitness.ui.components.modalsheet.ExperimentalSheetApi
+import com.brokenbrains.fitness.ui.components.modalsheet.ModalSheet
+import com.google.accompanist.flowlayout.FlowColumn
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.Settings
+import compose.icons.feathericons.Share2
 
 
+private val TitleStyle = TextStyle(
+    fontSize = 22.sp,
+    fontWeight = FontWeight(600),
+    fontFamily = FontFamily.Default
+
+)
+
+private val SubtitleStyle = TextStyle(
+    fontSize = 15.sp,
+    fontWeight = FontWeight(400),
+    color = Color.Gray,
+    fontFamily = FontFamily.Default
+)
+
+@OptIn(
+    ExperimentalSheetApi::class, ExperimentalMaterial3Api::class
+)
 @Composable
 fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
-    CustomDialog(
-        modifier = Modifier.customPosition(CustomDialogPosition.BOTTOM),
-        onDismissRequest = { onDismiss(!visibility) },
-        visibility = visibility
+    ModalSheet(
+        visible = visibility,
+        onVisibleChange = { onDismiss(it) },
+        shape = RoundedCornerShape(16.dp),
+        elevation = 16.dp,
     ) {
-        ElevatedCard(
+        var friendId by rememberSaveable { mutableStateOf("") }
+        Column(
             modifier = Modifier
-                .height(300.dp)
-                .fillMaxWidth()
-                .padding(16.dp),
-            elevation = CardDefaults.elevatedCardElevation(2.dp)
+                .padding(23.dp),
         ) {
-            Column() {
-                Text("ok")
-                Button(onClick = { onDismiss(!visibility) }) {
+            Row() {
+                FlowColumn() {
+                    Text("Share with Someone", style = TitleStyle)
+                    Text(text = "Your friend will see your fitness activity", style = SubtitleStyle)
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        modifier = Modifier.size(20.dp),
+                        imageVector = FeatherIcons.Settings,
+                        tint = Color.Gray,
+                        contentDescription = ""
+                    )
                 }
             }
+            Row(modifier = Modifier.padding(vertical = 8.dp)) {
+                OutlinedTextField(
+                    value = friendId.trim(),
+                    onValueChange = { friendId = it.trim() },
+                    placeholder = { Text("Enter friend's Fitness ID") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White),
+                    shape = RoundedCornerShape(13.dp),
+                    maxLines = 1
+                )
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                // avatar
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // avatar
+                    Surface(
+                        modifier = Modifier
+                            .size(65.dp)
+                            .padding(6.dp),
+                        shape = CircleShape,
+                        color = Color.LightGray
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "KH", fontSize = 18.sp)
+                        }
+                    }
+                    // my code
+                    Column(horizontalAlignment = Alignment.Start) {
+                        Text(
+                            "My Fitness ID",
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight(500),
+                                color = Color.Gray
+                            )
+                        )
+                        Text(
+                            "123456",
+                            style = TextStyle(
+                                fontSize = 17.sp,
+                                fontWeight = FontWeight(500),
+                                color = Color.Black
+                            )
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                // add button
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = "Start Sharing")
+                }
+            }
+        }
+
+        Box(modifier = Modifier.defaultMinSize(minHeight = 50.dp)) {
 
         }
     }
@@ -61,10 +159,10 @@ fun AddFriendFabScreen() {
 @Composable
 @Preview(showBackground = true)
 fun AddFriendDialogPreview() {
-    Row(
-        modifier = Modifier.fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+    Surface(
+//        modifier = Modifier.fillMaxSize(),
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.Center
     ) {
         AddFriendDialog(onDismiss = {}, visibility = true)
     }

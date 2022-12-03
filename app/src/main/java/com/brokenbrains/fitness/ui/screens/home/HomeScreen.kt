@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.*
+import com.brokenbrains.fitness.ui.screens.sharing.AddFriendDialog
 
 
 @Composable
@@ -25,6 +26,7 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
     fun handleTextChange(newText: String) {
         text = newText
     }
+
 
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
