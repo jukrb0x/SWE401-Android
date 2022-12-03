@@ -79,7 +79,7 @@ internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonSh
                 avatarSize = 60.dp,
                 nameInitials = getInitials(personShareData.name),
                 backgroundColor = bgColor,
-                isClickable = false
+                clickable = false
             )
             Spacer(modifier.width(8.dp))
 

@@ -38,7 +38,7 @@ fun Avatar(
 //    image: @Composable (() -> Unit)? = null, TODO
     shape: Shape = CircleShape,
     onClick: () -> Unit = {},
-    isClickable: Boolean = true,
+    clickable: Boolean = true,
 ) {
     Surface(
         modifier = modifier
@@ -49,7 +49,7 @@ fun Avatar(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .clickable(onClick = { onClick() }, enabled = isClickable),
+                .clickable(onClick = { onClick() }, enabled = clickable),
 
             contentAlignment = Alignment.Center
         ) {

@@ -18,10 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brokenbrains.fitness.ui.components.Avatar
-import com.brokenbrains.fitness.ui.components.FabState
-import com.brokenbrains.fitness.ui.components.NormalFloatingActionButton
-import com.brokenbrains.fitness.ui.components.isExpanded
+import com.brokenbrains.fitness.ui.components.*
 import com.brokenbrains.fitness.ui.components.modalsheet.ExperimentalSheetApi
 import com.brokenbrains.fitness.ui.components.modalsheet.ModalSheet
 import com.google.accompanist.flowlayout.FlowColumn
@@ -48,6 +45,80 @@ private val SubtitleStyle = TextStyle(
 )
 @Composable
 fun AddFriendModal(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
+    BottomModalSheet(
+        title = "Share with Someone",
+        subtitle ="Your friend will see your fitness activity" ,
+        actionButton = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    imageVector = FeatherIcons.Settings,
+                    tint = Color.Gray,
+                    contentDescription = ""
+                )
+            }
+        },
+        onDismiss = onDismiss,
+        visibility = visibility
+    ) {
+        var friendId by rememberSaveable { mutableStateOf("") } // todo: retrieve from AppState
+        Row(modifier = Modifier.padding(vertical = 8.dp)) {
+            OutlinedTextField(
+                value = friendId.trim(),
+                onValueChange = { friendId = it.trim() },
+                placeholder = { Text("Enter friend's Fitness ID") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White),
+                shape = RoundedCornerShape(13.dp),
+                maxLines = 1
+            )
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // avatar
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                // avatar
+                Avatar(
+                    modifier = Modifier.padding(10.dp),
+                    avatarSize = 50.dp,
+                    nameInitials = "KH",
+                    onClick = {})
+                // my code
+                Column(horizontalAlignment = Alignment.Start) {
+                    Text(
+                        "My Fitness ID",
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(500),
+                            color = Color.Gray
+                        )
+                    )
+                    Text(
+                        "123456",
+                        style = TextStyle(
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight(500),
+                            color = Color.Black
+                        )
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            // add button
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Start Sharing")
+            }
+        }
+
+    }
+
+}
+
+@OptIn(
+    ExperimentalSheetApi::class, ExperimentalMaterial3Api::class
+)
+@Composable
+fun dAddFriendModal(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
     ModalSheet(
         visible = visibility,
         onVisibleChange = { onDismiss(it) },
@@ -126,6 +197,8 @@ fun AddFriendModal(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
         Box(modifier = Modifier.defaultMinSize(minHeight = 50.dp)) // for bottom padding
     }
 }
+
+
 
 /**
  * Compose of Floating Action Button & Health Sharing - Add Friend Screen
