@@ -3,17 +3,10 @@ package com.brokenbrains.fitness.ui.components.modalsheet
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import com.brokenbrains.fitness.ui.components.modalsheet.ModalSheetDefaults.elevation
 
 /**
  * Modal sheet that behaves like bottom sheet and draws over system UI.

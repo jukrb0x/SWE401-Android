@@ -101,7 +101,7 @@ fun FitnessTheme(
     val sysUiController = rememberSystemUiController()
     SideEffect {
         sysUiController.setSystemBarsColor(
-            color =  Neutral0.copy(alpha = 0.3f) // TODO ok for now
+            color = Neutral0.copy(alpha = 0.3f) // TODO ok for now
         )
     }
 
@@ -286,8 +286,6 @@ class FitnessAppColors(
         isDark = isDark,
     )
 }
-
-
 
 
 private val AppLightColors = lightColorScheme(

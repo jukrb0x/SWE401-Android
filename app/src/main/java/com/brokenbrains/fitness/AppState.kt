@@ -10,7 +10,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 /**
@@ -74,7 +73,8 @@ class AppState(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes.map { it.route }
 
-    private val floatingActionRoutes = bottomBarRoutes.filter { it.route !== TabRoutes.HealthPlus.route }
+    private val floatingActionRoutes =
+        bottomBarRoutes.filter { it.route !== TabRoutes.HealthPlus.route }
     val shouldShowFloatingActionButton: Boolean
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination?.route in floatingActionRoutes.map { it.route }

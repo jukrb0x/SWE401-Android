@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +23,8 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
                 title = /*TabRoutes.Home.title*/ "Fitness",
-            )}
+            )
+        }
         LazyColumn(
             Modifier
                 .align(Alignment.CenterHorizontally)

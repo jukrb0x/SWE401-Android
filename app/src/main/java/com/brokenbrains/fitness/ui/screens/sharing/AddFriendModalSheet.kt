@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.components.*
 import com.brokenbrains.fitness.ui.theme.OceanGreen2
-import com.brokenbrains.fitness.ui.theme.OceanGreen3
-import com.brokenbrains.fitness.ui.theme.OceanGreen4
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Settings
 import compose.icons.feathericons.Users
@@ -125,7 +123,10 @@ fun SharingSettingsModal(
         onDismiss = onDismiss,
         visibility = visibility
     ) {
-        Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) { // TODO: use constraint layout here
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) { // TODO: use constraint layout here
             Icon(
                 modifier = Modifier.size(100.dp),
                 imageVector = FeatherIcons.Users,

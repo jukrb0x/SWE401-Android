@@ -1,11 +1,7 @@
 package com.brokenbrains.fitness.ui.components
 
-import android.graphics.drawable.Icon
-import android.support.v4.os.IResultReceiver.Default
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,19 +10,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.R
-import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
-import com.brokenbrains.fitness.ui.screens.sharing.PersonShareData
-import com.brokenbrains.fitness.ui.theme.FitnessTheme
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.HandHoldingHeart
 
 data class AlertCardData(
     val userID: Int,

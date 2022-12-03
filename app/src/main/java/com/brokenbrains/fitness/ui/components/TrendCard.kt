@@ -2,7 +2,8 @@ package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,10 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.theme.Shapes
 import compose.icons.FeatherIcons
-import compose.icons.FontAwesomeIcons
 import compose.icons.feathericons.ChevronRight
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.ChevronRight
 
 object Styles {
     val TitleStyle = TextStyle(
@@ -48,10 +46,11 @@ data class TrendCardData(
 @Composable
 fun TrendCard(data: TrendCardData, onClick: () -> Unit = {}) {
     ElevatedCard(
-        onClick = { onClick() }, modifier = Modifier
-            .fillMaxSize()/*.clickable(onClick = onClick)*/,
-        elevation = CardDefaults.elevatedCardElevation(2.dp)/*2.dp*/,
-        ) {
+        onClick = { onClick() },
+        modifier = Modifier
+            .fillMaxSize(),/*.clickable(onClick = onClick)*/
+        elevation = CardDefaults.elevatedCardElevation(2.dp),/*2.dp*/
+    ) {
         Column(modifier = Modifier.padding(13.dp)) {
             Row {
                 Text(text = data.title, style = Styles.TitleStyle)

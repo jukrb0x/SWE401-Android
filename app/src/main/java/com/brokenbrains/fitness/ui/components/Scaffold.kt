@@ -2,13 +2,12 @@ package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.*  // this is material 2
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import com.brokenbrains.fitness.ui.theme.Neutral0
 import com.brokenbrains.fitness.ui.theme.Neutral3
 import com.brokenbrains.fitness.ui.theme.Neutral8
 
@@ -19,7 +18,7 @@ object AppTheme {
         val uiBorder = Neutral3;
         val textSecondary = Neutral8;
     }
-    
+
 }
 
 

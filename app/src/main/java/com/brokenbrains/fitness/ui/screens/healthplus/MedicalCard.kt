@@ -2,7 +2,6 @@ package com.brokenbrains.fitness.ui.screens.healthplus
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
@@ -21,11 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
-import compose.icons.FeatherIcons
-import compose.icons.FontAwesomeIcons
-import compose.icons.feathericons.Star
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.Github
 
 data class DoctorCardData(
     val id: String,
@@ -314,19 +308,19 @@ val HospitalCardList: List<HospitalCardData> = listOf(
         address = "adsgaasgagadsgasdgadsgasdga",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.9"
-    ),HospitalCardData(
+    ), HospitalCardData(
         id = "2",
         name = "Bingchiling Hospital",
         address = "adsgaasgagadsgasdgadsgasdga",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.8"
-    ),HospitalCardData(
+    ), HospitalCardData(
         id = "3",
         name = "Quanjude Hospital",
         address = "adsgaasgagadsgasdgadsgasdga",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.7"
-    ),HospitalCardData(
+    ), HospitalCardData(
         id = "4",
         name = "Quanjude Hospital",
         address = "adsgaasgagadsgasdgadsgasdga",

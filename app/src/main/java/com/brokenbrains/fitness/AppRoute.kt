@@ -5,7 +5,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.brokenbrains.fitness.AppDestinations.MAIN_ROUTE
-import com.brokenbrains.fitness.AppDestinations.USER_ROUTE
 import compose.icons.FeatherIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.feathericons.List

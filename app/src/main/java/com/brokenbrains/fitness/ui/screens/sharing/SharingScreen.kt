@@ -3,28 +3,22 @@ package com.brokenbrains.fitness.ui.screens.sharing
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
-import com.brokenbrains.fitness.ui.theme.OceanGreen4
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.ChevronRight
-import compose.icons.feathericons.Users
 import kotlinx.coroutines.launch
 
 
