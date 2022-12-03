@@ -67,24 +67,18 @@ internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonSh
         )
     ) {
         Row(modifier = modifier.padding(10.dp)) {
-            // generate random light color
+            // generate random light color for avatar
             val bgColor = Color(
                 (0..255).random(),
                 (0..255).random(),
                 (0..255).random()
             ).copy(alpha = 0.5f)
-            // get name capital letters
-//            val nameParts = personShareData.name.split(" ")
-//            var name:String = nameParts[0][0].toString()
-//            if(nameParts.size>1) {
-//                name = "${nameParts[0][0]}${nameParts[1][0]}"
-//            }
 
             Avatar(
-                avatarSize=75.dp,
+                avatarSize = 75.dp,
                 nameInitials = getInitials(personShareData.name),
-                backgroundColor = bgColor
-
+                backgroundColor = bgColor,
+                isClickable = false
             )
 
             Spacer(modifier.width(8.dp))
