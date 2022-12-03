@@ -9,11 +9,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MainScreenColumn(
     modifier: Modifier = Modifier,
-    horizontalPadding: Dp = 16.dp,
+    horizontalPadding: Dp = /*16*/0.dp,
     verticalPadding: Dp = 0.dp,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Box(modifier.padding(horizontal = horizontalPadding)) {
+    Box(modifier.padding(horizontal = horizontalPadding, vertical = verticalPadding)) {
         Column(
             modifier = modifier.fillMaxSize(),
             content = content

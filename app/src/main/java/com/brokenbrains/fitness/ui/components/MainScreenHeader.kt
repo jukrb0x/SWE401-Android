@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.brokenbrains.fitness.ui.components
 
-//import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -74,44 +71,14 @@ fun MainScreenHeader(
                         .weight(1f) // fill the space
                 )
 
-                // avatar
-                Avatar(nameInitials = "KH", onClick = {onAvatarPressed(); profileVisibility = true})
-/*
-                Box(
-                    modifier
-                        .align(Alignment.CenterVertically)
-                        .clip(CircleShape)
-                        .background(Color.LightGray)
-                        .size(50.dp)
-                        .clickable {
-                            onAvatarPressed()
-                            profileVisibility = true // show dialog
-                        }
-                ) {
-                    Text(
-                        "KH",
-                        overflow = Ellipsis,
-                        modifier = modifier
-                            .align(Alignment.Center),
-                        style = TextStyle(fontSize = 20.sp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-*/
+                Avatar(
+                    nameInitials = "KH",
+                    onClick = { onAvatarPressed(); profileVisibility = true })
             }
         }
     }
 
-//    AnimatedVisibility(
-//        visible = profileVisibility, enter = slideInVertically() + expandVertically(
-//            expandFrom = Alignment.Top
-//        ) + fadeIn(initialAlpha = 0.3f),
-//        exit = slideOutVertically() + shrinkVertically() + fadeOut()
-//
-//    ) {
-        ProfileScreen(onDismiss = { profileVisibility = false }, visibility=profileVisibility)
-
-//    }
+    ProfileScreen(onDismiss = { profileVisibility = false }, visibility = profileVisibility)
 }
 
 @Composable

@@ -6,7 +6,9 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.brokenbrains.fitness.AppDestinations.MAIN_ROUTE
 import com.brokenbrains.fitness.AppDestinations.USER_ROUTE
+import compose.icons.FeatherIcons
 import compose.icons.FontAwesomeIcons
+import compose.icons.feathericons.List
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.HandHoldingHeart
 
@@ -26,7 +28,8 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
         "Health+",
         FontAwesomeIcons.Solid.HandHoldingHeart
     ),
-    Sharing("$MAIN_ROUTE/sharing", "Sharing", Icons.Filled.Share)
+    Sharing("$MAIN_ROUTE/sharing", "Sharing", Icons.Filled.Share),
+    Browse("$MAIN_ROUTE/browse", "Browse", FeatherIcons.List),
 }
 
 

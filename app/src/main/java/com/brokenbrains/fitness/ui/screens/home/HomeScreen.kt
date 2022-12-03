@@ -22,12 +22,6 @@ import com.brokenbrains.fitness.ui.screens.sharing.AddFriendDialog
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun HomeScreen(navigateTo: (route: String) -> Unit) {
-    var text by remember { mutableStateOf("test") }
-    fun handleTextChange(newText: String) {
-        text = newText
-    }
-
-
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(

@@ -16,6 +16,8 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
+import com.brokenbrains.fitness.ui.screens.ProfileScreen
+import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
@@ -86,6 +88,9 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         }
         composable(TabRoutes.Sharing.route) { from ->
             SharingScreen(navigateTo = { route -> navigateTo(route, from) })
+        }
+        composable(TabRoutes.Browse.route) { from ->
+            BrowseScreen(navigateTo = { route -> navigateTo(route, from) })
         }
     }
 
