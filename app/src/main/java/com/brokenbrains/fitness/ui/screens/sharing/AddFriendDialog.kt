@@ -2,7 +2,6 @@ package com.brokenbrains.fitness.ui.screens.sharing
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.ui.components.Avatar
 import com.brokenbrains.fitness.ui.components.FabState
 import com.brokenbrains.fitness.ui.components.NormalFloatingActionButton
 import com.brokenbrains.fitness.ui.components.isExpanded
@@ -27,7 +27,6 @@ import com.brokenbrains.fitness.ui.components.modalsheet.ModalSheet
 import com.google.accompanist.flowlayout.FlowColumn
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Settings
-import compose.icons.feathericons.Share2
 
 
 private val TitleStyle = TextStyle(
@@ -52,10 +51,10 @@ fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
     ModalSheet(
         visible = visibility,
         onVisibleChange = { onDismiss(it) },
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         elevation = 16.dp,
     ) {
-        var friendId by rememberSaveable { mutableStateOf("") }
+        var friendId by rememberSaveable { mutableStateOf("") } // todo: retrieve from AppState
         Column(
             modifier = Modifier
                 .padding(23.dp),
@@ -91,20 +90,7 @@ fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
                 // avatar
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // avatar
-                    Surface(
-                        modifier = Modifier
-                            .size(65.dp)
-                            .padding(6.dp),
-                        shape = CircleShape,
-                        color = Color.LightGray
-                    ) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "KH", fontSize = 18.sp)
-                        }
-                    }
+                    Avatar(modifier = Modifier.padding(8.dp), avatarSize = 65.dp, nameInitials = "KH", onClick = {})
                     // my code
                     Column(horizontalAlignment = Alignment.Start) {
                         Text(
@@ -133,9 +119,7 @@ fun AddFriendDialog(onDismiss: (Boolean) -> Unit, visibility: Boolean) {
             }
         }
 
-        Box(modifier = Modifier.defaultMinSize(minHeight = 50.dp)) {
-
-        }
+        Box(modifier = Modifier.defaultMinSize(minHeight = 50.dp)) // for bottom padding
     }
 }
 

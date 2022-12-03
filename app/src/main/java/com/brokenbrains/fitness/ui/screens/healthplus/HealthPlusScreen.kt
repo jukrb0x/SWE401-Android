@@ -3,8 +3,6 @@ package com.brokenbrains.fitness.ui.screens.healthplus
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -88,20 +86,21 @@ fun HealthInfoPage() { // media
 }
 
 @Composable
+@Preview
 fun MedicalPage() { // doctor
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            item {
-                Spacer(modifier = Modifier.height(3.dp))
-            }
-            itemsIndexed(DoctorCardList) { index, doctorCardItem ->
-                Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
-                    DoctorCard(doctorCardData = doctorCardItem)
-                }
-            }
-            item {
-                Spacer(modifier = Modifier.height(3.dp))
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        item {
+            Spacer(modifier = Modifier.height(3.dp))
+        }
+        itemsIndexed(DoctorCardList) { index, doctorCardItem ->
+            Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
+                DoctorCard(doctorCardData = doctorCardItem)
             }
         }
+        item {
+            Spacer(modifier = Modifier.height(3.dp))
+        }
+    }
 }
 
 @Composable

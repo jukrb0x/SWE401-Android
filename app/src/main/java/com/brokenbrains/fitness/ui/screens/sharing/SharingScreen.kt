@@ -18,7 +18,6 @@ import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendDialog
-import com.brokenbrains.fitness.ui.screens.sharing.PersonCard
 import com.brokenbrains.fitness.ui.screens.sharing.PersonShareData
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager

@@ -1,10 +1,6 @@
 package com.brokenbrains.fitness.ui.screens.sharing
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +11,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.ui.components.Avatar
+import com.brokenbrains.fitness.ui.components.getInitials
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.AlertStyle
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.LatestUpdateStyle
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.TimeStyle
@@ -58,7 +56,7 @@ private object Styles {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
+internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.elevatedCardElevation(4.dp),
@@ -69,44 +67,25 @@ fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) 
         )
     ) {
         Row(modifier = modifier.padding(10.dp)) {
-            // avatar
-            Surface(
-                shape = CircleShape,
-                modifier = modifier
-                    .size(75.dp)
-                    .align(Alignment.CenterVertically)
-                    .padding(5.dp)
-            ) {
-                // generate random light color
-                // TODO: remove this out (recomposing)
-                val bgColor = Color(
-                    (0..255).random(),
-                    (0..255).random(),
-                    (0..255).random()
-                ).copy(alpha = 0.5f)
+            // generate random light color
+            val bgColor = Color(
+                (0..255).random(),
+                (0..255).random(),
+                (0..255).random()
+            ).copy(alpha = 0.5f)
+            // get name capital letters
+//            val nameParts = personShareData.name.split(" ")
+//            var name:String = nameParts[0][0].toString()
+//            if(nameParts.size>1) {
+//                name = "${nameParts[0][0]}${nameParts[1][0]}"
+//            }
 
-                Box(
-                    modifier
-                        .fillMaxSize()
-                        .background(/*Color.LightGray*/bgColor),
-                    contentAlignment = Alignment.Center
-                ) {
-                    // TODO: use avatar if avatar exists
-                    val nameParts = personShareData.name.split(" ")
-                    var name:String = nameParts[0][0].toString()
-                    if(nameParts.size>1) {
-                        name = "${nameParts[0][0]}${nameParts[1][0]}"
-                    }
-                    Text(
-                        text = name,
-                        modifier = modifier.align(Alignment.Center),
-                        style = TextStyle(
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight(700),
-                        )
-                    )
-                }
-            }
+            Avatar(
+                avatarSize=75.dp,
+                nameInitials = getInitials(personShareData.name),
+                backgroundColor = bgColor
+
+            )
 
             Spacer(modifier.width(8.dp))
 
