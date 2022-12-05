@@ -4,6 +4,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -63,7 +71,13 @@ fun RegisterScreen() {
                 label = { Text("First Name") },
                 modifier = Modifier
                     .padding(top = 20.dp),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                }
             )
 
             //Last Name TextFiled
@@ -74,7 +88,13 @@ fun RegisterScreen() {
                 label = { Text("Last Name") },
                 modifier = Modifier
                     .padding(top = 10.dp),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                }
             )
 
             //Email TextFiled
@@ -85,7 +105,13 @@ fun RegisterScreen() {
                 label = { Text("Email") },
                 modifier = Modifier
                     .padding(top = 10.dp),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                }
             )
 
             //Password TextFiled
@@ -96,7 +122,13 @@ fun RegisterScreen() {
                 label = { Text("Password") },
                 modifier = Modifier
                     .padding(top = 10.dp),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null
+                    )
+                }
             )
 
             //Sign Up Button
