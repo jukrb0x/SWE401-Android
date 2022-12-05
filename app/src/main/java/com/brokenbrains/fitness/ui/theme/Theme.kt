@@ -87,7 +87,7 @@ fun FitnessTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> /*DarkColorScheme*/ AppDarkColors
+        darkTheme -> /*DarkColorScheme*/ /*AppDarkColors*/AppLightColors // todo: adapt dark theme
         else -> /*LightColorScheme*/ AppLightColors
     }
     val view = LocalView.current

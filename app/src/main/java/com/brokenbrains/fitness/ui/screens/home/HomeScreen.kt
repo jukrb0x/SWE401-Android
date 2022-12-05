@@ -14,7 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.ui.components.*
+import com.brokenbrains.fitness.ui.screens.home.ElevatedMedicationNotificationCard
+import com.brokenbrains.fitness.ui.screens.home.MedNotificationData
 
+var fakeMedNotificationData = MedNotificationData(
+    title = "Time to take medication",
+    subtitle = "You have 2 pills of Bohan left",
+    overline = "Today at 12:00 PM",
+)
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,26 +29,31 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
-                title = /*TabRoutes.Home.title*/ "Fitness",
+                title = "Fitness",
             )
         }
+
         LazyColumn(
             Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(horizontal = MainScreenHorizontalPaddingValue)
                 .fillMaxWidth(),
-//            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             item {
-                Text("display quick facts about your health") // TODO
+                Text("TODO display quick facts about your health") // TODO
                 Spacer(modifier = Modifier.height(10.dp))
+                ElevatedMedicationNotificationCard(
+                    modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
+                    data = fakeMedNotificationData,
+                    onClick = {}
+                )
             }
 
             itemsIndexed(fakeData) { index, item ->
                 TrendCard(
-                    data = item
+                    data = item,
+                    modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
                 )
             }
 

@@ -44,12 +44,23 @@ data class TrendCardData(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrendCard(data: TrendCardData, onClick: () -> Unit = {}) {
+fun TrendCard(
+    modifier: Modifier = Modifier,
+    data: TrendCardData,
+    onClick: () -> Unit = {},
+    elevation: Int = 1
+) {
+
     ElevatedCard(
         onClick = { onClick() },
-        modifier = Modifier
-            .fillMaxSize(),/*.clickable(onClick = onClick)*/
-        elevation = CardDefaults.elevatedCardElevation(2.dp),/*2.dp*/
+        modifier = modifier
+            .fillMaxSize(),
+        elevation = CardDefaults.elevatedCardElevation(elevation.dp, (elevation + 2).dp),
+//        colors = CardDefaults.elevatedCardColors( // TODO awful colors
+//            containerColor = Neutral1,
+//            contentColor = Color.Black
+//        )
+
     ) {
         Column(modifier = Modifier.padding(13.dp)) {
             Row {
@@ -71,7 +82,10 @@ fun TrendCard(data: TrendCardData, onClick: () -> Unit = {}) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(verticalArrangement = Arrangement.Center) {
-                    Row(modifier = Modifier.width(100.dp), verticalAlignment = Alignment.Bottom) {
+                    Row(
+                        modifier = Modifier.width(100.dp),
+                        verticalAlignment = Alignment.Bottom
+                    ) {
                         Text(
                             text = "100",
                             style = TextStyle(fontSize = 23.sp, fontWeight = FontWeight.Bold)
@@ -133,5 +147,5 @@ fun TrendCardPreview() {
         title = "Weight",
         subtitle = "Last 7 days"
     )
-    TrendCard(fakeData)
+    TrendCard(data = fakeData)
 }

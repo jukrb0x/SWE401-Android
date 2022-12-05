@@ -32,10 +32,14 @@ val YaleBlue2 = Color(0xFF168AAD)
 val YaleBlue1 = Color(0xFF34A0A4)
 
 val OceanGreen1 = Color(0xFF52B69A)
-val OceanGreen2 = Color(0xFF76C893)
+val OceanGreen2 = Color(0xFF76C893) // good green
 val OceanGreen3 = Color(0xFF99D98C)
 val OceanGreen4 = Color(0xFFB5E48C)
-val OceanGreen5 = Color(0xFFD9ED92)
+val OceanGreen5 = Color(0xFFD9ED92) // warning
+
+
+val warning_yellow = OceanGreen5
+val good_green = OceanGreen2
 
 
 // generated on material theme builder
