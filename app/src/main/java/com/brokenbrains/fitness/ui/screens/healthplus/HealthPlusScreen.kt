@@ -104,7 +104,7 @@ fun MedicalPage() { // doctor
 }
 
 @Composable
-fun HospitalPage() {
+fun HospitalPage() { // hospital
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
