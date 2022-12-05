@@ -64,6 +64,7 @@ class AppState(
     }
 
     fun login() {
+        // todo: add login logics
         // navigate to home, and clear the back stack
         navController.navigate(AppDestinations.MAIN_ROUTE) {
             popUpTo(0) { // pop up to the first destination in the graph
@@ -73,6 +74,7 @@ class AppState(
     }
 
     fun logout() {
+        // todo: add logout logic
         navController.navigate(UserRoutes.Login.route) {
             popUpTo(/*findStartDestination(navController.graph).id*/0) {
                 saveState = true

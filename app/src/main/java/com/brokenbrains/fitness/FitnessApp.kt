@@ -1,5 +1,6 @@
 package com.brokenbrains.fitness
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -35,8 +36,7 @@ fun FitnessApp() {
     val appState = rememberAppState()
 
     FitnessTheme {
-        AppScaffold(
-            backgroundColor = Color.White.copy(alpha = 0.0f), // not really working
+        AppScaffold(backgroundColor = Color.White.copy(alpha = 0.0f), // not really working
             bottomBar = {
                 if (appState.shouldShowBottomBar) {
                     AppBottomBar(
@@ -45,16 +45,14 @@ fun FitnessApp() {
                         tabRoutes = appState.bottomBarRoutes
                     )
                 }
-            },
-            floatingActionButton = {
+            }, floatingActionButton = {
                 if (appState.shouldShowFloatingActionButton) {
                     when (appState.currentRoute) {
                         TabRoutes.Home.route -> AddHealthDataFab()
                         TabRoutes.Sharing.route -> AddFriendFabScreen(navigateTo = appState.navController::navigate)
                     }
                 }
-            }
-        ) { innerPadding ->
+            }) { innerPadding ->
             Column() {
                 AnimatedNavHost(
                     navController = appState.navController,
@@ -79,8 +77,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
 ) {
     // main route for tabs
     navigation(
-        route = AppDestinations.MAIN_ROUTE,
-        startDestination = TabRoutes.Home.route
+        route = AppDestinations.MAIN_ROUTE, startDestination = TabRoutes.Home.route
     ) {
         composable(TabRoutes.Home.route) { from ->
             HomeScreen(navigateTo = { route -> navigateTo(route, from) })
@@ -98,8 +95,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
 
     // user related routes
     navigation(
-        route = AppDestinations.USER_ROUTE,
-        startDestination = UserRoutes.Login.route
+        route = AppDestinations.USER_ROUTE, startDestination = UserRoutes.Login.route
     ) {
         // login and logout
         composable(AppDestinations.LOGIN_ROUTE) { from ->
@@ -121,55 +117,75 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
 
     // browse items
     navigation(
-        route = AppDestinations.BROWSE_ROUTE,
-        startDestination = TabRoutes.Browse.route
+        route = AppDestinations.BROWSE_ROUTE, startDestination = TabRoutes.Browse.route
     ) {
-        composable(BrowseRoutes.Activity.route) { from ->
+        // todo: too nested....
+        composable(BrowseRoutes.Activity.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Start
+                )
+            },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
             BrowseDetails(
-                title = BrowseRoutes.Activity.title,
-                navigateTo = navTo,
-                onBack = upPress
+                title = BrowseRoutes.Activity.title, navigateTo = navTo, onBack = upPress
             ) {
                 ActivityDetails(navigateTo = navTo, onBack = upPress)
             }
         }
-        composable(BrowseRoutes.Measurements.route) { from ->
+        composable(BrowseRoutes.Measurements.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Start
+                )
+            },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
             BrowseDetails(
-                title = BrowseRoutes.Measurements.title,
-                navigateTo = navTo,
-                onBack = upPress
+                title = BrowseRoutes.Measurements.title, navigateTo = navTo, onBack = upPress
             ) {
                 MeasurementsDetails(navigateTo = navTo, onBack = upPress)
             }
         }
-        composable(BrowseRoutes.Vitals.route) { from ->
+        composable(BrowseRoutes.Vitals.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Start
+                )
+            },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
             BrowseDetails(
-                title = BrowseRoutes.Vitals.title,
-                navigateTo = navTo,
-                onBack = upPress
+                title = BrowseRoutes.Vitals.title, navigateTo = navTo, onBack = upPress
             ) {
                 VitalsDetails(navigateTo = navTo, onBack = upPress)
             }
         }
-        composable(BrowseRoutes.Sleep.route) { from ->
+        composable(BrowseRoutes.Sleep.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Start
+                )
+            },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
             BrowseDetails(
-                title = BrowseRoutes.Sleep.title,
-                navigateTo = navTo,
-                onBack = upPress
+                title = BrowseRoutes.Sleep.title, navigateTo = navTo, onBack = upPress
             ) {
                 SleepDetails(navigateTo = navTo, onBack = upPress)
             }
         }
-        composable(BrowseRoutes.Medication.route) { from ->
+        composable(BrowseRoutes.Medication.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Start
+                )
+            },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
             BrowseDetails(
-                title = BrowseRoutes.Medication.title,
-                navigateTo = navTo,
-                onBack = upPress
+                title = BrowseRoutes.Medication.title, navigateTo = navTo, onBack = upPress
             ) {
                 MedicationDetails(navigateTo = navTo, onBack = upPress)
             }
