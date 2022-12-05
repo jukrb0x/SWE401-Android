@@ -80,7 +80,7 @@ fun ElevatedMedicationNotificationCard(
 ) {
     ElevatedCard(
         modifier = modifier,
-        elevation = CardDefaults.elevatedCardElevation(elevation.dp),
+        elevation = CardDefaults.elevatedCardElevation(elevation.dp, (elevation+2).dp),
     ) {
         MedicationNotificationCard(
             data = fakeMedNotificationData,

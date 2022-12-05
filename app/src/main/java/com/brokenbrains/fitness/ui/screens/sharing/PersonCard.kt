@@ -54,13 +54,17 @@ private object Styles {
     )
 }
 
+fun navigateToPerson(id: String) {
+    // todo
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonShareData) {
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
-//        elevation = CardDefaults.elevatedCardElevation(2.dp),
-        onClick = { /*TODO*/ },
+        elevation = CardDefaults.elevatedCardElevation(1.dp, 2.dp),
+        onClick = { navigateToPerson(personShareData.id) },
         colors = CardDefaults.elevatedCardColors( // TODO awful colors
             containerColor = Color/*(0XFFEDF6F9)*/.White,
             contentColor = Color.Black
@@ -79,7 +83,8 @@ internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonSh
                 avatarSize = 60.dp,
                 nameInitials = getInitials(personShareData.name),
                 backgroundColor = bgColor,
-                clickable = false
+                clickable = true,
+                onClick = { navigateToPerson(personShareData.id) }
             )
             Spacer(modifier.width(8.dp))
 
