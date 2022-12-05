@@ -71,4 +71,6 @@ val TitleBarSubtitleStyle = TextStyle(
     fontFamily = FontFamily.Default
 )
 
+var ColumnListSectionTitleStyle = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold)
+
 // TODO: font family we like

@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
@@ -16,7 +17,7 @@ fun VitalsDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
         modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
     ) {
         item {
-            BrowseDetailsSectionTitle(title = "DATA")
+            ColumnListSectionTitle(title = "DATA")
             TrendCard(
                 data = TrendCardData(
                     title = "Heart Rate",

@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -162,7 +161,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
                 navigateTo = navTo,
                 onBack = upPress
             ) {
-                Text("Sleep")
+                SleepDetails(navigateTo = navTo, onBack = upPress)
             }
         }
         composable(BrowseRoutes.Medication.route) { from ->
@@ -172,7 +171,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
                 navigateTo = navTo,
                 onBack = upPress
             ) {
-                Text("Medication")
+                MedicationDetails(navigateTo = navTo, onBack = upPress)
             }
         }
     }

@@ -38,11 +38,10 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
             Modifier
                 .align(Alignment.CenterHorizontally)
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             item {
-                Text("TODO display quick facts about your health") // TODO
+                Text("TODO: daily chart - calories, steps, exercise minutes") // TODO
                 Spacer(modifier = Modifier.height(10.dp))
                 ElevatedMedicationNotificationCard(
                     modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
@@ -51,6 +50,14 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
                 )
             }
 
+            item {
+                Box(
+                    modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
+                ) {
+                    ColumnListSectionTitle(title = "TRENDS")
+
+                }
+            }
             itemsIndexed(fakeData) { index, item ->
                 TrendCard(
                     data = item,

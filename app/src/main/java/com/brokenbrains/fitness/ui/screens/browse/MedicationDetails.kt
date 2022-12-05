@@ -11,28 +11,26 @@ import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
 
-
 @Composable
-fun MeasurementsDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+fun MedicationDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
     ) {
         item {
-            ColumnListSectionTitle(title = "DATA")
+            ColumnListSectionTitle(title = "TRACKING")
             TrendCard(
                 data = TrendCardData(
-                    title = "Weight",
+                    title = "XXXX",
                     subtitle = "Sep 13 - Dec 5"
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
                 data = TrendCardData(
-                    title = "Height",
+                    title = "CCCC",
                     subtitle = "Sep 13 - Dec 5"
                 )
             )
         }
-
     }
 }

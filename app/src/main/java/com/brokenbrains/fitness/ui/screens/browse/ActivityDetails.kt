@@ -11,21 +11,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
-import com.brokenbrains.fitness.ui.components.TrendCard
-import com.brokenbrains.fitness.ui.components.TrendCardData
+import com.brokenbrains.fitness.ui.components.*
+import com.brokenbrains.fitness.ui.theme.ColumnListSectionTitleStyle
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
-var DetailsSectionTitle = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold)
 
-@Composable
-fun BrowseDetailsSectionTitle(title: String) {
-    Text(
-        text = title,
-        style = DetailsSectionTitle,
-        modifier = Modifier.padding(5.dp)
-    )
-}
 
 @Composable
 fun ActivityDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
@@ -33,7 +23,13 @@ fun ActivityDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
         modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
     ) {
         item {
-            BrowseDetailsSectionTitle(title = "INSIGHTS")
+            ColumnListSectionTitle(title = "INSIGHTS")
+            TrendCard(
+                data = TrendCardData(
+                    title = "Move",
+                    subtitle = "Last 7 days"
+                )
+            )
             TrendCard(
                 data = TrendCardData(
                     title = "Weight",
