@@ -23,12 +23,12 @@ import compose.icons.feathericons.ChevronRight
 
 object Styles {
     val TitleStyle = TextStyle(
-        fontSize = 18.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         letterSpacing = 0.15.sp
     )
     val SubtitleStyle = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Normal,
         color = Color.Gray,
         letterSpacing = 0.8.sp
@@ -88,7 +88,7 @@ fun TrendCard(
                     ) {
                         Text(
                             text = "100",
-                            style = TextStyle(fontSize = 23.sp, fontWeight = FontWeight.Bold)
+                            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         )
                         Text(
                             text = "kg",
