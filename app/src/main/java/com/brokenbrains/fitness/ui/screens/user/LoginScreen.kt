@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens
+package com.brokenbrains.fitness.ui.screens.user
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,16 +19,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brokenbrains.fitness.ui.components.Avatar
+import com.brokenbrains.fitness.AppDestinations
+import com.brokenbrains.fitness.ui.components.FitnessIcon
+import com.brokenbrains.fitness.ui.theme.YaleBlue3
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navigateTo: (String) -> Unit) {
     //TODO: Add background image or theme
     Box(Modifier.fillMaxSize()) {
 
@@ -51,15 +51,19 @@ fun LoginScreen() {
             )
 
 */
-            Avatar(avatarSize = 100.dp, modifier = Modifier.padding(top = 40.dp))
+//            Avatar(avatarSize = 100.dp, modifier = Modifier.padding(top = 40.dp))
+
+            FitnessIcon(iconSize = 100.dp, modifier = Modifier.padding(top = 40.dp), backgroundColor = YaleBlue3)
 
 
             Text(
-                text = "Sign In",
+                text = "Fitness",
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFFAAA5A5)
+                color = YaleBlue3
             )
+
+            Text("Login before exploring", color = Color(0xFFAAA5A5), fontSize = 16.sp)
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -98,9 +102,9 @@ fun LoginScreen() {
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            //Login Button
+            // Login Button
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navigateTo(AppDestinations.LOGIN_ROUTE) },
                 modifier = Modifier
                     .padding(top = 30.dp)
                     .size(180.dp, 50.dp)

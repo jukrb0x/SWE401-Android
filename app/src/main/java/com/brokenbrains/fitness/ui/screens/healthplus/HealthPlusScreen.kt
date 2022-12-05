@@ -39,7 +39,7 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
-                title = TabRoutes.HealthPlus.title,
+                title = TabRoutes.HealthPlus.title, navigateTo = navigateTo
             )
         }
         Column(modifier = Modifier.fillMaxWidth()) {

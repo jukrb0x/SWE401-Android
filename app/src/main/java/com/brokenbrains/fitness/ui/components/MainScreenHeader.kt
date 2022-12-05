@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.brokenbrains.fitness.ui.screens.ProfileScreen
+import com.brokenbrains.fitness.ui.screens.user.ProfileScreen
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
 import com.brokenbrains.fitness.ui.theme.TitleBarSubtitleStyle
 
@@ -27,6 +27,7 @@ fun MainScreenHeader(
     title: String,
     subtitle: String = "",
     onAvatarPressed: () -> Unit = {},
+    navigateTo: (String) -> Unit,
 ) {
     var profileVisibility by remember { mutableStateOf(false) }
 
@@ -77,7 +78,7 @@ fun MainScreenHeader(
         }
     }
 
-    ProfileScreen(onDismiss = { profileVisibility = false }, visibility = profileVisibility)
+    ProfileScreen(onDismiss = { profileVisibility = false }, visibility = profileVisibility, navigateTo = navigateTo )
 }
 
 @Composable
@@ -100,11 +101,11 @@ private fun ScrolledHeader() {
 @Preview(showBackground = true)
 @Composable
 private fun HeaderRowPreview() {
-    MainScreenHeader(title = "Title")
+    MainScreenHeader(title = "Title", navigateTo = {})
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun HeaderRowPreview2() {
-    MainScreenHeader(title = "Title", subtitle = "subtitle")
+    MainScreenHeader(title = "Title", subtitle = "subtitle", navigateTo = {})
 }

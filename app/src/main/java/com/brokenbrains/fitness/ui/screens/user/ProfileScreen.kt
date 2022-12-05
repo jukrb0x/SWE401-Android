@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens
+package com.brokenbrains.fitness.ui.screens.user
 
 
 import androidx.compose.foundation.background
@@ -24,17 +24,20 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.R
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.components.Avatar
 import com.brokenbrains.fitness.ui.components.DialogTopBar
 import com.brokenbrains.fitness.ui.components.FullScreenDialog
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.LogIn
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
+fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false, navigateTo: (String) -> Unit) {
     //TODO: Add background image or theme
     //TODO: Try to figure out hardcoded padding of textfield
     val image = painterResource(id = R.drawable.ic_account)
@@ -51,8 +54,8 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
             topBar = {
                 DialogTopBar(onDismiss = onDismiss, title = "Profile", actions = {
                     IconButton(
-                        onClick = { /* TODO */ },
-                        enabled = /*resetEnabled*/false
+                        onClick = { navigateTo(AppDestinations.LOGOUT_ROUTE) },
+                        enabled = /*resetEnabled*/true
                     ) {
                         val alpha = if (/*resetEnabled*/false) {
                             ContentAlpha.high
@@ -60,10 +63,14 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
                             ContentAlpha.disabled
                         }
                         CompositionLocalProvider(LocalContentAlpha provides alpha) {
-                            Text(
-                                text = "Edit",
-                                style = MaterialTheme.typography.body2
+                            Icon(
+                                imageVector = FeatherIcons.LogIn,
+                                contentDescription = "Log out"
                             )
+//                            Text(
+//                                text = "Logout",
+//                                style = MaterialTheme.typography.body2,
+//                            )
                         }
                     }
                 })
@@ -157,7 +164,6 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
                         )
                     }
 
-                    //Edit Button
                     Button(
                         onClick = { /* Do something! */ },
                         modifier = Modifier.padding(top = 5.dp)
@@ -224,5 +230,5 @@ fun ProfileComponent(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    ProfileScreen(onDismiss = {})
+    ProfileScreen(onDismiss = {}, navigateTo = {})
 }

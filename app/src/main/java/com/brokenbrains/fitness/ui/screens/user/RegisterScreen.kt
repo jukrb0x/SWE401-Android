@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens
+package com.brokenbrains.fitness.ui.screens.user
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState

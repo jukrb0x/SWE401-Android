@@ -63,6 +63,24 @@ class AppState(
         }
     }
 
+    fun login() {
+        // navigate to home, and clear the back stack
+        navController.navigate(AppDestinations.MAIN_ROUTE) {
+            popUpTo(0) { // pop up to the first destination in the graph
+                saveState = true
+            }
+        }
+    }
+
+    fun logout() {
+        navController.navigate(UserRoutes.Login.route) {
+            popUpTo(/*findStartDestination(navController.graph).id*/0) {
+                saveState = true
+            }
+        }
+
+    }
+
     // --------------
     // Bottom Navigation Bar
     // --------------

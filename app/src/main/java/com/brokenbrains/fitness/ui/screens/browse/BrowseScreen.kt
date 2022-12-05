@@ -43,7 +43,7 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
-                title = TabRoutes.Browse.title,
+                title = TabRoutes.Browse.title, navigateTo = navigateTo
             )
         }
         Column(modifier = Modifier.fillMaxWidth()) {

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.brokenbrains.fitness.AppDestinations.MAIN_ROUTE
+import com.brokenbrains.fitness.AppDestinations.USER_ROUTE
 import compose.icons.FeatherIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.feathericons.List
@@ -18,6 +19,8 @@ import compose.icons.fontawesomeicons.solid.HandHoldingHeart
 object AppDestinations {
     const val MAIN_ROUTE = "main"
     const val USER_ROUTE = "user"
+    const val LOGOUT_ROUTE = "logout"
+    const val LOGIN_ROUTE = "login"
 }
 
 enum class TabRoutes(val route: String, val title: String, val icon: ImageVector) {
@@ -33,7 +36,7 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
 
 
 enum class UserRoutes(val route: String, val title: String) {
-//    Profile("$USER_ROUTE/profile", "Profile"),
-//    Settings("$USER_ROUTE/settings", "Settings")
+    Login("$USER_ROUTE/login", "Login"),
+    Register("$USER_ROUTE/register", "Register")
 //    ShareSettings("$USER_ROUTE/share_settings", "Share Settings")
 }

@@ -58,7 +58,7 @@ fun DialogTopBar(onDismiss: () -> Unit, title: String, actions: @Composable () -
         title = {
             Text(
                 text = title,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier/*.fillMaxWidth()*/,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h6
             )

@@ -16,6 +16,8 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
+import com.brokenbrains.fitness.ui.screens.user.LoginScreen
+import com.brokenbrains.fitness.ui.screens.user.RegisterScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
@@ -56,13 +58,13 @@ fun FitnessApp() {
             Column() {
                 AnimatedNavHost(
                     navController = appState.navController,
-                    startDestination = AppDestinations.MAIN_ROUTE,
+                    startDestination = AppDestinations.USER_ROUTE,
                     modifier = Modifier.padding(innerPadding),
                     // turn off animated transition of navigation
                     enterTransition = { fadeIn(animationSpec = tween(1)) },
                     exitTransition = { fadeOut(animationSpec = tween(1)) },
                 ) {
-                    appNavGraph(navigateTo = appState::navigateTo, appState::upPress)
+                    appNavGraph(navigateTo = appState::navigateTo, appState::upPress, appState)
                 }
             }
         }
@@ -72,7 +74,8 @@ fun FitnessApp() {
 @OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.appNavGraph( // custom name..
     navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
-    upPress: () -> Unit
+    upPress: () -> Unit,
+    appState: AppState
 ) {
     // main route for tabs
     navigation(
@@ -94,12 +97,25 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     }
 
     // user related routes
-//    navigation(
-//        route = AppDestinations.USER_ROUTE,
-//        startDestination = UserRoutes.ShareSettings.route
-//    ) {
-//        composable(UserRoutes.ShareSettings.route) { from ->
-////            ShareManageModal(onDismiss = upPress, visibility = true)
-//        }
-//    }
+    navigation(
+        route = AppDestinations.USER_ROUTE,
+        startDestination = UserRoutes.Login.route
+    ) {
+        // login and logout
+        composable(AppDestinations.LOGIN_ROUTE) { from ->
+            appState.login()
+//            LoginScreen(navigateTo = { route -> navigateTo(route, from) })
+        }
+        composable(AppDestinations.LOGOUT_ROUTE) { from ->
+            appState.logout()
+        }
+
+        composable(UserRoutes.Login.route){from->
+            LoginScreen(navigateTo = {route -> navigateTo(route, from) })
+        }
+        composable(UserRoutes.Register.route) { from ->
+            RegisterScreen()
+        }
+
+    }
 }

@@ -30,6 +30,7 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
                 title = "Fitness",
+                navigateTo = navigateTo,
             )
         }
 

@@ -39,7 +39,7 @@ fun SharingScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
-                title = TabRoutes.Sharing.title,
+                title = TabRoutes.Sharing.title, navigateTo = navigateTo
             )
         }
         Column(modifier = Modifier.fillMaxWidth()) {
