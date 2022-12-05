@@ -25,13 +25,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.ui.components.Avatar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navigateTo: (String) -> Unit) {
     //TODO: Add background image or theme
     Box() {
 
@@ -133,7 +134,7 @@ fun RegisterScreen() {
 
             //Sign Up Button
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navigateTo(AppDestinations.LOGIN_ROUTE)/*TODO*/ },
                 modifier = Modifier
                     .padding(top = 30.dp)
                     .size(180.dp, 50.dp)

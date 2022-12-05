@@ -16,13 +16,13 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.user.LoginScreen
-import com.brokenbrains.fitness.ui.screens.user.RegisterScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
+import com.brokenbrains.fitness.ui.screens.user.LoginScreen
+import com.brokenbrains.fitness.ui.screens.user.RegisterScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -110,11 +110,11 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             appState.logout()
         }
 
-        composable(UserRoutes.Login.route){from->
-            LoginScreen(navigateTo = {route -> navigateTo(route, from) })
+        composable(UserRoutes.Login.route) { from ->
+            LoginScreen(navigateTo = { route -> navigateTo(route, from) })
         }
         composable(UserRoutes.Register.route) { from ->
-            RegisterScreen()
+            RegisterScreen(navigateTo = { route -> navigateTo(route, from) })
         }
 
     }

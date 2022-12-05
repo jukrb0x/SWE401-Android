@@ -5,11 +5,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +22,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.AppDestinations
+import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.components.FitnessIcon
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
 
@@ -56,7 +54,11 @@ fun LoginScreen(navigateTo: (String) -> Unit) {
 */
 //            Avatar(avatarSize = 100.dp, modifier = Modifier.padding(top = 40.dp))
 
-            FitnessIcon(iconSize = 100.dp, modifier = Modifier.padding(top = 40.dp), backgroundColor = YaleBlue3)
+            FitnessIcon(
+                iconSize = 100.dp,
+                modifier = Modifier.padding(top = 40.dp),
+                backgroundColor = YaleBlue3
+            )
 
 
             Text(
@@ -119,7 +121,7 @@ fun LoginScreen(navigateTo: (String) -> Unit) {
 
             //Sign Up Button
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navigateTo(UserRoutes.Register.route) },
                 modifier = Modifier
                     .padding(top = 15.dp)
                     .size(180.dp, 50.dp)
