@@ -132,6 +132,7 @@ fun LoginScreen(navigateTo: (String) -> Unit) {
                 Text(text = "Sign Up", fontWeight = FontWeight.Bold)
             }
 
+
             Text(
                 text = "Don't have an account yet?",
                 modifier = Modifier.padding(top = 10.dp),

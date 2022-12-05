@@ -27,7 +27,7 @@ fun BrowseActivity(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
 @Preview
 private fun BrowseActivityPreview() {
     FitnessTheme {
-        BrowseScreen(navigateTo = {}, onBack = {})
+        BrowseActivity(navigateTo = {}, onBack = {})
     }
 
 }

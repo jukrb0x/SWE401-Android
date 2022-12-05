@@ -61,7 +61,7 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
                         contentDescription = "Medication",
                     )
                 }
-                override val route: String = TabRoutes.Home.route /*TODO*/
+                override val route: String = BrowseRoutes.Medication.route
             }.BrowseItem(navigateTo)
         }
     }
@@ -102,7 +102,7 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "Measurements",
             )
         },
-        route = TabRoutes.Home.route,
+        route = BrowseRoutes.Measurements.route,
     ),
     BrowseItemData(
         title = "Vitals",
@@ -112,7 +112,7 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "Localized description",
             )
         },
-        route = TabRoutes.Home.route,
+        route = BrowseRoutes.Vitals.route,
     ),
     BrowseItemData(
         title = "Sleep",
@@ -122,6 +122,6 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "sleep",
             )
         },
-        route = TabRoutes.Home.route,
+        route = BrowseRoutes.Sleep.route,
     )
 )

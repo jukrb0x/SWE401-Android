@@ -15,9 +15,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
+import com.brokenbrains.fitness.ui.components.TrendCard
+import com.brokenbrains.fitness.ui.components.TrendCardData
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.browse.BrowseActivity
-import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
+import com.brokenbrains.fitness.ui.screens.browse.*
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
@@ -126,19 +127,49 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         startDestination = TabRoutes.Browse.route
     ) {
         composable(BrowseRoutes.Activity.route) { from ->
-            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+            BrowseDetails(
+                title = BrowseRoutes.Activity.title,
+                navigateTo = { route -> navigateTo(route, from) },
+                onBack = upPress
+            ) {
+                TrendCard(data = TrendCardData("Activity", "Running"))
+            }
         }
         composable(BrowseRoutes.Measurements.route) { from ->
-            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+            BrowseDetails(
+                title = BrowseRoutes.Measurements.title,
+                navigateTo = { route -> navigateTo(route, from) },
+                onBack = upPress
+            ) {
+                TrendCard(data = TrendCardData("Activity", "Running"))
+            }
         }
         composable(BrowseRoutes.Vitals.route) { from ->
-            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+            BrowseDetails(
+                title = BrowseRoutes.Vitals.title,
+                navigateTo = { route -> navigateTo(route, from) },
+                onBack = upPress
+            ) {
+                TrendCard(data = TrendCardData("Activity", "Running"))
+            }
         }
         composable(BrowseRoutes.Sleep.route) { from ->
-            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+            BrowseDetails(
+                title = BrowseRoutes.Sleep.title,
+                navigateTo = { route -> navigateTo(route, from) },
+                onBack = upPress
+            ) {
+                TrendCard(data = TrendCardData("Activity", "Running"))
+            }
         }
         composable(BrowseRoutes.Medication.route) { from ->
-            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+            BrowseDetails(
+                title = BrowseRoutes.Medication.title,
+                navigateTo = { route -> navigateTo(route, from) },
+                onBack = upPress
+            ) {
+                TrendCard(data = TrendCardData("Med", "Running"))
+            }
         }
     }
 }
