@@ -4,8 +4,6 @@ package com.brokenbrains.fitness.ui.screens.browse
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,13 +26,13 @@ import compose.icons.fontawesomeicons.solid.Running
 interface BrowseItemState {
     val title: String
     val icon: @Composable () -> Unit
-    val onClick: () -> Unit // navigation
+    val route: String
 }
 
 @Composable
-fun BrowseItemState.BrowseItem() {
+fun BrowseItemState.BrowseItem(navigateTo: (route: String) -> Unit = {}) {
     ListItem(
-        modifier = Modifier.clickable(onClick = { this.onClick() }),
+        modifier = Modifier.clickable(onClick = { navigateTo(this.route) }),
         headlineText = { Text(this.title) },
         leadingContent = { this.icon() }
     )
@@ -50,7 +48,7 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit) {
         }
         Column(modifier = Modifier.fillMaxWidth()) {
             for (browseItem in BrowseItems) {
-                browseItem.BrowseItem()
+                browseItem.BrowseItem(navigateTo)
             }
             Divider()
             object : BrowseItemState {
@@ -62,8 +60,8 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit) {
                         contentDescription = "Medication",
                     )
                 }
-                override val onClick: () -> Unit = { }
-            }.BrowseItem()
+                override val route: String = TabRoutes.Home.route /*TODO*/
+            }.BrowseItem(navigateTo)
         }
     }
 }
@@ -79,7 +77,7 @@ fun BrowseScreenPreview() {
 data class BrowseItemData(
     override val title: String,
     override val icon: @Composable () -> Unit,
-    override val onClick: () -> Unit,
+    override val route: String,
 ) : BrowseItemState
 
 val BrowseItems: List<BrowseItemData> = listOf(
@@ -92,7 +90,7 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "Localized description",
             )
         },
-        onClick = { }
+        route = TabRoutes.Home.route,
     ),
     BrowseItemData(
         title = "Measurements",
@@ -103,7 +101,7 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "Measurements",
             )
         },
-        onClick = { }
+        route = TabRoutes.Home.route,
     ),
     BrowseItemData(
         title = "Vitals",
@@ -113,7 +111,7 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "Localized description",
             )
         },
-        onClick = { }
+        route = TabRoutes.Home.route,
     ),
     BrowseItemData(
         title = "Sleep",
@@ -123,6 +121,6 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "sleep",
             )
         },
-        onClick = { }
+        route = TabRoutes.Home.route,
     )
 )
