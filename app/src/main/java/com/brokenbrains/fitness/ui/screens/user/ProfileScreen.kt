@@ -1,10 +1,11 @@
 package com.brokenbrains.fitness.ui.screens
 
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
@@ -28,6 +29,7 @@ import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.components.Avatar
 import com.brokenbrains.fitness.ui.components.DialogTopBar
 import com.brokenbrains.fitness.ui.components.FullScreenDialog
+import com.brokenbrains.fitness.ui.theme.YaleBlue3
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -75,25 +77,45 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     //User Account Image
-                    Image(
-                        painter = image, contentDescription = "User Account Image",
-                        modifier = Modifier
-                            .size(100.dp)
-                            .clip(CircleShape)
-                            .border(
-                                BorderStroke(5.dp, Color(0xFF9055F7)),
-                                CircleShape
-                            )
-                    )
+                    Avatar(avatarSize = 100.dp, clickable = false)
+//                    Image(
+//                        painter = image, contentDescription = "User Account Image",
+//                        modifier = Modifier
+//                            .size(100.dp)
+//                            .clip(CircleShape)
+//                            .border(
+//                                BorderStroke(5.dp, Color(0xFF9055F7)),
+//                                CircleShape
+//                            )
+//                    )
 
                     //User name & ID
                     Spacer(modifier = Modifier.height(10.dp))
-                    Text(text = "User Name")
-                    Text(
-                        text = "ID: xxxxxxxx", modifier = Modifier.wrapContentSize(),
-                        fontSize = 13.sp,
-                        color = Color.Gray
-                    )
+                        Text(
+                            "Ke Hu",
+                            fontSize = 20.sp,
+                        )
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Badge(
+                            modifier = Modifier.padding(horizontal = 2.dp),
+                            containerColor = YaleBlue3,
+                            contentColor = Color.White,
+                        ) {
+                            Text(
+                                "ID",
+                                modifier = Modifier.padding(horizontal = 2.dp),
+                                fontSize = 13.sp,
+                            )
+                        }
+                        Text(
+                            text = "KJJ1233", modifier = Modifier.wrapContentSize(),
+                            fontSize = 13.sp,
+                            color = Color.Gray
+                        )
+                    }
 
 
                     //User Info
@@ -161,7 +183,7 @@ fun ProfileComponent(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(25.dp))
             .background(Color(0xFFE2E0E0))
             .height(70.dp)
     ) {
@@ -178,9 +200,9 @@ fun ProfileComponent(
                     label,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
-                    color = Color(
+                    color = YaleBlue3 /*Color(
                         0xFF746099
-                    ),
+                    )*/,
                     textAlign = TextAlign.Center,
                     letterSpacing = 0.15.sp,
                     textDecoration = TextDecoration.None
@@ -190,7 +212,7 @@ fun ProfileComponent(
                 readOnly = true,
                 value = value,
                 onValueChange = onValueChanged,
-                shape = RoundedCornerShape(30.dp),
+                shape = RoundedCornerShape(25.dp),
                 singleLine = true,
                 modifier = Modifier
                     .padding(5.dp, 10.dp, 10.dp, 10.dp)
