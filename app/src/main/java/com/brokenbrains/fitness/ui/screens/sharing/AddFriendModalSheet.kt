@@ -100,7 +100,6 @@ fun ShareWithSomeoneModal(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SharingSettingsModal(
     onDismiss: (Boolean) -> Unit,

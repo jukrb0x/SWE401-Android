@@ -2,9 +2,12 @@ package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Regular
+import compose.icons.fontawesomeicons.regular.User
 
 fun getInitials(name: String): String {
     val nameParts = name.split(" ")
@@ -59,16 +65,26 @@ fun Avatar(
             } else if (nameInitials.length == 1) {
                 name = nameInitials.substring(0, 1).uppercase()
             }
-            Text(
-                text = name,
-                fontSize = (0.38f * avatarSize.value).sp,
-                overflow = TextOverflow.Clip,
-                maxLines = 1,
-                style = TextStyle(
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight(600),
+            if (name.isNullOrEmpty()) {
+                Icon(
+                    imageVector = FontAwesomeIcons.Regular.User,
+                    contentDescription = "User avatar",
+                    modifier = Modifier.size(avatarSize * 0.5f),
+                    tint = Color.Gray,
                 )
-            )
+            } else {
+                Text(
+                    text = name,
+                    fontSize = (0.38f * avatarSize.value).sp,
+                    overflow = TextOverflow.Clip,
+                    maxLines = 1,
+                    style = TextStyle(
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight(600),
+                    )
+                )
+            }
+
         }
     }
 }
@@ -76,5 +92,9 @@ fun Avatar(
 @Composable
 @Preview
 private fun AvatarPreview() {
-    Avatar(nameInitials = "ABCD")
+    Column() {
+        Avatar(nameInitials = "ABCD")
+        Avatar(nameInitials = "")
+    }
+
 }

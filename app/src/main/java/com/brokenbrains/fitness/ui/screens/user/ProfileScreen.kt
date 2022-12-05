@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.R
 import com.brokenbrains.fitness.ui.components.AppScaffold
+import com.brokenbrains.fitness.ui.components.Avatar
 import com.brokenbrains.fitness.ui.components.DialogTopBar
 import com.brokenbrains.fitness.ui.components.FullScreenDialog
 

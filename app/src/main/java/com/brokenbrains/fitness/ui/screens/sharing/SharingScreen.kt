@@ -118,7 +118,7 @@ fun SharingScreenPreview() {
 val personShareDataList: List<PersonShareData> = listOf(
     PersonShareData(
         id = "1",
-        name = "Sal Amnoodles",
+        name = "Salam noodles",
         avatar = "",
         latestUpdate = "No updates",
         updateTime = "08:20"
