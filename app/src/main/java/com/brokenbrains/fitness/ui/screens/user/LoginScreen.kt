@@ -77,7 +77,7 @@ fun LoginScreen() {
                 shape = RoundedCornerShape(20.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Email,
+                        imageVector = Icons.Default.Email,
                         contentDescription = null
                     )
                 }
@@ -94,7 +94,7 @@ fun LoginScreen() {
                 shape = RoundedCornerShape(20.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Lock,
+                        imageVector = Icons.Default.Lock,
                         contentDescription = null
                     )
                 },

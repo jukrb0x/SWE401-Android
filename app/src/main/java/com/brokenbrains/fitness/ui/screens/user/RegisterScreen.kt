@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
@@ -73,7 +74,7 @@ fun RegisterScreen() {
                 shape = RoundedCornerShape(20.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Person,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }
@@ -90,7 +91,7 @@ fun RegisterScreen() {
                 shape = RoundedCornerShape(20.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Person,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }
@@ -107,7 +108,7 @@ fun RegisterScreen() {
                 shape = RoundedCornerShape(20.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Email,
+                        imageVector = Icons.Default.Email,
                         contentDescription = null
                     )
                 }
@@ -124,7 +125,7 @@ fun RegisterScreen() {
                 shape = RoundedCornerShape(20.dp),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Lock,
+                        imageVector = Icons.Default.Lock,
                         contentDescription = null
                     )
                 }
