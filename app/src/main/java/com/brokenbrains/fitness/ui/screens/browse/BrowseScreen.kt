@@ -1,10 +1,9 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.brokenbrains.fitness.ui.screens.browse
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
@@ -17,8 +16,30 @@ import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
+import compose.icons.FeatherIcons
+import compose.icons.FontAwesomeIcons
+import compose.icons.feathericons.Activity
+import compose.icons.feathericons.Moon
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.Pills
+import compose.icons.fontawesomeicons.solid.RulerHorizontal
+import compose.icons.fontawesomeicons.solid.Running
 
-@OptIn(ExperimentalMaterial3Api::class)
+interface BrowseItemState {
+    val title: String
+    val icon: @Composable () -> Unit
+    val onClick: () -> Unit // navigation
+}
+
+@Composable
+fun BrowseItemState.BrowseItem() {
+    ListItem(
+        modifier = Modifier.clickable(onClick = { this.onClick() }),
+        headlineText = { Text(this.title) },
+        leadingContent = { this.icon() }
+    )
+}
+
 @Composable
 fun BrowseScreen(navigateTo: (route: String) -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
@@ -28,32 +49,21 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit) {
             )
         }
         Column(modifier = Modifier.fillMaxWidth()) {
-            ListItem(
-                headlineText = { Text("Two line list item with trailing") },
-                supportingText = { Text("Secondary text") },
-                trailingContent = { Text("meta") },
-                leadingContent = {
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Localized description",
-                    )
-                }
-            )
-            ListItem(
-                modifier = Modifier.clickable(onClick = { }),
-                headlineText = { Text("Two line list item with trailing") },
-                overlineText = { Text("OVERLINE") },
-                supportingText = { Text("Secondary text") },
-                trailingContent = { Text("meta") },
-                leadingContent = {
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Localized description",
-                    )
-                }
-            )
+            for (browseItem in BrowseItems) {
+                browseItem.BrowseItem()
+            }
             Divider()
-
+            object : BrowseItemState {
+                override val title: String = "Medication"
+                override val icon: @Composable () -> Unit = {
+                    Icon(
+                        FontAwesomeIcons.Solid.Pills,
+                        modifier = Modifier.size(24.dp),
+                        contentDescription = "Medication",
+                    )
+                }
+                override val onClick: () -> Unit = { }
+            }.BrowseItem()
         }
     }
 }
@@ -61,7 +71,58 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun BrowseScreenPreview() {
-    FitnessTheme{
+    FitnessTheme {
         BrowseScreen(navigateTo = {})
     }
 }
+
+data class BrowseItemData(
+    override val title: String,
+    override val icon: @Composable () -> Unit,
+    override val onClick: () -> Unit,
+) : BrowseItemState
+
+val BrowseItems: List<BrowseItemData> = listOf(
+    BrowseItemData(
+        title = "Activity",
+        icon = {
+            Icon(
+                FontAwesomeIcons.Solid.Running,
+                modifier = Modifier.size(24.dp),
+                contentDescription = "Localized description",
+            )
+        },
+        onClick = { }
+    ),
+    BrowseItemData(
+        title = "Measurements",
+        icon = {
+            Icon(
+                FontAwesomeIcons.Solid.RulerHorizontal,
+                modifier = Modifier.size(24.dp),
+                contentDescription = "Measurements",
+            )
+        },
+        onClick = { }
+    ),
+    BrowseItemData(
+        title = "Vitals",
+        icon = {
+            Icon(
+                FeatherIcons.Activity,
+                contentDescription = "Localized description",
+            )
+        },
+        onClick = { }
+    ),
+    BrowseItemData(
+        title = "Sleep",
+        icon = {
+            Icon(
+                FeatherIcons.Moon,
+                contentDescription = "sleep",
+            )
+        },
+        onClick = { }
+    )
+)
