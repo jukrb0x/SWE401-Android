@@ -16,6 +16,7 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
+import com.brokenbrains.fitness.ui.screens.browse.BrowseActivity
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
@@ -92,7 +93,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             SharingScreen(navigateTo = { route -> navigateTo(route, from) })
         }
         composable(TabRoutes.Browse.route) { from ->
-            BrowseScreen(navigateTo = { route -> navigateTo(route, from) })
+            BrowseScreen(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
         }
     }
 
@@ -117,5 +118,27 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             RegisterScreen(navigateTo = { route -> navigateTo(route, from) })
         }
 
+    }
+
+    // browse items
+    navigation(
+        route = AppDestinations.BROWSE_ROUTE,
+        startDestination = TabRoutes.Browse.route
+    ) {
+        composable(BrowseRoutes.Activity.route) { from ->
+            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+        }
+        composable(BrowseRoutes.Measurements.route) { from ->
+            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+        }
+        composable(BrowseRoutes.Vitals.route) { from ->
+            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+        }
+        composable(BrowseRoutes.Sleep.route) { from ->
+            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+        }
+        composable(BrowseRoutes.Medication.route) { from ->
+            BrowseActivity(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
+        }
     }
 }

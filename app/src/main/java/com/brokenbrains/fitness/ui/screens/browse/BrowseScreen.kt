@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.brokenbrains.fitness.BrowseRoutes
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
@@ -39,7 +40,7 @@ fun BrowseItemState.BrowseItem(navigateTo: (route: String) -> Unit = {}) {
 }
 
 @Composable
-fun BrowseScreen(navigateTo: (route: String) -> Unit) {
+fun BrowseScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
@@ -70,7 +71,7 @@ fun BrowseScreen(navigateTo: (route: String) -> Unit) {
 @Composable
 fun BrowseScreenPreview() {
     FitnessTheme {
-        BrowseScreen(navigateTo = {})
+        BrowseScreen(navigateTo = {}, onBack = {})
     }
 }
 
@@ -90,7 +91,7 @@ val BrowseItems: List<BrowseItemData> = listOf(
                 contentDescription = "Localized description",
             )
         },
-        route = TabRoutes.Home.route,
+        route = BrowseRoutes.Activity.route,
     ),
     BrowseItemData(
         title = "Measurements",

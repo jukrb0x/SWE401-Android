@@ -4,6 +4,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.key.Key.Companion.Home
+import com.brokenbrains.fitness.AppDestinations.BROWSE_ROUTE
 import com.brokenbrains.fitness.AppDestinations.MAIN_ROUTE
 import com.brokenbrains.fitness.AppDestinations.USER_ROUTE
 import compose.icons.FeatherIcons
@@ -21,6 +23,7 @@ object AppDestinations {
     const val USER_ROUTE = "user"
     const val LOGOUT_ROUTE = "logout"
     const val LOGIN_ROUTE = "login"
+    const val BROWSE_ROUTE = "browse"
 }
 
 enum class TabRoutes(val route: String, val title: String, val icon: ImageVector) {
@@ -39,4 +42,12 @@ enum class UserRoutes(val route: String, val title: String) {
     Login("$USER_ROUTE/login", "Login"),
     Register("$USER_ROUTE/register", "Register")
 //    ShareSettings("$USER_ROUTE/share_settings", "Share Settings")
+}
+
+enum class BrowseRoutes(val route: String, val title: String) {
+    Activity("$BROWSE_ROUTE/activity", "Activity"),
+    Measurements("$BROWSE_ROUTE/measurements", "Measurements"),
+    Vitals("$BROWSE_ROUTE/vitals", "Vitals"),
+    Sleep("$BROWSE_ROUTE/sleep", "Sleep"),
+    Medication("$BROWSE_ROUTE/medication", "Medication"),
 }
