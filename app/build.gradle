@@ -85,9 +85,9 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
     implementation "com.google.accompanist:accompanist-navigation-material:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-webview:$accompanistVersion"
 
     implementation "com.github.skydoves:cloudy:0.1.1"
-    implementation "com.google.accompanist:accompanist-webview:$accompanistVersion"
 
 
 }

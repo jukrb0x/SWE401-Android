@@ -31,6 +31,6 @@ fun WebIndex(webSite: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+private fun DefaultPreview() {
     WebViewer()
 }
