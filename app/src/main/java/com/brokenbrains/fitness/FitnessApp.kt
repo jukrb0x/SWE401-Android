@@ -115,11 +115,11 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
 
     }
 
+    // TODO: the routes are way too nested.. use another architecture
     // browse items
     navigation(
         route = AppDestinations.BROWSE_ROUTE, startDestination = TabRoutes.Browse.route
     ) {
-        // todo: too nested....
         composable(BrowseRoutes.Activity.route,
             enterTransition = {
                 slideIntoContainer(
@@ -134,6 +134,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
                 ActivityDetails(navigateTo = navTo, onBack = upPress)
             }
         }
+
         composable(BrowseRoutes.Measurements.route,
             enterTransition = {
                 slideIntoContainer(
@@ -148,6 +149,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
                 MeasurementsDetails(navigateTo = navTo, onBack = upPress)
             }
         }
+
         composable(BrowseRoutes.Vitals.route,
             enterTransition = {
                 slideIntoContainer(
@@ -162,6 +164,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
                 VitalsDetails(navigateTo = navTo, onBack = upPress)
             }
         }
+
         composable(BrowseRoutes.Sleep.route,
             enterTransition = {
                 slideIntoContainer(
@@ -176,6 +179,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
                 SleepDetails(navigateTo = navTo, onBack = upPress)
             }
         }
+
         composable(BrowseRoutes.Medication.route,
             enterTransition = {
                 slideIntoContainer(

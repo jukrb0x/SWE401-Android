@@ -26,7 +26,6 @@ model User {
     // ------
     /// @TsED.Email()
     /// @TsED.Description("Email of the user")
-    email        String         @unique
     username     String         @unique
     password     String
     Todo         Todo[]
