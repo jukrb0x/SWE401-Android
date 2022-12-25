@@ -24,8 +24,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false // TODO should be true when release
+            minifyEnabled true // TODO should be true when release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://localhost:8083/rest\""
+        }
+        debug {
+            minifyEnabled false // TODO should be true when release
+            buildConfigField "String", "BASE_URL", "\"https://localhost:8083/rest\""
         }
     }
     compileOptions {
@@ -93,6 +98,7 @@ dependencies {
 
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // Hilt
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"

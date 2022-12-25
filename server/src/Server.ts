@@ -5,7 +5,7 @@ import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/ajv';
 import '@tsed/swagger';
 import { config } from './config';
-import * as rest from './controllers/rest/index';
+import * as rest from './controllers/rest';
 import * as pages from './controllers/pages/index';
 import * as protocols from './protocols/index';
 import session from 'express-session';
@@ -50,9 +50,9 @@ const rootDir = __dirname;
         }
     },
     exclude: ['**/*.spec.ts'],
-    passport: {
-        userInfoModel: UserModel
-    },
+    // passport: {
+    //     userInfoModel: UserModel
+    // },
     multer: {
         dest: join(process.cwd(), '../uploads'),
         limits: {

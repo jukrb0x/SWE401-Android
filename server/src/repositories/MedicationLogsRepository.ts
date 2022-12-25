@@ -1,7 +1,7 @@
 import { isArray } from "@tsed/core";
 import { deserialize } from "@tsed/json-mapper";
 import { Injectable, Inject } from "@tsed/di";
-import { PrismaService } from "../services/PrismaService";
+import { PrismaService } from "../old-services/PrismaService";
 import { Prisma, MedicationLog } from "../client";
 import { MedicationLogModel } from "../models";
 
