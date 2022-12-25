@@ -21,11 +21,7 @@ export class ActivityModel implements Activity {
 
   @Property(String)
   @Required()
-  name: string;
-
-  @Property(String)
-  @Required()
-  description: string;
+  type: string;
 
   @Property(Date)
   @Format("date-time")

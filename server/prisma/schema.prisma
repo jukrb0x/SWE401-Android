@@ -50,8 +50,7 @@ model Activity {
   updatedAt    DateTime     @default(now()) @updatedAt
   createdAt    DateTime     @default(now())
   // ------
-  name         String // defined in enum
-  description  String
+  type         String // defined in enum
   startAt      DateTime
   duration     Int
   activityType ActivityType @default(OTHER)
