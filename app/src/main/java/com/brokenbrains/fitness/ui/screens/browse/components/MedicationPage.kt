@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens.browse
+package com.brokenbrains.fitness.ui.screens.browse.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -12,7 +12,7 @@ import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
 
 @Composable
-fun MedicationDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+fun MedicationPage(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
     ) {

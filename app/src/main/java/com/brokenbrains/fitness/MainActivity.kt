@@ -32,6 +32,7 @@ import com.google.accompanist.navigation.animation.composable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.brokenbrains.fitness.ui.screens.browse.components.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -144,10 +145,10 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowseDetails(
+            BrowsePage(
                 title = BrowseRoutes.Activity.title, navigateTo = navTo, onBack = upPress
             ) {
-                ActivityDetails(navigateTo = navTo, onBack = upPress)
+                ActivityPage(navigateTo = navTo, onBack = upPress)
             }
         }
 
@@ -159,10 +160,10 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowseDetails(
+            BrowsePage(
                 title = BrowseRoutes.Measurements.title, navigateTo = navTo, onBack = upPress
             ) {
-                MeasurementsDetails(navigateTo = navTo, onBack = upPress)
+                MeasurementsPage(navigateTo = navTo, onBack = upPress)
             }
         }
 
@@ -174,10 +175,10 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowseDetails(
+            BrowsePage(
                 title = BrowseRoutes.Vitals.title, navigateTo = navTo, onBack = upPress
             ) {
-                VitalsDetails(navigateTo = navTo, onBack = upPress)
+                VitalsPage(navigateTo = navTo, onBack = upPress)
             }
         }
 
@@ -189,10 +190,10 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowseDetails(
+            BrowsePage(
                 title = BrowseRoutes.Sleep.title, navigateTo = navTo, onBack = upPress
             ) {
-                SleepDetails(navigateTo = navTo, onBack = upPress)
+                SleepPage(navigateTo = navTo, onBack = upPress)
             }
         }
 
@@ -204,10 +205,10 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowseDetails(
+            BrowsePage(
                 title = BrowseRoutes.Medication.title, navigateTo = navTo, onBack = upPress
             ) {
-                MedicationDetails(navigateTo = navTo, onBack = upPress)
+                MedicationPage(navigateTo = navTo, onBack = upPress)
             }
         }
     }

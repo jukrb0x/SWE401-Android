@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens.browse
+package com.brokenbrains.fitness.ui.screens.browse.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -16,7 +16,7 @@ import compose.icons.feathericons.Plus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BrowseDetails(
+fun BrowsePage(
     title: String,
     navigateTo: (String) -> Unit,
     onBack: () -> Unit,
@@ -44,6 +44,6 @@ fun BrowseDetails(
 @Preview(showBackground = true)
 private fun BrowseDetailsPreview() {
     FitnessTheme {
-        BrowseDetails(navigateTo = {}, onBack = {}, content = {}, title = "okkk")
+        BrowsePage(navigateTo = {}, onBack = {}, content = {}, title = "okkk")
     }
 }

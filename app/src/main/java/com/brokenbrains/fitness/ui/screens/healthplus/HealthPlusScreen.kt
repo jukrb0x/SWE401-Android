@@ -15,6 +15,10 @@ import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.screens.healthplus.components.DoctorCard
+import com.brokenbrains.fitness.ui.screens.healthplus.components.DoctorCardList
+import com.brokenbrains.fitness.ui.screens.healthplus.components.HospitalCard
+import com.brokenbrains.fitness.ui.screens.healthplus.components.HospitalCardList
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -28,9 +32,9 @@ data class HealthPlusTab(
 )
 
 val healthPlusTab = listOf(
-    HealthPlusTab("Media") { HealthInfoPage() },
-    HealthPlusTab("Doctor") { MedicalPage() },
-    HealthPlusTab("Hospital") { HospitalPage() },
+    HealthPlusTab("Info") { HealthInfoPage() },
+    HealthPlusTab("Doctor") { DoctorColumn() },
+    HealthPlusTab("Hospital") { HospitalColumn() },
 )
 
 @OptIn(ExperimentalPagerApi::class)
@@ -87,7 +91,7 @@ fun HealthInfoPage() { // media
 
 @Composable
 @Preview
-fun MedicalPage() { // doctor
+fun DoctorColumn() { // doctor
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
@@ -104,7 +108,7 @@ fun MedicalPage() { // doctor
 }
 
 @Composable
-fun HospitalPage() { // hospital
+fun HospitalColumn() { // hospital
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))

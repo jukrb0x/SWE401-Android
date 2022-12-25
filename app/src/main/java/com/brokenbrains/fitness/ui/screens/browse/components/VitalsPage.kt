@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens.browse
+package com.brokenbrains.fitness.ui.screens.browse.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -11,9 +11,8 @@ import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
 
-
 @Composable
-fun MeasurementsDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+fun VitalsPage(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
     ) {
@@ -21,18 +20,17 @@ fun MeasurementsDetails(navigateTo: (route: String) -> Unit, onBack: () -> Unit)
             ColumnListSectionTitle(title = "DATA")
             TrendCard(
                 data = TrendCardData(
-                    title = "Weight",
+                    title = "Heart Rate",
                     subtitle = "Sep 13 - Dec 5"
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
                 data = TrendCardData(
-                    title = "Height",
+                    title = "Blood Pressure",
                     subtitle = "Sep 13 - Dec 5"
                 )
             )
         }
-
     }
 }

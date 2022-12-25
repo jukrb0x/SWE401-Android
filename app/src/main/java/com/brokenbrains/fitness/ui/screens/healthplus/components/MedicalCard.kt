@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens.healthplus
+package com.brokenbrains.fitness.ui.screens.healthplus.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
