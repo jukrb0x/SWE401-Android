@@ -27,6 +27,7 @@ import com.brokenbrains.fitness.ui.components.FitnessIcon
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
 
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navigateTo: (String) -> Unit) {
