@@ -1,4 +1,4 @@
-export { EventsRepository } from './EventsRepository';
-export { TodoCategoriesRepository } from './TodoCategoriesRepository';
-export { TodosRepository } from './TodosRepository';
-export { UsersRepository } from './UsersRepository';
+export { ActivitiesRepository } from "./ActivitiesRepository";
+export { MedicationsRepository } from "./MedicationsRepository";
+export { SleepsRepository } from "./SleepsRepository";
+export { UsersRepository } from "./UsersRepository";

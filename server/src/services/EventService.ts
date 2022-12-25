@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@tsed/di';
 import { EventsRepository, TodosRepository } from '@/repositories';
 import { UserService } from '@/services/UserService';
 import { EventModel } from '@/models';
-import { EventRequestModel, EventResponseModel } from '@/interfaces/EventInterface';
+import { EventRequestModel, EventResponseModel } from '@/interfaces/old/EventInterface';
 import { $log } from '@tsed/common';
 
 @Injectable()

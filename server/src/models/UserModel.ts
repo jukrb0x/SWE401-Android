@@ -1,48 +1,63 @@
-import { User } from '../client';
-import { Integer, Required, Property, Format, Email, Description, CollectionOf } from '@tsed/schema';
-import { TodoModel } from './TodoModel';
-import { EventModel } from './EventModel';
-import { TodoCategoryModel } from './TodoCategoryModel';
+import { User } from "../client";
+import { Integer, Required, Property, Format, CollectionOf } from "@tsed/schema";
+import { ActivityModel } from "./ActivityModel";
+import { SleepModel } from "./SleepModel";
+import { MedicationModel } from "./MedicationModel";
 
 export class UserModel implements User {
-    @Property(Number)
-    @Integer()
-    @Required()
-    id: number;
+  @Property(Number)
+  @Integer()
+  @Required()
+  id: number;
 
-    @Property(Date)
-    @Format('date-time')
-    @Required()
-    updatedAt: Date;
+  @Property(Date)
+  @Format("date-time")
+  @Required()
+  updatedAt: Date;
 
-    @Property(Date)
-    @Format('date-time')
-    @Required()
-    createdAt: Date;
+  @Property(Date)
+  @Format("date-time")
+  @Required()
+  createdAt: Date;
 
-    @Property(String)
-    @Required()
-    @Email()
-    @Description('Email of the user')
-    email: string;
+  @Property(String)
+  @Required()
+  email: string;
 
-    @Property(String)
-    @Required()
-    username: string;
+  @Property(String)
+  @Required()
+  firstName: string;
 
-    @Property(String)
-    @Required()
-    password: string;
+  @Property(String)
+  @Required()
+  lastName: string;
 
-    @CollectionOf(() => TodoModel)
-    @Required()
-    Todo: TodoModel[];
+  @Property(String)
+  @Required()
+  password: string;
 
-    @CollectionOf(() => EventModel)
-    @Required()
-    Event: EventModel[];
+  @Property(Number)
+  @Required()
+  height: number;
 
-    @CollectionOf(() => TodoCategoryModel)
-    @Required()
-    TodoCategory: TodoCategoryModel[];
+  @Property(Number)
+  @Required()
+  weight: number;
+
+  @Property(String)
+  @Required()
+  bloodType: string;
+
+  @CollectionOf(() => ActivityModel)
+  @Required()
+  Activity: ActivityModel[];
+
+  @CollectionOf(() => SleepModel)
+  @Required()
+  Sleep: SleepModel[];
+
+  @CollectionOf(() => MedicationModel)
+  @Required()
+  Medication: MedicationModel[];
 }
+

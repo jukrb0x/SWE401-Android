@@ -2,7 +2,7 @@ import { UserService } from '@/services/UserService';
 import { Inject, Injectable } from '@tsed/di';
 import { TodoCategoriesRepository, TodosRepository, UsersRepository } from '@/repositories';
 import { TodoModel } from '@/models';
-import { TodoRequestModel } from '@/interfaces/TodoInterface';
+import { TodoRequestModel } from '@/interfaces/old/TodoInterface';
 import { EventService } from '@/services/EventService';
 
 @Injectable()

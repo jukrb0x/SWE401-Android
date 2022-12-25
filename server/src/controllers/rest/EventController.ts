@@ -7,7 +7,7 @@ import { extractJwtPayload } from '@/config/jwt';
 import { BodyParams } from '@tsed/platform-params';
 import { EventModel } from '@/models';
 import { BadRequest } from '@tsed/exceptions';
-import { EventRequestModel, EventResponseModel } from '@/interfaces/EventInterface';
+import { EventRequestModel, EventResponseModel } from '@/interfaces/old/EventInterface';
 import { create } from 'domain';
 
 @JwtAuth()

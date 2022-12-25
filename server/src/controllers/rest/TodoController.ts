@@ -7,7 +7,7 @@ import { $log, PathParams, Req } from '@tsed/common';
 import { extractJwtPayload } from '@/config/jwt';
 import { BodyParams } from '@tsed/platform-params';
 import { BadRequest } from '@tsed/exceptions';
-import { TodoRequestModel, TodoResponseModel } from '@/interfaces/TodoInterface';
+import { TodoRequestModel, TodoResponseModel } from '@/interfaces/old/TodoInterface';
 import { EventService } from '@/services/EventService';
 import { EventsRepository, TodosRepository } from '@/repositories';
 
