@@ -24,7 +24,9 @@ Table Activity {
   createdAt DateTime [default: `now()`, not null]
   name String [not null]
   description String [not null]
+  startAt DateTime [not null]
   duration Int [not null]
+  activityType ActivityType [not null, default: 'OTHER']
   user User [not null]
   userId Int [not null]
 }
@@ -49,6 +51,26 @@ Table Medication {
   status Int [not null]
   user User [not null]
   userId Int [not null]
+  MedicationLog MedicationLog [not null]
+}
+
+Table MedicationLog {
+  id Int [pk, increment]
+  updatedAt DateTime [default: `now()`, not null]
+  createdAt DateTime [default: `now()`, not null]
+  date DateTime [not null]
+  status Int [not null]
+  medication Medication [not null]
+  medicationId Int [not null]
+}
+
+Enum ActivityType {
+  WALKING
+  RUNNING
+  CYCLING
+  SWIMMING
+  YOGA
+  OTHER
 }
 
 Ref: Activity.userId > User.id
@@ -56,3 +78,5 @@ Ref: Activity.userId > User.id
 Ref: Sleep.userId > User.id
 
 Ref: Medication.userId > User.id
+
+Ref: MedicationLog.medicationId > Medication.id

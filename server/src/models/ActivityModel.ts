@@ -1,5 +1,6 @@
 import { Activity } from "../client";
-import { Integer, Required, Property, Format } from "@tsed/schema";
+import { Integer, Required, Property, Format, Enum } from "@tsed/schema";
+import { ActivityType } from "../enums";
 import { UserModel } from "./UserModel";
 
 export class ActivityModel implements Activity {
@@ -26,10 +27,19 @@ export class ActivityModel implements Activity {
   @Required()
   description: string;
 
+  @Property(Date)
+  @Format("date-time")
+  @Required()
+  startAt: Date;
+
   @Property(Number)
   @Integer()
   @Required()
   duration: number;
+
+  @Required()
+  @Enum(ActivityType)
+  activityType: ActivityType;
 
   @Property(() => UserModel)
   @Required()

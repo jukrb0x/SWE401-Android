@@ -36,22 +36,27 @@ model User {
   Medication Medication[]
 }
 
+enum ActivityType {
+  WALKING
+  RUNNING
+  CYCLING
+  SWIMMING
+  YOGA
+  OTHER
+}
+
 model Activity {
-  id          Int      @id @default(autoincrement())
-  updatedAt   DateTime @default(now()) @updatedAt
-  createdAt   DateTime @default(now())
+  id           Int          @id @default(autoincrement())
+  updatedAt    DateTime     @default(now()) @updatedAt
+  createdAt    DateTime     @default(now())
   // ------
-  name        String
-  // Activity name (lowercase):
-  //    - running
-  //    - walking --> Steps
-  //    - cycling
-  //    - swimming
-  //    - yoga
-  description String
-  duration    Int
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
+  name         String // defined in enum
+  description  String
+  startAt      DateTime
+  duration     Int
+  activityType ActivityType @default(OTHER)
+  user         User         @relation(fields: [userId], references: [id])
+  userId       Int
 }
 
 model Sleep {
@@ -75,6 +80,19 @@ model Medication {
   description String
   status      Int // Active: 1, Inactive: 0
 
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  user          User            @relation(fields: [userId], references: [id])
+  userId        Int
+  MedicationLog MedicationLog[]
+}
+
+model MedicationLog {
+  id        Int      @id @default(autoincrement())
+  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+  // ------
+  date      DateTime
+  status    Int // Taken: 1, Not taken: 0
+
+  medication   Medication @relation(fields: [medicationId], references: [id])
+  medicationId Int
 }

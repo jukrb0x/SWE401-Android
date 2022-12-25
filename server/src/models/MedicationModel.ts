@@ -1,6 +1,7 @@
 import { Medication } from "../client";
-import { Integer, Required, Property, Format } from "@tsed/schema";
+import { Integer, Required, Property, Format, CollectionOf } from "@tsed/schema";
 import { UserModel } from "./UserModel";
+import { MedicationLogModel } from "./MedicationLogModel";
 
 export class MedicationModel implements Medication {
   @Property(Number)
@@ -39,5 +40,9 @@ export class MedicationModel implements Medication {
   @Integer()
   @Required()
   userId: number;
+
+  @CollectionOf(() => MedicationLogModel)
+  @Required()
+  MedicationLog: MedicationLogModel[];
 }
 
