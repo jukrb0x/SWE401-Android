@@ -4,6 +4,7 @@ buildscript {
         composeNavigationVersion = '2.5.3'
         accompanistVersion = '0.28.0'
         hilt_version = '2.44'
+        room_version = '2.4.3'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
