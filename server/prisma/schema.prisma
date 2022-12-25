@@ -28,9 +28,9 @@ model User {
   firstName  String
   lastName   String
   password   String
-  height     Float
-  weight     Float
-  bloodType  String
+  height     Float?
+  weight     Float?
+  bloodType  String?
   Activity   Activity[]
   Sleep      Sleep[]
   Medication Medication[]

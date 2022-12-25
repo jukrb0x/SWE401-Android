@@ -1,5 +1,5 @@
 import { User } from "../client";
-import { Integer, Required, Property, Format, CollectionOf } from "@tsed/schema";
+import { Integer, Required, Property, Format, Allow, CollectionOf } from "@tsed/schema";
 import { ActivityModel } from "./ActivityModel";
 import { SleepModel } from "./SleepModel";
 import { MedicationModel } from "./MedicationModel";
@@ -37,16 +37,16 @@ export class UserModel implements User {
   password: string;
 
   @Property(Number)
-  @Required()
-  height: number;
+  @Allow(null)
+  height: number | null;
 
   @Property(Number)
-  @Required()
-  weight: number;
+  @Allow(null)
+  weight: number | null;
 
   @Property(String)
-  @Required()
-  bloodType: string;
+  @Allow(null)
+  bloodType: string | null;
 
   @CollectionOf(() => ActivityModel)
   @Required()

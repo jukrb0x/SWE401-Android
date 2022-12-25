@@ -10,9 +10,9 @@ Table User {
   firstName String [not null]
   lastName String [not null]
   password String [not null]
-  height Float [not null]
-  weight Float [not null]
-  bloodType String [not null]
+  height Float
+  weight Float
+  bloodType String
   Activity Activity [not null]
   Sleep Sleep [not null]
   Medication Medication [not null]
