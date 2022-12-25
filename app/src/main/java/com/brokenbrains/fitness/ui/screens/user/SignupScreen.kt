@@ -5,13 +5,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,16 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.ui.components.Avatar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun RegisterScreen(navigateTo: (String) -> Unit) {
+fun SignupScreen(navigateTo: (String) -> Unit) {
     //TODO: Add background image or theme
     Box() {
 
@@ -52,7 +46,7 @@ fun RegisterScreen(navigateTo: (String) -> Unit) {
                            .border(5.dp, Color.Black, CircleShape)
                    )
        */
-            Avatar(avatarSize = 100.dp, modifier = Modifier.padding(top=40.dp))
+            Avatar(avatarSize = 100.dp, modifier = Modifier.padding(top = 40.dp))
 
             //Sign Up Text
             Text(

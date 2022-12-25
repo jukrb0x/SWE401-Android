@@ -25,7 +25,7 @@ import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.brokenbrains.fitness.ui.screens.user.LoginScreen
-import com.brokenbrains.fitness.ui.screens.user.RegisterScreen
+import com.brokenbrains.fitness.ui.screens.user.SignupScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -127,7 +127,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             LoginScreen(navigateTo = { route -> navigateTo(route, from) })
         }
         composable(UserRoutes.Register.route) { from ->
-            RegisterScreen(navigateTo = { route -> navigateTo(route, from) })
+            SignupScreen(navigateTo = { route -> navigateTo(route, from) })
         }
 
     }
