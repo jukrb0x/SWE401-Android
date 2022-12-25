@@ -2,9 +2,11 @@ package com.brokenbrains.fitness.model.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "user")
 class UserModel {
+    @PrimaryKey
     @ColumnInfo(name = "uid")
     var uid: Int? = null
 

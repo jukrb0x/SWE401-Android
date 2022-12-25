@@ -80,7 +80,6 @@ class AppState(
                 saveState = true
             }
         }
-
     }
 
     // --------------

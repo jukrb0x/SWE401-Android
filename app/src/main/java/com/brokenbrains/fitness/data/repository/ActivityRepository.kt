@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.model.activity
+package com.brokenbrains.fitness.data.repository
 
 import javax.inject.Inject
 import javax.inject.Singleton
