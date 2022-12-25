@@ -8,4 +8,17 @@ class UserRepository @Inject constructor(
 //    private val
 ){
 
+    // connect to Room
+
+    fun login(){
+
+    }
+
+    suspend fun logout(){
+
+    }
+
+
+
+
 }
