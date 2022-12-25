@@ -5,12 +5,15 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TestApi @Inject constructor(private val service: Service){
+class TestApi @Inject constructor(private val service: Service) {
 
-    interface Service{
-        @GET("/test")
-        suspend fun getTestMessage()
+    suspend fun getTestMessage(): TestResponse {
+        return service.getTestMessage()
     }
 
+    interface Service {
+        @GET("/test")
+        suspend fun getTestMessage(): TestResponse
+    }
 
 }

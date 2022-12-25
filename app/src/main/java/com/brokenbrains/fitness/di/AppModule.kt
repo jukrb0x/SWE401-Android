@@ -1,6 +1,8 @@
 package com.brokenbrains.fitness.di
 
 import com.brokenbrains.fitness.BuildConfig
+import com.brokenbrains.fitness.network.TestApi
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -29,18 +32,17 @@ class AppModule {
         return Retrofit
             .Builder()
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl(BuildConfig.BASE_URL)
             .build()
     }
 
-    // TODO
-//    @Provides
-//    @Singleton
-//    fun provideFoodMenuApiService(
-//        retrofit: Retrofit
-//    ): FoodMenuApi.Service {
-//        return retrofit.create(FoodMenuApi.Service::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun provideTestApi(
+        retrofit: Retrofit
+    ): TestApi.Service {
+        return retrofit.create(TestApi.Service::class.java)
+    }
 
 }
