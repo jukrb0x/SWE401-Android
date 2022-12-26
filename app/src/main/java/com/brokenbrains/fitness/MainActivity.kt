@@ -32,6 +32,8 @@ import com.google.accompanist.navigation.animation.composable
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.screens.browse.components.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -97,6 +99,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         route = AppDestinations.MAIN_ROUTE, startDestination = TabRoutes.Home.route
     ) {
         composable(TabRoutes.Home.route) { from ->
+//            val viewModel = hiltViewModel<HomeViewModel>()
             HomeScreen(navigateTo = { route -> navigateTo(route, from) })
         }
         composable(TabRoutes.HealthPlus.route) { from ->
@@ -117,14 +120,15 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         // login and logout
         composable(AppDestinations.LOGIN_ROUTE) { from ->
             appState.login()
-//            LoginScreen(navigateTo = { route -> navigateTo(route, from) })
         }
         composable(AppDestinations.LOGOUT_ROUTE) { from ->
             appState.logout()
         }
 
         composable(UserRoutes.Login.route) { from ->
-            LoginScreen(navigateTo = { route -> navigateTo(route, from) })
+            val viewModel =  hiltViewModel<UserViewModel>()
+            LoginScreen(viewModel,
+                navigateTo = { route -> navigateTo(route, from) })
         }
         composable(UserRoutes.Register.route) { from ->
             SignupScreen(navigateTo = { route -> navigateTo(route, from) })

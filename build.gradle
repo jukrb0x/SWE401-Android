@@ -6,6 +6,7 @@ buildscript {
         hilt_version = '2.44'
         room_version = '2.4.3'
         datastore_version = '1.0.0'
+        moshi_version = '1.14.0'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

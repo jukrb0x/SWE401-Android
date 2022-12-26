@@ -26,11 +26,11 @@ android {
         release {
             minifyEnabled true // TODO should be true when release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"https://localhost:8083/rest\""
+            buildConfigField "String", "BASE_URL", "\"http://localhost:8083/rest/\""
         }
         debug {
             minifyEnabled false // TODO should be true when release
-            buildConfigField "String", "BASE_URL", "\"https://localhost:8083/rest\""
+            buildConfigField "String", "BASE_URL", "\"http://localhost:8083/rest/\""
         }
     }
     compileOptions {
@@ -96,10 +96,13 @@ dependencies {
 
     implementation "com.github.skydoves:cloudy:0.1.1"
 
-    // retrofit + moshi
+    // Network retrofit + moshi
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
-    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+//    implementation "com.squareup.moshi:moshi:$moshi_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
 
     // Hilt
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"

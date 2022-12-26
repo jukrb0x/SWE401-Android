@@ -8,11 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,15 +18,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.UserRoutes
+import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.FitnessIcon
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navigateTo: (String) -> Unit) {
+fun LoginScreen(
+    viewModel: UserViewModel, navigateTo: (String) -> Unit
+) {
     //TODO: Add background image or theme
     Box(Modifier.fillMaxSize()) {
 
@@ -107,9 +107,41 @@ fun LoginScreen(navigateTo: (String) -> Unit) {
                 visualTransformation = PasswordVisualTransformation()
             )
 
+            val coroutineScope = rememberCoroutineScope()
+            val openDialog = remember { mutableStateOf(false) }
+            val msg = remember { mutableStateOf("") }
+            val date = remember { mutableStateOf("") }
+
+            // coroutine login
+            val handleLogin = {
+                coroutineScope.launch {
+                    val res = viewModel.login(text_login_email, text_login_password)
+                    msg.value = res.message
+                    date.value = res.date
+                    openDialog.value = true
+                }
+            }
+
+            if (openDialog.value) {
+                AlertDialog(
+                    onDismissRequest = { openDialog.value = false },
+                    title = { Text(msg.value) },
+                    text = { Text(date.value) },
+                    confirmButton = {
+                        TextButton(onClick = { openDialog.value = false }) {
+                            Text("OK")
+                        }
+                    }
+                )
+            }
+
+
             // Login Button
             Button(
-                onClick = { navigateTo(AppDestinations.LOGIN_ROUTE) },
+                onClick = {
+                    handleLogin()
+//                    navigateTo(AppDestinations.LOGIN_ROUTE)
+                },
                 modifier = Modifier
                     .padding(top = 30.dp)
                     .size(180.dp, 50.dp)
