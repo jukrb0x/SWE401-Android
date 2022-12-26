@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.network
+package com.brokenbrains.fitness.network.response
 
 import com.squareup.moshi.JsonClass
 import java.util.*

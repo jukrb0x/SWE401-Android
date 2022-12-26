@@ -3,6 +3,7 @@ package com.brokenbrains.fitness.di
 import com.brokenbrains.fitness.BuildConfig
 import com.brokenbrains.fitness.network.ServiceBuilder
 import com.brokenbrains.fitness.network.TestApi
+import com.brokenbrains.fitness.network.UserApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -30,10 +31,13 @@ class NetworkModule {
     @Singleton
     fun provideKotlinJsonAdapterFactory(): KotlinJsonAdapterFactory = KotlinJsonAdapterFactory()
 
+
     @Provides
     @Singleton
     fun provideMoshi(kotlinJsonAdapterFactory: KotlinJsonAdapterFactory): Moshi = Moshi.Builder()
-        .add(kotlinJsonAdapterFactory)
+        .add(
+            kotlinJsonAdapterFactory
+        )
         .build()
 
 
@@ -62,6 +66,14 @@ class NetworkModule {
         serviceBuilder: ServiceBuilder
     ): TestApi.Service {
         return serviceBuilder.buildService(TestApi.Service::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesUserApi(
+        serviceBuilder: ServiceBuilder
+    ): UserApi.Service {
+        return serviceBuilder.buildService(UserApi.Service::class.java)
     }
 
 }

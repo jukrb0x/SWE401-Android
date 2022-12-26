@@ -2,6 +2,9 @@
 
 package com.brokenbrains.fitness
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
@@ -13,13 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
+import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.browse.*
+import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
+import com.brokenbrains.fitness.ui.screens.browse.components.*
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
@@ -29,12 +35,6 @@ import com.brokenbrains.fitness.ui.screens.user.SignupScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.brokenbrains.fitness.data.viewmodel.UserViewModel
-import com.brokenbrains.fitness.ui.screens.browse.components.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -126,12 +126,12 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         }
 
         composable(UserRoutes.Login.route) { from ->
-            val viewModel =  hiltViewModel<UserViewModel>()
-            LoginScreen(viewModel,
-                navigateTo = { route -> navigateTo(route, from) })
+            val viewModel = hiltViewModel<UserViewModel>()
+            LoginScreen(viewModel, navigateTo = { route -> navigateTo(route, from) })
         }
         composable(UserRoutes.Register.route) { from ->
-            SignupScreen(navigateTo = { route -> navigateTo(route, from) })
+            val viewModel = hiltViewModel<UserViewModel>()
+            SignupScreen(viewModel, navigateTo = { route -> navigateTo(route, from) })
         }
 
     }

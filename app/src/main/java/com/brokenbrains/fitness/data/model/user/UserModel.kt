@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user")
 data class UserModel (
     @PrimaryKey
-    @ColumnInfo(name = "uid")
-    var uid: Int? = null, // maybe it's long
+    @ColumnInfo(name = "id")
+    var id: Int? = null, // maybe it's long
 
     @ColumnInfo(name = "first_name")
     var firstName: String? = null,

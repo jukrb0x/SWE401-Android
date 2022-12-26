@@ -9,25 +9,47 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.AppDestinations
+import com.brokenbrains.fitness.data.model.user.UserModel
+import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.Avatar
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignupScreen(navigateTo: (String) -> Unit) {
-    //TODO: Add background image or theme
+fun SignupScreen(
+    viewModel: UserViewModel,
+    navigateTo: (String) -> Unit
+) {
+    var firstName by rememberSaveable { mutableStateOf("") }
+    var lastName by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+
+
+    val coroutineScope = rememberCoroutineScope()
+    var handleSignup = {
+        coroutineScope.launch {
+
+            viewModel.register(
+                    firstName = firstName,
+                    lastName = lastName,
+                    email = email,
+                    password = password
+            )
+        }
+//        navigateTo(AppDestinations.LOGIN_ROUTE)
+    }
     Box() {
 
         Column(
@@ -59,10 +81,9 @@ fun SignupScreen(navigateTo: (String) -> Unit) {
             Spacer(modifier = Modifier.height(25.dp))
 
             //First Name TextFiled
-            var text_firstname by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
-                value = text_firstname,
-                onValueChange = { text_firstname = it },
+                value = firstName,
+                onValueChange = { firstName = it },
                 label = { Text("First Name") },
                 modifier = Modifier
                     .padding(top = 20.dp),
@@ -76,10 +97,9 @@ fun SignupScreen(navigateTo: (String) -> Unit) {
             )
 
             //Last Name TextFiled
-            var text_secondname by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
-                value = text_secondname,
-                onValueChange = { text_secondname = it },
+                value = lastName,
+                onValueChange = { lastName = it },
                 label = { Text("Last Name") },
                 modifier = Modifier
                     .padding(top = 10.dp),
@@ -93,10 +113,9 @@ fun SignupScreen(navigateTo: (String) -> Unit) {
             )
 
             //Email TextFiled
-            var text_email by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
-                value = text_email,
-                onValueChange = { text_email = it },
+                value = email,
+                onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier
                     .padding(top = 10.dp),
@@ -110,10 +129,9 @@ fun SignupScreen(navigateTo: (String) -> Unit) {
             )
 
             //Password TextFiled
-            var text_password by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
-                value = text_password,
-                onValueChange = { text_password = it },
+                value = password,
+                onValueChange = { password = it },
                 label = { Text("Password") },
                 modifier = Modifier
                     .padding(top = 10.dp),
@@ -123,12 +141,16 @@ fun SignupScreen(navigateTo: (String) -> Unit) {
                         imageVector = Icons.Default.Lock,
                         contentDescription = null
                     )
-                }
+                },
+                visualTransformation = PasswordVisualTransformation()
             )
 
             //Sign Up Button
             Button(
-                onClick = { navigateTo(AppDestinations.LOGIN_ROUTE)/*TODO*/ },
+                onClick = {
+                    handleSignup()
+//                    navigateTo(AppDestinations.LOGIN_ROUTE)/*TODO*/
+                },
                 modifier = Modifier
                     .padding(top = 30.dp)
                     .size(180.dp, 50.dp)

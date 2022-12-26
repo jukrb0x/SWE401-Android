@@ -1,8 +1,9 @@
 package com.brokenbrains.fitness.data.repository
 
 import com.brokenbrains.fitness.data.AppDatabase
-import com.brokenbrains.fitness.network.TestApi
-import com.brokenbrains.fitness.network.TestResponse
+import com.brokenbrains.fitness.network.UserApi
+import com.brokenbrains.fitness.network.request.RegisterRequest
+import com.brokenbrains.fitness.network.response.UserResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,20 +11,40 @@ import javax.inject.Singleton
 class UserRepository @Inject constructor(
     private val appDatabase: AppDatabase,
 //    private val userDataStore: UserDataStore,
-    private val testApi: TestApi
+    private val userApi: UserApi
 ) {
 
     // connect to Room
 
-    suspend fun login(): TestResponse {
-        val res = testApi.getTestMessage()
+
+    suspend fun logout() {
+        // clear the data
+
+
+    }
+
+    suspend fun login(username: String, password: String): UserResponse {
+        val res = userApi.login(username, password)
         return res
     }
 
-
-    suspend fun logout() {
+    suspend fun register(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+    ): UserResponse {
+        // save the data and register
+        val res = userApi.register(
+            RegisterRequest(
+                firstName,
+                lastName,
+                email,
+                password,
+            )
+        )
+        return res
 
     }
-
 
 }

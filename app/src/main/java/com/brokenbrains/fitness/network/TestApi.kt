@@ -1,6 +1,6 @@
 package com.brokenbrains.fitness.network
 
-import retrofit2.Response
+import com.brokenbrains.fitness.network.response.TestResponse
 import retrofit2.http.GET
 import javax.inject.Inject
 import javax.inject.Singleton

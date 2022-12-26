@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
 
-    @Query("SELECT * FROM user WHERE uid = :uid")
-    fun getModel(uid: Int): Flow<UserModel>
+    @Query("SELECT * FROM user WHERE id = :id")
+    fun getModel(id: Int): Flow<UserModel>
 
     // insert new data
     // update existing data

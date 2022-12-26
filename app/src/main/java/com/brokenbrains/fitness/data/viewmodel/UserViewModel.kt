@@ -1,27 +1,46 @@
 package com.brokenbrains.fitness.data.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.brokenbrains.fitness.data.repository.UserRepository
-import com.brokenbrains.fitness.network.TestResponse
+import com.brokenbrains.fitness.network.response.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
     private val repository: UserRepository
-) :ViewModel() {
+) : ViewModel() {
 
     // livedata / state
-    suspend fun login(username: String, password: String): TestResponse {
-        val res = repository.login()
+    suspend fun login(username: String, password: String): UserResponse {
+        val res = repository.login(username, password)
         return res
+    }
+
+    suspend fun register(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+    ): UserResponse {
+        val res = repository.register(
+            firstName,
+            lastName,
+            email,
+            password,
+        )
+        return res
+    }
+
+    suspend fun logout() {
+        repository.logout()
+    }
+
+    fun signup(email: String, password: String, firstName: String, lastName: String) {
 
     }
-//        repository.login()
 
 
     // method to get user data, login, logout...
