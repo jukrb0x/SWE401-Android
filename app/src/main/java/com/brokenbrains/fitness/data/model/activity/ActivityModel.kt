@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.model.activity
+package com.brokenbrains.fitness.data.model.activity
 
 import androidx.room.Entity
 import java.util.*

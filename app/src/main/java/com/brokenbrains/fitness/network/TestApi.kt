@@ -6,6 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class TestApi @Inject constructor(private val service: Service) {
+    // note: BASE_URL is built in build.gradle and inject with DI
 
     suspend fun getTestMessage(): TestResponse {
         return service.getTestMessage()

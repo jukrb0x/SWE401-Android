@@ -11,8 +11,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class DatabaseModule {
-
+class PersistenceModule {
     @Provides
     @Singleton
     fun provideAppDatabase(application: Application): AppDatabase {
@@ -20,4 +19,12 @@ class DatabaseModule {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+
+//    @Provides
+//    @Singleton
+//    fun providesUserDataStore(application: Application) : DataStore<UserDataStore> {
+//        return UserDataStore.create(application)
+//    }
+
 }

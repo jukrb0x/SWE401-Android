@@ -2,7 +2,6 @@ package com.brokenbrains.fitness.di
 
 import com.brokenbrains.fitness.BuildConfig
 import com.brokenbrains.fitness.network.TestApi
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +13,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class AppModule {
+class NetworkModule {
     @Provides
     @Singleton
     fun provideAuthInterceptorOkHttpClient(): OkHttpClient {
