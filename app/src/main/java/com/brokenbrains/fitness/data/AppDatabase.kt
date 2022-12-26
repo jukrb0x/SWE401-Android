@@ -12,4 +12,6 @@ import com.brokenbrains.fitness.model.user.UserModel
 )
 abstract class AppDatabase : RoomDatabase() {
 //    abstract fun userDao():UserDao
+
+    // the app database singleton will be provided in DI
 }
