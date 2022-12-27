@@ -19,13 +19,21 @@ enum class ActivityType {
         }
 
         fun getStringList(): List<String> {
-            return listOf(
-                WALKING.toReadableString(),
-                RUNNING.toReadableString(),
-                CYCLING.toReadableString(),
-                SWIMMING.toReadableString(),
-                OTHER.toReadableString()
-            )
+            val strList = mutableListOf<String>()
+            for (type in values()) {
+                strList.add(type.toReadableString())
+            }
+            return strList
+
+
+//            return listOf(
+//                for (type in values()) type.toReadableString()
+//                WALKING.toReadableString(),
+//                RUNNING.toReadableString(),
+//                CYCLING.toReadableString(),
+//                SWIMMING.toReadableString(),
+//                OTHER.toReadableString()
+//            )
         }
     }
 }

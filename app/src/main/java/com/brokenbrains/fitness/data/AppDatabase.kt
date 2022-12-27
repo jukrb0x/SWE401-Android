@@ -15,7 +15,7 @@ import com.brokenbrains.fitness.data.model.user.UserModel
     entities = [
         UserModel::class,
         ActivityModel::class
-    ], version = 1
+    ], version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
     // DAOs

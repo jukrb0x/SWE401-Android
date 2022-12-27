@@ -18,9 +18,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.ActivityRoutes
+import com.brokenbrains.fitness.data.model.activity.ActivityModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.toReadableString
+import com.brokenbrains.fitness.data.viewmodel.ActivityViewModel
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
@@ -31,22 +34,34 @@ import java.time.format.DateTimeFormatterBuilder
 private var selectTextStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal)
 
 @Composable
-fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit /*viewmodel*/) {
+fun AddActivityScreen(
+    viewModel: ActivityViewModel,
+    navigateTo: (route: String) -> Unit, onBack: () -> Unit /*viewmodel*/
+) {
     // screen states
     val title = rememberSaveable { mutableStateOf("") }
     val startDate = rememberSaveable { mutableStateOf(LocalDate.now()) }
     val startTime = rememberSaveable { mutableStateOf(LocalTime.now()) }
     val endTime = rememberSaveable { mutableStateOf(LocalTime.now().plusMinutes(30)) }
     val selectedActivity =
-        rememberSaveable { mutableStateOf(ActivityType.WALKING.toReadableString()) }
+        rememberSaveable { mutableStateOf(ActivityType.WALKING) }
 
     // viewmodel...
+    fun handleAddActivity() = viewModel.addNewActivity(
+        ActivityModel(
+            title = title.value,
+            startAt = startTime.value.toString(),
+            endAt = endTime.value.toString(),
+            activityType = selectedActivity.value
+        )
+    )
 
 
     BrowsePage(
         title = ActivityRoutes.AddActivity.title, navigateTo = navigateTo, onBack = onBack,
         onAdd = {
             // TODO handle Add viewmodel
+            handleAddActivity()
             onBack()
         }
     ) {
@@ -94,7 +109,7 @@ fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit /*
                 onClick = { activitiesDialog.show() }
             ), label = "Activity") {
                 Text(
-                    text = selectedActivity.value,
+                    text = selectedActivity.value.toReadableString(),
                     style = selectTextStyle,
                     modifier = Modifier
                         .padding(start = MainScreenHorizontalPaddingValue)
@@ -102,7 +117,7 @@ fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit /*
 
             }
             ActivitiesDialog(dialogState = activitiesDialog, onActivitySelected = {
-                selectedActivity.value = it.toReadableString()
+                selectedActivity.value = it
             })
             Divider()
 
@@ -186,5 +201,5 @@ private fun RowItem(modifier: Modifier = Modifier, label: String, content: @Comp
 @Preview
 @Composable
 private fun AddActivityScreenPreview() {
-    AddActivityScreen(navigateTo = {}, onBack = {})
+    AddActivityScreen(viewModel = hiltViewModel<ActivityViewModel>(), navigateTo = {}, onBack = {})
 }

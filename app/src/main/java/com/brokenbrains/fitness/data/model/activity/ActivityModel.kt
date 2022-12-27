@@ -9,7 +9,7 @@ import java.util.*
 
 @Entity(tableName = "activity")
 data class ActivityModel (
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int? = null,
 
@@ -27,3 +27,5 @@ data class ActivityModel (
     var activityType: ActivityType? = ActivityType.OTHER
 
 )
+
+// as xxxx
