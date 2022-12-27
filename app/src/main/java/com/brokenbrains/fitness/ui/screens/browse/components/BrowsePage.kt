@@ -20,16 +20,18 @@ fun BrowsePage(
     title: String,
     navigateTo: (String) -> Unit,
     onBack: () -> Unit,
+    onAdd: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     Scaffold(topBar = {
         FitnessTopAppBar(title = title, onBack = onBack, actions = {
-            IconButton(onClick = {}) {
+            if(onAdd != null){
+            IconButton(onClick = {onAdd()}) {
                 Icon(
                     imageVector = FeatherIcons.Plus,
                     contentDescription = "Add New Item"
                 )
-            }
+            }}
         })
 
     }) { innerPadding ->
@@ -44,6 +46,6 @@ fun BrowsePage(
 @Preview(showBackground = true)
 private fun BrowseDetailsPreview() {
     FitnessTheme {
-        BrowsePage(navigateTo = {}, onBack = {}, content = {}, title = "okkk")
+        BrowsePage(navigateTo = {}, onBack = {}, content = {}, title = "okkk", onAdd = {})
     }
 }

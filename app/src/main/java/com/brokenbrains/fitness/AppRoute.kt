@@ -49,5 +49,9 @@ enum class BrowseRoutes(val route: String, val title: String) {
     Measurements("$BROWSE_ROUTE/measurements", "Measurements"),
     Vitals("$BROWSE_ROUTE/vitals", "Vitals"),
     Sleep("$BROWSE_ROUTE/sleep", "Sleep"),
-    Medication("$BROWSE_ROUTE/medication", "Medication"),
+    Medication("$BROWSE_ROUTE/medication", "Medication"),;
+}
+
+enum class ActivityRoutes(val route: String, val title: String) {
+    AddActivity("${BrowseRoutes.Activity.route}/add", "Add Activity"),
 }

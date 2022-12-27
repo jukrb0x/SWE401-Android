@@ -98,19 +98,10 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     navigation(
         route = AppDestinations.MAIN_ROUTE, startDestination = TabRoutes.Home.route
     ) {
-        composable(TabRoutes.Home.route) { from ->
-//            val viewModel = hiltViewModel<HomeViewModel>()
-            HomeScreen(navigateTo = { route -> navigateTo(route, from) })
-        }
-        composable(TabRoutes.HealthPlus.route) { from ->
-            HealthPlusScreen(navigateTo = { route -> navigateTo(route, from) })
-        }
-        composable(TabRoutes.Sharing.route) { from ->
-            SharingScreen(navigateTo = { route -> navigateTo(route, from) })
-        }
-        composable(TabRoutes.Browse.route) { from ->
-            BrowseScreen(navigateTo = { route -> navigateTo(route, from) }, onBack = upPress)
-        }
+        HomeScreenComposable(navigateTo)
+        HealthPlusScreenComposable(navigateTo)
+        SharingScreenComposable(navigateTo)
+        BrowseScreenComposable(navigateTo,upPress)
     }
 
     // user related routes
@@ -141,20 +132,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
     navigation(
         route = AppDestinations.BROWSE_ROUTE, startDestination = TabRoutes.Browse.route
     ) {
-        composable(BrowseRoutes.Activity.route,
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Start
-                )
-            },
-            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
-            val navTo = { route: String -> navigateTo(route, from) }
-            BrowsePage(
-                title = BrowseRoutes.Activity.title, navigateTo = navTo, onBack = upPress
-            ) {
-                ActivityPage(navigateTo = navTo, onBack = upPress)
-            }
-        }
+        BrowseActivityScreenComposable(navigateTo, upPress)
 
         composable(BrowseRoutes.Measurements.route,
             enterTransition = {
@@ -164,11 +142,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowsePage(
-                title = BrowseRoutes.Measurements.title, navigateTo = navTo, onBack = upPress
-            ) {
-                MeasurementsPage(navigateTo = navTo, onBack = upPress)
-            }
+            MeasurementsPage(navigateTo = navTo, onBack = upPress)
         }
 
         composable(BrowseRoutes.Vitals.route,
@@ -179,11 +153,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowsePage(
-                title = BrowseRoutes.Vitals.title, navigateTo = navTo, onBack = upPress
-            ) {
-                VitalsPage(navigateTo = navTo, onBack = upPress)
-            }
+            VitalsPage(navigateTo = navTo, onBack = upPress)
         }
 
         composable(BrowseRoutes.Sleep.route,
@@ -194,11 +164,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowsePage(
-                title = BrowseRoutes.Sleep.title, navigateTo = navTo, onBack = upPress
-            ) {
-                SleepPage(navigateTo = navTo, onBack = upPress)
-            }
+            SleepPage(navigateTo = navTo, onBack = upPress)
         }
 
         composable(BrowseRoutes.Medication.route,
@@ -209,11 +175,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             },
             exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
             val navTo = { route: String -> navigateTo(route, from) }
-            BrowsePage(
-                title = BrowseRoutes.Medication.title, navigateTo = navTo, onBack = upPress
-            ) {
-                MedicationPage(navigateTo = navTo, onBack = upPress)
-            }
+            MedicationPage(navigateTo = navTo, onBack = upPress)
         }
     }
 }

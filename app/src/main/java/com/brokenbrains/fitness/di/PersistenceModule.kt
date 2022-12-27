@@ -21,6 +21,14 @@ class PersistenceModule {
     }
 
 
+    @Provides
+    @Singleton
+    fun provideUserDao(appDatabase: AppDatabase) = appDatabase.userDao()
+
+    @Provides
+    @Singleton
+    fun provideActivityDao(appDatabase: AppDatabase) = appDatabase.activityDao()
+
 //    @Provides
 //    @Singleton
 //    fun providesUserDataStore(application: Application) : DataStore<UserDataStore> {

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.FitnessIcon
@@ -145,8 +146,8 @@ fun LoginScreen(
             // Login Button
             Button(
                 onClick = {
-                    handleLogin()
-//                    navigateTo(AppDestinations.LOGIN_ROUTE)
+//                    handleLogin()
+                    navigateTo(AppDestinations.LOGIN_ROUTE)
                 },
                 modifier = Modifier
                     .padding(top = 30.dp)

@@ -1,6 +1,6 @@
 package com.brokenbrains.fitness.data.repository
 
-import com.brokenbrains.fitness.data.AppDatabase
+import com.brokenbrains.fitness.data.dao.UserDao
 import com.brokenbrains.fitness.network.UserApi
 import com.brokenbrains.fitness.network.request.RegisterRequest
 import com.brokenbrains.fitness.network.response.UserResponse
@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepository @Inject constructor(
-    private val appDatabase: AppDatabase,
+    private val userDao: UserDao,
 //    private val userDataStore: UserDataStore,
     private val userApi: UserApi
 ) {
@@ -34,7 +34,7 @@ class UserRepository @Inject constructor(
         email: String,
         password: String,
     ): UserResponse {
-        // save the data and register
+//         save the data and register
         val res = userApi.register(
             RegisterRequest(
                 firstName,
