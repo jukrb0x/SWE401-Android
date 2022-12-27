@@ -9,6 +9,9 @@ class ActivityRepository @Inject constructor(
     private val activityDao: ActivityDao
 ) {
 
+    suspend fun addNewActivity() {
+
+    }
 
 
 }

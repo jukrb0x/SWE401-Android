@@ -5,7 +5,6 @@ package com.brokenbrains.fitness
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -23,13 +22,8 @@ import androidx.navigation.navigation
 import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
-import com.brokenbrains.fitness.ui.screens.HomeScreen
-import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
-import com.brokenbrains.fitness.ui.screens.browse.components.*
-import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.home.AddHealthDataFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
-import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.brokenbrains.fitness.ui.screens.user.LoginScreen
 import com.brokenbrains.fitness.ui.screens.user.SignupScreen
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
@@ -101,7 +95,7 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         HomeScreenComposable(navigateTo)
         HealthPlusScreenComposable(navigateTo)
         SharingScreenComposable(navigateTo)
-        BrowseScreenComposable(navigateTo,upPress)
+        BrowseScreenComposable(navigateTo, upPress)
     }
 
     // user related routes
@@ -127,55 +121,15 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
 
     }
 
-    // TODO: the routes are way too nested.. use another architecture
     // browse items
     navigation(
         route = AppDestinations.BROWSE_ROUTE, startDestination = TabRoutes.Browse.route
     ) {
         BrowseActivityScreenComposable(navigateTo, upPress)
+        BrowseMeasurementsScreenComposable(navigateTo, upPress)
+        BrowseVitalsScreenComposable(navigateTo, upPress)
+        BrowseSleepScreenComposable(navigateTo, upPress)
+        BrowseMedicationScreenComposable(navigateTo, upPress)
 
-        composable(BrowseRoutes.Measurements.route,
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Start
-                )
-            },
-            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
-            val navTo = { route: String -> navigateTo(route, from) }
-            MeasurementsPage(navigateTo = navTo, onBack = upPress)
-        }
-
-        composable(BrowseRoutes.Vitals.route,
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Start
-                )
-            },
-            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
-            val navTo = { route: String -> navigateTo(route, from) }
-            VitalsPage(navigateTo = navTo, onBack = upPress)
-        }
-
-        composable(BrowseRoutes.Sleep.route,
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Start
-                )
-            },
-            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
-            val navTo = { route: String -> navigateTo(route, from) }
-            SleepPage(navigateTo = navTo, onBack = upPress)
-        }
-
-        composable(BrowseRoutes.Medication.route,
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Start
-                )
-            },
-            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
-            val navTo = { route: String -> navigateTo(route, from) }
-            MedicationPage(navigateTo = navTo, onBack = upPress)
-        }
     }
 }

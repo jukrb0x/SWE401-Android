@@ -82,6 +82,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .padding(top = 20.dp),
                 shape = RoundedCornerShape(20.dp),
+                singleLine = true,
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Email,
@@ -99,6 +100,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .padding(top = 10.dp),
                 shape = RoundedCornerShape(20.dp),
+                singleLine = true,
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Lock,

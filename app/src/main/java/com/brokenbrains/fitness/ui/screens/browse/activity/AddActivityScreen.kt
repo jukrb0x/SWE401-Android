@@ -1,15 +1,190 @@
 package com.brokenbrains.fitness.ui.screens.browse.activity
 
-import androidx.compose.material3.Text
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ActivityRoutes
+import com.brokenbrains.fitness.data.model.activity.ActivityType
+import com.brokenbrains.fitness.data.model.activity.toReadableString
+import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatterBuilder
+import java.util.Date
+
+private var selectTextStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal)
 
 @Composable
-fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit /*viewmodel*/) {
+    // states
+    var title = rememberSaveable { mutableStateOf("") }
+    var startDate = rememberSaveable { mutableStateOf(LocalDate.now()) }
+    var startTime = rememberSaveable { mutableStateOf(LocalTime.now()) }
+    var endTime = rememberSaveable { mutableStateOf(LocalTime.now().plusMinutes(30)) }
+
+    val selectedActivity =
+        rememberSaveable { mutableStateOf(ActivityType.WALKING.toReadableString()) }
+
+    // viewmodel...
+
+
     BrowsePage(
-        title = ActivityRoutes.AddActivity.name
-        , navigateTo = navigateTo, onBack = onBack) {
-        Text("ok")
+        title = ActivityRoutes.AddActivity.title, navigateTo = navigateTo, onBack = onBack,
+        onAdd = {
+            // TODO handle Add viewmodel
+            onBack()
+        }
+    ) {
+
+        val activitiesDialog = rememberMaterialDialogState()
+        val startDateDialog = rememberMaterialDialogState()
+        val timePickerDialog = rememberMaterialDialogState()
+
+        val textFieldColors = TextFieldDefaults.textFieldColors(
+//            textColor = Color.Gray,
+            disabledTextColor = Color.Transparent,
+            backgroundColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            RowItem(label = "Title") {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 0.dp),
+                    colors = textFieldColors,
+                    value = title.value,
+                    singleLine = true,
+                    onValueChange = { title.value = it },
+                    placeholder = {
+                        Text(
+                            "Some Activity",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.End,
+                        )
+                    },
+                    textStyle = TextStyle.Default.copy(textAlign = TextAlign.End),
+                )
+            }
+            Divider()
+
+            RowItem(modifier = Modifier.clickable(
+                onClick = { activitiesDialog.show() }
+            ), label = "Activity") {
+                Text(
+                    text = selectedActivity.value,
+                    style = selectTextStyle,
+                    modifier = Modifier
+                        .padding(start = MainScreenHorizontalPaddingValue)
+                )
+
+            }
+            ActivitiesDialog(dialogState = activitiesDialog, onActivitySelected = {
+                selectedActivity.value = it.toReadableString()
+            })
+            Divider()
+
+            RowItem(
+                modifier = Modifier.clickable(onClick = { startDateDialog.show() }),
+                label = "Date"
+            ) {
+                Text(
+                    text = startDate.value.toString(),
+                    style = selectTextStyle,
+                    modifier = Modifier
+                        .padding(start = MainScreenHorizontalPaddingValue)
+                )
+            }
+
+
+            val timePickerInitial = rememberSaveable { mutableStateOf(startTime.value) }
+            RowItem(
+                modifier = Modifier.clickable(onClick = {
+                    timePickerInitial.value = startTime.value
+                    timePickerDialog.show()
+                }),
+                label = "Start Time"
+            ) {
+                Text(
+                    text = startTime.value.format(
+                        DateTimeFormatterBuilder().appendPattern("HH:mm").toFormatter()
+                    ),
+                    style = selectTextStyle,
+                    modifier = Modifier
+                        .padding(start = MainScreenHorizontalPaddingValue)
+                )
+            }
+            RowItem(
+                modifier = Modifier.clickable(onClick = {
+                    timePickerInitial.value = endTime.value
+                    timePickerDialog.show()
+                }),
+                label = "End Time"
+            ) {
+                Text(
+                    text = endTime.value.format(
+                        DateTimeFormatterBuilder().appendPattern("HH:mm").toFormatter()
+                    ),
+                    style = selectTextStyle,
+                    modifier = Modifier
+                        .padding(start = MainScreenHorizontalPaddingValue)
+                )
+            }
+
+            TimePickerDialog(
+                dialogState = timePickerDialog,
+                onDateSelected = { startTime.value = it },
+                initialTime = timePickerInitial.value
+            )
+
+            DatePickerDialog(dialogState = startDateDialog, onDateSelected = { startDate.value = it })
+
+
+        }
     }
+}
+
+@Composable
+private fun RowItem(modifier: Modifier = Modifier, label: String, content: @Composable () -> Unit) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(horizontal = MainScreenHorizontalPaddingValue),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = label, style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp))
+        content()
+    }
+}
+
+@Preview
+@Composable
+private fun AddActivityScreenPreview() {
+    AddActivityScreen(navigateTo = {}, onBack = {})
 }

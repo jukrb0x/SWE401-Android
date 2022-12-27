@@ -9,7 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.browse.activity.AddActivityScreen
-import com.brokenbrains.fitness.ui.screens.browse.components.ActivityPage
+import com.brokenbrains.fitness.ui.screens.browse.components.*
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.google.accompanist.navigation.animation.composable
@@ -82,5 +82,70 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
         val navTo = { route: String -> navigateTo(route, from) }
         AddActivityScreen(navigateTo = navTo, onBack = upPress)
+    }
+}
+
+fun NavGraphBuilder.BrowseMeasurementsScreenComposable(
+    navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
+    upPress: () -> Unit,
+) {
+    composable(BrowseRoutes.Measurements.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        MeasurementsPage(navigateTo = navTo, onBack = upPress)
+    }
+}
+
+fun NavGraphBuilder.BrowseVitalsScreenComposable(
+    navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
+    upPress: () -> Unit,
+) {
+    composable(BrowseRoutes.Vitals.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        VitalsPage(navigateTo = navTo, onBack = upPress)
+    }
+}
+
+fun NavGraphBuilder.BrowseSleepScreenComposable(
+    navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
+    upPress: () -> Unit,
+) {
+    composable(BrowseRoutes.Sleep.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        SleepPage(navigateTo = navTo, onBack = upPress)
+    }
+}
+
+
+fun NavGraphBuilder.BrowseMedicationScreenComposable(
+    navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
+    upPress: () -> Unit,
+) {
+    composable(BrowseRoutes.Medication.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        MedicationPage(navigateTo = navTo, onBack = upPress)
     }
 }
