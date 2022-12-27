@@ -43,7 +43,6 @@ fun HomeScreen(navigateTo: (route: String) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             item {
-                Text("TODO: daily chart - calories, steps, exercise minutes") // TODO
                 Spacer(modifier = Modifier.height(10.dp))
                 ElevatedMedicationNotificationCard(
                     modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),

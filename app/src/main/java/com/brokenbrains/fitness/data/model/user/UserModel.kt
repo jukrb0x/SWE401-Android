@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user")
-data class UserModel (
+data class UserModel(
     @PrimaryKey
     @ColumnInfo(name = "id")
     var id: Int? = null, // maybe it's long
@@ -16,12 +16,14 @@ data class UserModel (
     @ColumnInfo(name = "last_name")
     var lastName: String? = null,
 
+    // --- credentials ---
     @ColumnInfo(name = "email")
     var email: String? = null,
 
     @ColumnInfo(name = "password")
     var password: String? = null,
 
+    // --- more ---
     @ColumnInfo(name = "age")
     var age: Int? = null,
 
