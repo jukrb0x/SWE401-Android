@@ -27,18 +27,16 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatterBuilder
-import java.util.Date
 
 private var selectTextStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal)
 
 @Composable
 fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit /*viewmodel*/) {
-    // states
-    var title = rememberSaveable { mutableStateOf("") }
-    var startDate = rememberSaveable { mutableStateOf(LocalDate.now()) }
-    var startTime = rememberSaveable { mutableStateOf(LocalTime.now()) }
-    var endTime = rememberSaveable { mutableStateOf(LocalTime.now().plusMinutes(30)) }
-
+    // screen states
+    val title = rememberSaveable { mutableStateOf("") }
+    val startDate = rememberSaveable { mutableStateOf(LocalDate.now()) }
+    val startTime = rememberSaveable { mutableStateOf(LocalTime.now()) }
+    val endTime = rememberSaveable { mutableStateOf(LocalTime.now().plusMinutes(30)) }
     val selectedActivity =
         rememberSaveable { mutableStateOf(ActivityType.WALKING.toReadableString()) }
 
@@ -161,7 +159,9 @@ fun AddActivityScreen(navigateTo: (route: String) -> Unit, onBack: () -> Unit /*
                 initialTime = timePickerInitial.value
             )
 
-            DatePickerDialog(dialogState = startDateDialog, onDateSelected = { startDate.value = it })
+            DatePickerDialog(
+                dialogState = startDateDialog,
+                onDateSelected = { startDate.value = it })
 
 
         }

@@ -57,15 +57,15 @@ private fun ActivityPageInternal(navigateTo: (route: String) -> Unit, onBack: ()
             TrendCard(
                 data = TrendCardData(
                     title = "Move",
-                    subtitle = "Last 7 days"
+                    subtitle = "Last 7 days",
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
                 data = TrendCardData(
                     title = "Weight",
-                    subtitle = "Last 7 days"
-                )
+                    subtitle = "Last 7 days",
+                    )
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
