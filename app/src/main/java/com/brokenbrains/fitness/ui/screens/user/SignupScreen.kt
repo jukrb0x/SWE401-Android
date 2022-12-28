@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -18,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.AppDestinations
@@ -135,13 +137,18 @@ fun SignupScreen(
                         contentDescription = null
                     )
                 },
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
 
             //Sign Up Button
             Button(
                 onClick = {
-                    viewModel.signup(name = "${firstName.trim()} ${lastName.trim()}", email = email.trim(), password = password)
+                    viewModel.signup(
+                        name = "${firstName.trim()} ${lastName.trim()}",
+                        email = email.trim(),
+                        password = password
+                    )
 //                    handleSignup()
 //                    navigateTo(AppDestinations.LOGIN_ROUTE)/*TODO*/
                 },
@@ -154,15 +161,21 @@ fun SignupScreen(
                 Text(text = "Sign Up", fontWeight = FontWeight.Bold)
             }
         }
+    }
 
-        // Observing the signupFlow
-        signupFlow.value?.let {
-            if (it is ResultData.Success) {
-                navigateTo(AppDestinations.LOGIN_ROUTE)
-            }
-            if(it is ResultData.Failed){
-                Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
-            }
+    // Observing the signupFlow
+    signupFlow.value?.let {
+        if (it is ResultData.Success) {
+            navigateTo(AppDestinations.LOGIN_ROUTE)
+            viewModel.cleanUp()
+        }
+        if (it is ResultData.Failed) {
+            Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
+            viewModel.cleanUp()
+        }
+        if (it is ResultData.Loading) {
+            viewModel.cleanUp()
         }
     }
+
 }

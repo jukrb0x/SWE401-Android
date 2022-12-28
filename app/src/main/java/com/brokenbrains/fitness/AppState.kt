@@ -4,16 +4,15 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.brokenbrains.fitness.data.repository.AuthRepository
+import com.brokenbrains.fitness.data.model.auth.AuthViewModel
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Create the AppState Instance
@@ -23,8 +22,11 @@ import javax.inject.Singleton
 fun rememberAppState(
 //    navController: NavHostController = rememberNavController(),
     navController: NavHostController = rememberAnimatedNavController(),
-) = remember(navController) {
-    AppState(navController)
+): AppState {
+    val authViewModel: AuthViewModel = hiltViewModel();
+    return remember(navController) {
+        AppState(navController, authViewModel)
+    }
 }
 
 
@@ -32,9 +34,11 @@ fun rememberAppState(
  * Holding UI related states as SSOT.
  */
 @Stable // JB todo: see docs about @Stable
-class AppState (
+class AppState(
     val navController: NavHostController,
+    val authViewModel: AuthViewModel
 ) {
+
 
     // ----------------------
     // Navigation state SSOT
@@ -77,7 +81,7 @@ class AppState (
     }
 
     fun logout() {
-        // todo: add logout logic
+        authViewModel.logout()
         navController.navigate(UserRoutes.Login.route) {
             popUpTo(/*findStartDestination(navController.graph).id*/0) {
                 saveState = true

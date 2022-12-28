@@ -52,4 +52,11 @@ class AuthViewModel @Inject constructor(
         _loginFlow.value = null
         repository.logout()
     }
+
+    // clean up flows after consuming them in some use case
+    // workaround for re-compose
+    fun cleanUp(){
+        _signupFlow.value = null
+        _loginFlow.value = null
+    }
 }

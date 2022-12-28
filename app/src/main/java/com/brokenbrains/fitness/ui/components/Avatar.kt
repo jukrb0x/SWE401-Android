@@ -26,11 +26,14 @@ import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.regular.User
 
 fun getInitials(name: String): String {
+    if (name.isEmpty()) return ""
     val nameParts = name.split(" ")
     return if (nameParts.size > 1) {
         nameParts[0].first().toString() + nameParts[1].first().toString()
-    } else {
+    } else if (nameParts.size == 1) {
         nameParts[0].first().toString()
+    } else {
+        ""
     }
 }
 
@@ -38,7 +41,7 @@ fun getInitials(name: String): String {
  * Generate a fixed avatar background color by name.
  * If name is empty, the random color will be provided.
  */
-fun generateColorFromName(name:String?): Color{
+fun generateColorFromName(name: String?): Color {
     var color = Color(
         (0..255).random(),
         (0..255).random(),

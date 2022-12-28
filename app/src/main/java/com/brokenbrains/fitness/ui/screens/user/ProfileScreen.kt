@@ -47,6 +47,7 @@ fun ProfileScreen(
     var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
     var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
+
     FullScreenDialog(
         onDismissRequest = onDismiss,
         visibility = visibility
@@ -57,8 +58,8 @@ fun ProfileScreen(
                 DialogTopBar(onDismiss = onDismiss, title = "Profile", actions = {
                     IconButton(
                         onClick = {
-                            viewModel.logout()
                             navigateTo(AppDestinations.LOGOUT_ROUTE)
+//                                  viewModel.logout()
                         },
                         enabled = /*resetEnabled*/true
                     ) {

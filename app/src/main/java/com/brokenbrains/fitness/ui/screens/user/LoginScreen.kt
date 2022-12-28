@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.AppDestinations
+import com.brokenbrains.fitness.R
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.data.model.auth.AuthViewModel
@@ -78,7 +80,7 @@ fun LoginScreen(
 
 
             Text(
-                text = "Fitness",
+                text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
                 color = YaleBlue3
@@ -193,12 +195,14 @@ fun LoginScreen(
         loginFlow.value.let {
             if (it is ResultData.Success) {
                 navigateTo(AppDestinations.LOGIN_ROUTE)
+                viewModel.cleanUp()
             }
             if (it is ResultData.Failed) {
                 Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
+                viewModel.cleanUp()
             }
             if (it is ResultData.Loading) {
-                // show loading
+                viewModel.cleanUp()
             }
         }
     }
