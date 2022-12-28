@@ -61,7 +61,7 @@ class ActivityViewModel @Inject constructor(
     }
 
 */
-    fun getLast7DaysOfActivityByTypes(types: List<ActivityType>) = repository.getLast7DaysOfActivityByTypes(types)
+//    fun getLast7DaysOfActivityByTypes(types: List<ActivityType>) = repository.getLast7DaysOfActivityByTypes(types)
 
     // init {} get  the init data
 

@@ -22,8 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.data.model.activity.ActivityModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
-import com.brokenbrains.fitness.data.model.activity.toReadableString
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
+import com.brokenbrains.fitness.data.model.activity.toReadableString
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.activity.components.ActivitiesDialog
 import com.brokenbrains.fitness.ui.screens.browse.activity.components.DatePickerDialog
@@ -75,7 +75,8 @@ fun AddActivityScreen(
 
         val activitiesDialog = rememberMaterialDialogState()
         val startDateDialog = rememberMaterialDialogState()
-        val timePickerDialog = rememberMaterialDialogState()
+        val startTimePickerDialog = rememberMaterialDialogState()
+        val endTimePickerDialog = rememberMaterialDialogState()
 
         val textFieldColors = TextFieldDefaults.textFieldColors(
 //            textColor = Color.Gray,
@@ -141,11 +142,9 @@ fun AddActivityScreen(
             }
 
 
-            val timePickerInitial = rememberSaveable { mutableStateOf(startTime.value) }
             RowItem(
                 modifier = Modifier.clickable(onClick = {
-                    timePickerInitial.value = startTime.value
-                    timePickerDialog.show()
+                    startTimePickerDialog.show()
                 }),
                 label = "Start Time"
             ) {
@@ -160,8 +159,7 @@ fun AddActivityScreen(
             }
             RowItem(
                 modifier = Modifier.clickable(onClick = {
-                    timePickerInitial.value = endTime.value
-                    timePickerDialog.show()
+                    endTimePickerDialog.show()
                 }),
                 label = "End Time"
             ) {
@@ -176,14 +174,24 @@ fun AddActivityScreen(
             }
 
             TimePickerDialog(
-                dialogState = timePickerDialog,
+                dialogState = startTimePickerDialog,
                 onDateSelected = { startTime.value = it },
-                initialTime = timePickerInitial.value
+                initialTime = startTime.value
             )
+
+            TimePickerDialog(
+                dialogState = endTimePickerDialog,
+                onDateSelected = { endTime.value = it },
+                initialTime = endTime.value
+            )
+
 
             DatePickerDialog(
                 dialogState = startDateDialog,
-                onDateSelected = { startDate.value = it })
+                onDateSelected = { startDate.value = it }
+            )
+
+
 
 
         }

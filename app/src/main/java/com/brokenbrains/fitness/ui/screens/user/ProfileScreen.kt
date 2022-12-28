@@ -28,10 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.R
 import com.brokenbrains.fitness.data.model.auth.AuthViewModel
-import com.brokenbrains.fitness.ui.components.AppScaffold
-import com.brokenbrains.fitness.ui.components.Avatar
-import com.brokenbrains.fitness.ui.components.DialogTopBar
-import com.brokenbrains.fitness.ui.components.FullScreenDialog
+import com.brokenbrains.fitness.ui.components.*
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.LogIn
@@ -92,7 +89,7 @@ fun ProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     //User Account Image
-                    Avatar(avatarSize = 100.dp, clickable = false)
+                    Avatar(avatarSize = 100.dp, clickable = false, nameInitials = getInitials(viewModel.currentUser?.displayName?:""))
 //                    Image(
 //                        painter = image, contentDescription = "User Account Image",
 //                        modifier = Modifier

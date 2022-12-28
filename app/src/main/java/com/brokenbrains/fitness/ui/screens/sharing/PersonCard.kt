@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.ui.components.Avatar
+import com.brokenbrains.fitness.ui.components.generateColorFromName
 import com.brokenbrains.fitness.ui.components.getInitials
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.AlertStyle
 import com.brokenbrains.fitness.ui.screens.sharing.Styles.LatestUpdateStyle
@@ -23,7 +24,7 @@ import compose.icons.feathericons.ChevronRight
 
 data class PersonShareData(
     val id: String,
-    val name: String,
+    val name: String, // firstname + lastname
     val avatar: String, // todo
     val latestUpdate: String,
     val alert: String? = null,
@@ -72,11 +73,7 @@ internal fun PersonCard(modifier: Modifier = Modifier, personShareData: PersonSh
     ) {
         Row(modifier = modifier.padding(10.dp)) {
             // generate random light color for avatar
-            val bgColor = Color(
-                (0..255).random(),
-                (0..255).random(),
-                (0..255).random()
-            ).copy(alpha = 0.5f)
+            val bgColor = generateColorFromName(personShareData.name)
 
             Avatar(
                 modifier = Modifier.padding(5.dp),

@@ -52,7 +52,7 @@ private fun ActivityPageInternal(
     onBack: () -> Unit
 ) {
 //    val activities = viewModel.allActivities.collectAsState(initial = emptyList())
-//    val last7daysGraphVals = remember { mutableStateListOf<ColumnarData>() } //bad
+//    val last7daysGraphVals = remember { mutableStateListOf<ColumnarData>() } // bad
     val move = listOf(
         ActivityType.WALKING,
         ActivityType.RUNNING
