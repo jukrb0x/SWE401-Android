@@ -2,21 +2,28 @@
 
 package com.brokenbrains.fitness.ui.screens.browse.activity
 
-import android.util.Log
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.brokenbrains.fitness.data.model.activity.ActivityModel
-import com.brokenbrains.fitness.data.model.activity.ActivityType
-import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
-import com.brokenbrains.fitness.data.model.activity.toReadableString
+import com.brokenbrains.fitness.data.model.activity.*
+import com.brokenbrains.fitness.data.util.CalendarUtils
+import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Bike
+import compose.icons.tablericons.Run
+import compose.icons.tablericons.Swimming
+import compose.icons.tablericons.Walk
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun ActivityDetailScreen(
@@ -26,26 +33,7 @@ fun ActivityDetailScreen(
     onBack: () -> Unit
 ) {
 
-//    val allActivities by viewModel.getAllActivities.collectAsStateWithLifecycle(
-//        initialValue = emptyList(),
-//        lifecycle = LocalLifecycleOwner.current.lifecycle
-//    )
-
     val allActivities = viewModel.allActivities
-//
-//    LaunchedEffect(key1 = allActivities){
-//        viewModel.getAllActivities()
-//    }
-
-//    var allActivities = remember { mutableStateListOf<ActivityModel>() }
-
-
-//    LaunchedEffect(key1 = viewModel.allActivities) {
-//        viewModel.allActivities.collect() {
-//            Log.w("ActivityDetailScreen", "allActivities: $it")
-//            allActivities = it.toMutableStateList()
-//        }
-//    }
     BrowsePage(
         title = activityType.toReadableString(),
         navigateTo = navigateTo,
@@ -67,13 +55,55 @@ private fun ActivityColumn(
     activityType: ActivityType,
     allActivities: List<ActivityModel>
 ) {
+    // filter type
+    val filteredActivities = allActivities.filter { it.activityType == activityType }
+    val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     LazyColumn {
-        item {
-            allActivities.forEach { activity ->
-                activity.title?.let { Text(it) }
-                Log.w("ActivityDetailScreen", "Activity: $activity")
+        items(items = filteredActivities) { item ->
+            val startDate = CalendarUtils.getDateTimeFronLong(item.startAt!!)!!.format(formatter)
+            val duration = item.getDuration()
+            val icon = when (item.activityType) {
+                ActivityType.WALKING -> TablerIcons.Walk
+                ActivityType.RUNNING -> TablerIcons.Run
+                ActivityType.CYCLING -> TablerIcons.Bike
+                ActivityType.SWIMMING -> TablerIcons.Swimming
+                ActivityType.OTHER -> TablerIcons.Walk
+                else -> {
+                    TablerIcons.Walk
+                }
             }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(MainScreenHorizontalPaddingValue),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    modifier = Modifier.padding(8.dp),
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .size(24.dp)
+                    )
+                    Text(
+                        text = item.activityType!!.toReadableString(),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Column(
+                    horizontalAlignment = Alignment.End,
+                ) {
+                    Text(text = startDate)
+                    Text(text = "${duration.hours}:${duration.minutes}:${duration.seconds}")
+                }
+            }
+            Divider()
         }
+
 
     }
 }

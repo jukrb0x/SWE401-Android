@@ -70,8 +70,23 @@ private fun ActivityPageInternal(
     )
 
     var last7daysGraphVals by rememberSaveable { mutableStateOf(defaultGraphVals) }
+    var allActivities = viewModel.allActivities
 
     LaunchedEffect(key1 = last7daysGraphVals) {
+        // TODO
+//        val last7activities = allActivities.takeLast(7)
+//        allActivities.filter { move.contains(it.activityType) }.forEach { it ->
+        // get last 7 item
+
+
+        //            last7daysGraphVals = last7daysGraphVals.mapIndexed { index, columnarData ->
+        //                if (index == it.date.dayOfWeek.value - 1) {
+        //                    columnarData.copy(value = columnarData.value + it.duration)
+        //                } else {
+        //                    columnarData
+        //                }
+        //            }
+//        }
 //        last7daysGraphVals = viewModel.getLast7DaysOfActivityByTypes(move)
     }
 
@@ -99,8 +114,10 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Move",
-                    subtitle = "Last 7 days",
-                    graphVal = last7daysGraphVals
+                    subtitle = "Last 7 times",
+                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.WALKING),
+                    todayValue = "0",
+                    todayUnit = "min",
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.WALKING}")
@@ -110,7 +127,7 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Weight",
-                    subtitle = "Last 7 days",
+                    subtitle = "Last 7 times",
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
@@ -122,6 +139,43 @@ private fun ActivityPageInternal(
             )
         }
 
+        item {
+            ColumnListSectionTitle(title = "OTHERS")
+            TrendCard(
+                data = TrendCardData(
+                    title = "Running",
+                    subtitle = "Last 7 times",
+                ),
+                onClick = {
+                    navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
+                }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+
+            TrendCard(
+                data = TrendCardData(
+                    title = "Swimming",
+                    subtitle = "Last 7 times",
+                ),
+                onClick = {
+                    navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
+                }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+
+            TrendCard(
+                data = TrendCardData(
+                    title = "Cycling",
+                    subtitle = "Last 7 times",
+                ),
+                onClick = {
+                    navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")
+                }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+
+
+        }
 //        items()
 
     }

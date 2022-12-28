@@ -44,7 +44,8 @@ data class TrendCardData(
         ColumnarData(0f, "S"),
         ColumnarData(0f, "S")
     ),
-    val unit: String = "kg",
+    val todayValue : String = "0",
+    val todayUnit: String = "kg",
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +55,6 @@ fun TrendCard(
 ) {
 
 
-    val valueToday = if (data.graphVal.isNotEmpty()) data.graphVal.last().value.toString() else "0"
 
     ElevatedCard(
         onClick = { onClick() },
@@ -90,11 +90,11 @@ fun TrendCard(
                         modifier = Modifier.width(100.dp), verticalAlignment = Alignment.Bottom
                     ) {
                         Text(
-                            text = valueToday,
+                            text = data.todayValue,
                             style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         )
                         Text(
-                            text = data.unit,
+                            text = data.todayUnit,
                             style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal),
                             modifier = Modifier.offset(x = (2).dp)
                         )

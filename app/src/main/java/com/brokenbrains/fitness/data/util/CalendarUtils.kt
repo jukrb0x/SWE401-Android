@@ -1,6 +1,11 @@
 package com.brokenbrains.fitness.data.util
 
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.*
 import javax.inject.Singleton
 
 @Singleton
@@ -29,6 +34,13 @@ object CalendarUtils {
             )
         }
         return list.asReversed()
+    }
+
+    fun getDateTimeFronLong(l:Long): LocalDateTime? {
+        val dt = Instant.ofEpochSecond(l)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+        return dt
     }
 
 }

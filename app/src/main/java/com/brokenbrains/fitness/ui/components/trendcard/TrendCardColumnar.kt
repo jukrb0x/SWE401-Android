@@ -16,8 +16,8 @@ import com.brokenbrains.fitness.ui.theme.OceanGreen1
 
 
 data class ColumnarData(
-    val value: Float, // percentage in 0...1
-    val label: String? // M, T, W, T, F, S, S
+    var value: Float, // percentage in 0...1
+    var label: String? // M, T, W, T, F, S, S
 )
 
 @Composable

@@ -26,6 +26,37 @@ data class ActivityModel(
 
 )
 
+data class Duration(
+    var hours: Int,
+    var minutes: Int,
+    var seconds: Int
+)
+
+fun ActivityModel.getDuration(): Duration {
+    val start = startAt
+    val end = endAt
+    var hours: Long = 0L
+    var minutes: Long = 0L
+    var seconds: Long = 0L
+    if (start != null && end != null) {
+        val duration = end - start
+        hours = duration / 3600
+        minutes = (duration % 3600) / 60 // Math.floorMod(duration, 3600) / 60
+        seconds = ((duration % 3600) % 60)
+        println("$hours:$minutes:$seconds")
+    }
+    return Duration(hours.toInt(), minutes.toInt(), seconds.toInt())
+}
+
+fun ActivityModel.duration(): Long {
+    val start = startAt
+    val end = endAt
+    if (start != null && end != null) {
+        return end - start
+    } else {
+        return 0
+    }
+}
 // as xxxx
 
 fun List<ActivityModel>.asColumnarData(): List<ColumnarData> {
@@ -40,8 +71,7 @@ fun List<ActivityModel>.asColumnarData(): List<ColumnarData> {
                         .appendPattern("HH:mm")
                         .toFormatter(Locale.getDefault())
                 ),
-                */
-                , label = activity.title ?: "No title"
+                */, label = activity.title ?: "No title"
             )
         )
     }

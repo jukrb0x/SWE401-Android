@@ -4,12 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.ActivityRepository
+import com.brokenbrains.fitness.data.util.CalendarUtils
+import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,10 +32,18 @@ class ActivityViewModel @Inject constructor(
 //        )
 //    }
 
-    var _allActivities = MutableStateFlow(listOf<ActivityModel>())
-//    val allActivities: StateFlow<List<ActivityModel>>
+//    var _allActivities = MutableStateFlow(listOf<ActivityModel>())
+
+    //    val allActivities: StateFlow<List<ActivityModel>>
 //        get() = _allActivities
+//    var _allActivities = emptyList<ActivityModel>();
     val allActivities = repository.getAllActivities()
+//      get() = {
+//        viewModelScope.launch(Dispatchers.IO) {
+//          _allActivities = repository.getAllActivities()
+//        }
+//        _allActivities
+//      }
 
 //    init{
 //        getAllActivities()
@@ -58,6 +65,44 @@ class ActivityViewModel @Inject constructor(
         }
     }
 
+    fun getLast7DaysColumnarDataByType(activityType: ActivityType): List<ColumnarData> {
+        val columnarDataList = mutableListOf<ColumnarData>()
+        val dayOfWeeks = CalendarUtils.getLast7Days()
+        if (allActivities.size > 0) {
+            allActivities.filter { it.activityType == activityType }.sortedBy { it.startAt }
+                .takeLast(7)
+                .mapIndexed { index, it ->
+                    columnarDataList.add(
+                        ColumnarData(
+                            value = it.duration().toFloat()/*.coerceIn(0f, 100f)*/,
+                            label = dayOfWeeks[index].label
+                        )
+                    )
+                }
+            // find the max value
+            val maxValue = columnarDataList.maxOf { it.value }
+            // normalize the values
+            columnarDataList.map {
+                it.value = it.value / maxValue
+            }
+        } else {
+            dayOfWeeks.map {
+                columnarDataList.add(
+                    ColumnarData(
+                        value = 0f,
+                        label = it.label
+                    )
+                )
+            }
+        }
+        return columnarDataList
+    }
+
+    fun getTodayTrendCardValueAndUnitByType(activityType: ActivityType) {
+
+    }
+
+
 /*
 
     fun getLast7DaysOfActivityByTypes(types: List<ActivityType>): Flow<MutableList<ColumnarData>> {
@@ -78,5 +123,6 @@ class ActivityViewModel @Inject constructor(
 //    fun getLast7DaysOfActivityByTypes(types: List<ActivityType>) = repository.getLast7DaysOfActivityByTypes(types)
 
     // init {} get  the init data
+
 
 }

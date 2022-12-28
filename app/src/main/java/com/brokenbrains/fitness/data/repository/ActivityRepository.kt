@@ -64,7 +64,7 @@ class ActivityRepository @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             db.collection("users")
                 .document(authRepository.currentUser!!.uid)
-                .collection("activities")
+                .collection("activities").orderBy("startAt")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {

@@ -54,14 +54,18 @@ fun AddActivityScreen(
 
 
     // ViewModel
-    fun handleAddActivity() = viewModel.addNewActivity(
+    fun handleAddActivity() {
+        startDateTime.value = startDate.value.atTime(startTime.value)
+        endDateTime.value = startDate.value.atTime(endTime.value)
+
+        viewModel.addNewActivity(
         ActivityModel(
             title = if (title.value.isNotEmpty()) title.value else selectedActivity.value.toReadableString(),
             startAt = startDateTime.value.toEpochSecond(ZoneOffset.UTC),
             endAt = endDateTime.value.toEpochSecond(ZoneOffset.UTC),
             activityType = selectedActivity.value
         )
-    )
+    )}
 
 
     BrowsePage(
