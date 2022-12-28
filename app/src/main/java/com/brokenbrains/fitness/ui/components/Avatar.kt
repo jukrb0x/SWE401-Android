@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +32,26 @@ fun getInitials(name: String): String {
     } else {
         nameParts[0].first().toString()
     }
+}
+
+/**
+ * Generate a fixed avatar background color by name.
+ * If name is empty, the random color will be provided.
+ */
+fun generateColorFromName(name:String?): Color{
+    var color = Color(
+        (0..255).random(),
+        (0..255).random(),
+        (0..255).random()
+    )
+    name?.firstOrNull()?.let { firstChar ->
+        color = Color(
+            firstChar.code * 10,
+            name[name[1].code % name.length].code * 20,
+            name[name[2].code % name.length].code * 30,
+        ).copy(alpha = 0.5f)
+    }
+    return color
 }
 
 @Composable

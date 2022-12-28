@@ -10,7 +10,9 @@ import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.UserRoutes
+import com.brokenbrains.fitness.data.model.auth.AuthViewModel
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
 import com.brokenbrains.fitness.ui.theme.TitleBarSubtitleStyle
 
@@ -30,6 +32,8 @@ fun MainScreenHeader(
     navigateTo: (String) -> Unit,
 ) {
     var profileVisibility by remember { mutableStateOf(false) }
+
+    val authViewModel = hiltViewModel<AuthViewModel>()
 
     Column {
         Spacer(modifier = Modifier.height(25.dp))
@@ -72,7 +76,7 @@ fun MainScreenHeader(
                 )
 
                 Avatar(
-                    nameInitials = "KH",
+                    nameInitials = getInitials(authViewModel.currentUser?.displayName ?: ""),
                     onClick = {
                         onAvatarPressed();
 //                        profileVisibility = true
