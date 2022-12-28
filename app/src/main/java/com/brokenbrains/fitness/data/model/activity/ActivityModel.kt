@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
+import org.checkerframework.checker.units.qual.m
 
 @Entity(tableName = "activity")
 data class ActivityModel(
@@ -35,17 +36,18 @@ data class Duration(
 fun ActivityModel.getDuration(): Duration {
     val start = startAt
     val end = endAt
-    var hours: Long = 0L
-    var minutes: Long = 0L
-    var seconds: Long = 0L
+    var hours = 0
+    var minutes = 0
+    var seconds = 0
     if (start != null && end != null) {
-        val duration = end - start
+        val duration = (end - start).toInt()
         hours = duration / 3600
-        minutes = (duration % 3600) / 60 // Math.floorMod(duration, 3600) / 60
-        seconds = ((duration % 3600) % 60)
+        val mid = Math.floorMod(duration, 3600)
+        minutes =  mid / 60
+        seconds = Math.floorMod(mid, 60)
         println("$hours:$minutes:$seconds")
     }
-    return Duration(hours.toInt(), minutes.toInt(), seconds.toInt())
+    return Duration(hours, minutes, seconds)
 }
 
 fun ActivityModel.duration(): Long {

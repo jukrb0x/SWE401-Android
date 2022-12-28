@@ -60,7 +60,9 @@ class ActivityViewModel @Inject constructor(
 
     fun addNewActivity(activityModel: ActivityModel) {
         CoroutineScope(Dispatchers.IO).launch {
-            repository.addNewActivity(activityModel = activityModel)
+            if(activityModel.startAt!! < activityModel.endAt!!){
+                repository.addNewActivity(activityModel = activityModel)
+            }
         }
     }
 
