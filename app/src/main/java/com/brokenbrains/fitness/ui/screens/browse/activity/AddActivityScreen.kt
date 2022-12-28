@@ -25,6 +25,9 @@ import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.toReadableString
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.screens.browse.activity.components.ActivitiesDialog
+import com.brokenbrains.fitness.ui.screens.browse.activity.components.DatePickerDialog
+import com.brokenbrains.fitness.ui.screens.browse.activity.components.TimePickerDialog
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate

@@ -89,7 +89,7 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         AddActivityScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
     }
 
-    composable(ActivityRoutes.AddActivity.route,
+    composable(ActivityRoutes.ActivityDetails.route,
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Start

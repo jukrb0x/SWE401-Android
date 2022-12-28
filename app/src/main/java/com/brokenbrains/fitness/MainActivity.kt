@@ -136,6 +136,5 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         BrowseVitalsScreenComposable(navigateTo, upPress)
         BrowseSleepScreenComposable(navigateTo, upPress)
         BrowseMedicationScreenComposable(navigateTo, upPress)
-
     }
 }

@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.ui.screens.browse.activity
+package com.brokenbrains.fitness.ui.screens.browse.activity.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.CircleShape

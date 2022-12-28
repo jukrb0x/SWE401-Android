@@ -17,7 +17,7 @@ import com.brokenbrains.fitness.ui.theme.OceanGreen1
 
 data class ColumnarData(
     val value: Float, // percentage in 0...1
-    val label: String // M, T, W, T, F, S, S
+    val label: String? // M, T, W, T, F, S, S
 )
 
 @Composable
@@ -34,9 +34,11 @@ fun TrendCardColumnar(data: ColumnarData) {
                 .clip(RoundedCornerShape(5.dp))
                 .background(OceanGreen1)
         )
-        Text(
-            text = data.label, style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        )
+        data.label?.let {
+            Text(
+                text = it, style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
+            )
+        }
     }
 
 }

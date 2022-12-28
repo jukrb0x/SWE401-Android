@@ -41,12 +41,6 @@ fun ActivityPage(
             onActionButtonPressed = { }
         )
 
-        // TODO: remove me
-        val s = viewModel.allActivities.collectAsState(initial = emptyList())
-        Row {
-            Text(s.value.toString())
-        }
-
         ActivityPageInternal(viewModel = viewModel, navigateTo = navigateTo, onBack = onBack)
     }
 }
@@ -89,8 +83,9 @@ private fun ActivityPageInternal(
 ////            last7daysGraphVals.addAll(it)
 ////        }
 //    }
-    Text(text = "Activity Page")
-    Text(last7daysGraphVals.toString())
+    // debug:
+//    Text(text = "Activity Page")
+//    Text(last7daysGraphVals.toString())
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = MainScreenHorizontalPaddingValue)
