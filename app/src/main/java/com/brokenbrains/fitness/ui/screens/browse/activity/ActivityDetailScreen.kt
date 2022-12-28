@@ -31,11 +31,11 @@ fun ActivityDetailScreen(
 //        lifecycle = LocalLifecycleOwner.current.lifecycle
 //    )
 
-    val allActivities by viewModel.allActivities.collectAsState()
-
-    LaunchedEffect(key1 = allActivities){
-        viewModel.getAllActivities()
-    }
+    val allActivities = viewModel.allActivities
+//
+//    LaunchedEffect(key1 = allActivities){
+//        viewModel.getAllActivities()
+//    }
 
 //    var allActivities = remember { mutableStateListOf<ActivityModel>() }
 

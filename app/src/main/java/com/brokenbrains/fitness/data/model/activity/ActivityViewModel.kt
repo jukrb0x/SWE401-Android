@@ -34,21 +34,22 @@ class ActivityViewModel @Inject constructor(
 //    }
 
     var _allActivities = MutableStateFlow(listOf<ActivityModel>())
-    val allActivities: StateFlow<List<ActivityModel>>
-        get() = _allActivities
+//    val allActivities: StateFlow<List<ActivityModel>>
+//        get() = _allActivities
+    val allActivities = repository.getAllActivities()
 
-    init{
-        getAllActivities()
-    }
-    fun getAllActivities() {
-        viewModelScope.launch {
-            repository.getAllActivities().catch { e ->
-                e.printStackTrace()
-            }.collect {
-                _allActivities.value = it
-            }
-        }
-    }
+//    init{
+//        getAllActivities()
+//    }
+//    fun getAllActivities() {
+//        viewModelScope.launch {
+//            repository.getAllActivities().catch { e ->
+//                e.printStackTrace()
+//            }.collect {
+//                _allActivities.value = it
+//            }
+//        }
+//    }
 
 
     fun addNewActivity(activityModel: ActivityModel) {
