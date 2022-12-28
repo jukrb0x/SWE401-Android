@@ -1,8 +1,10 @@
 package com.brokenbrains.fitness.ui.screens.browse.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -69,7 +71,7 @@ private fun ActivityPageInternal(
 
     var last7daysGraphVals by rememberSaveable { mutableStateOf(defaultGraphVals) }
 
-    LaunchedEffect(key1 = last7daysGraphVals){
+    LaunchedEffect(key1 = last7daysGraphVals) {
 //        last7daysGraphVals = viewModel.getLast7DaysOfActivityByTypes(move)
     }
 
@@ -99,7 +101,10 @@ private fun ActivityPageInternal(
                     title = "Move",
                     subtitle = "Last 7 days",
                     graphVal = last7daysGraphVals
-                )
+                ),
+                onClick = {
+                    navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.WALKING}")
+                }
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(

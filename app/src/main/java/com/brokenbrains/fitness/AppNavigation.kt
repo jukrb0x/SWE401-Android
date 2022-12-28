@@ -7,6 +7,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
@@ -89,7 +92,9 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         AddActivityScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
     }
 
-    composable(ActivityRoutes.ActivityDetails.route,
+    composable(
+        "${ActivityRoutes.ActivityDetails.route}/{activityType}",
+        arguments = listOf(navArgument("activityType") { type = NavType.StringType }),
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Start
@@ -98,7 +103,10 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
         val navTo = { route: String -> navigateTo(route, from) }
         val vm = hiltViewModel<ActivityViewModel>();
-        ActivityDetailScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
+        val arguments = requireNotNull(from.arguments)
+        val activityType = arguments.getString("activityType")
+        ActivityDetailScreen(viewModel = vm, activityType = ActivityType.fromString(activityType!!)
+            , navigateTo = navTo, onBack = upPress)
     }
 
 }

@@ -1,19 +1,15 @@
 package com.brokenbrains.fitness.data.model.activity
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.brokenbrains.fitness.data.model.activity.ActivityModel
-import com.brokenbrains.fitness.data.model.activity.ActivityType
+import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.ActivityRepository
-import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,13 +33,30 @@ class ActivityViewModel @Inject constructor(
 //        )
 //    }
 
-    val allActivities = repository.getAllActivities()
+    var _allActivities = MutableStateFlow(listOf<ActivityModel>())
+    val allActivities: StateFlow<List<ActivityModel>>
+        get() = _allActivities
+
+    init{
+        getAllActivities()
+    }
+    fun getAllActivities() {
+        viewModelScope.launch {
+            repository.getAllActivities().catch { e ->
+                e.printStackTrace()
+            }.collect {
+                _allActivities.value = it
+            }
+        }
+    }
+
 
     fun addNewActivity(activityModel: ActivityModel) {
         CoroutineScope(Dispatchers.IO).launch {
             repository.addNewActivity(activityModel = activityModel)
         }
     }
+
 /*
 
     fun getLast7DaysOfActivityByTypes(types: List<ActivityType>): Flow<MutableList<ColumnarData>> {

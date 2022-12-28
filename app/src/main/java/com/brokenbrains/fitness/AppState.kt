@@ -11,6 +11,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.brokenbrains.fitness.data.model.activity.ActivityType
+import com.brokenbrains.fitness.data.model.activity.toReadableString
 import com.brokenbrains.fitness.data.model.auth.AuthViewModel
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
@@ -20,7 +22,6 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun rememberAppState(
-//    navController: NavHostController = rememberNavController(),
     navController: NavHostController = rememberAnimatedNavController(),
 ): AppState {
     val authViewModel: AuthViewModel = hiltViewModel();
@@ -86,6 +87,14 @@ class AppState(
             popUpTo(/*findStartDestination(navController.graph).id*/0) {
                 saveState = true
             }
+        }
+    }
+
+    fun navigateToActivityDetails(activityType: ActivityType, from: NavBackStackEntry) {
+        // In order to discard duplicated navigation events, we check the Lifecycle
+        // because snack detail screen can hold the navigation event for the same one
+        if (from.lifecycleIsResumed()) {
+            navController.navigate("${ActivityRoutes.ActivityDetails}/${activityType.toReadableString()}")
         }
     }
 
