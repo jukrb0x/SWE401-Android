@@ -1,6 +1,6 @@
 package com.brokenbrains.fitness.di
 
-import com.brokenbrains.fitness.AppState
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +10,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
-//    @Provides
-//    @Singleton
-//    fun providesAppstate = AppState(Vkk )
+    @Singleton
+    @Provides
+    fun providesFirebaseFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
+    }
 }
