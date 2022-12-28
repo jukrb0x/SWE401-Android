@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.BrowseRoutes
 import com.brokenbrains.fitness.data.model.activity.ActivityType
-import com.brokenbrains.fitness.data.viewmodel.ActivityViewModel
+import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
@@ -20,8 +20,6 @@ import com.brokenbrains.fitness.ui.components.TrendCardData
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import com.brokenbrains.fitness.ui.screens.sharing.ShareWithSomeoneModal
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
-import androidx.compose.runtime.livedata.observeAsState
-import kotlinx.coroutines.flow.collect
 
 @Composable
 fun ActivityPage(

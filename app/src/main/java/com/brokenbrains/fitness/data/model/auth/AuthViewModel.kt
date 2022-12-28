@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.data.viewmodel
+package com.brokenbrains.fitness.data.model.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Firebase Auth ViewModel
+ */
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val repository: AuthRepository

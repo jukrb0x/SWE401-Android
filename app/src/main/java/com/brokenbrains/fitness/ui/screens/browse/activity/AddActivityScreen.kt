@@ -23,7 +23,7 @@ import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.data.model.activity.ActivityModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.toReadableString
-import com.brokenbrains.fitness.data.viewmodel.ActivityViewModel
+import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState

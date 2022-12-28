@@ -10,7 +10,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.brokenbrains.fitness.data.repository.AuthRepository
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Create the AppState Instance
@@ -29,8 +32,8 @@ fun rememberAppState(
  * Holding UI related states as SSOT.
  */
 @Stable // JB todo: see docs about @Stable
-class AppState(
-    val navController: NavHostController
+class AppState (
+    val navController: NavHostController,
 ) {
 
     // ----------------------

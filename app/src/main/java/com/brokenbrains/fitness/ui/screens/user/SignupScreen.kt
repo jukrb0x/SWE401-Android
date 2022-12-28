@@ -21,12 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.AppDestinations
-import com.brokenbrains.fitness.data.model.user.UserModel
-import com.brokenbrains.fitness.data.viewmodel.AuthViewModel
-import com.brokenbrains.fitness.data.viewmodel.UserViewModel
+import com.brokenbrains.fitness.data.model.auth.AuthViewModel
 import com.brokenbrains.fitness.network.ResultData
 import com.brokenbrains.fitness.ui.components.Avatar
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -144,7 +141,7 @@ fun SignupScreen(
             //Sign Up Button
             Button(
                 onClick = {
-                    viewModel.signup(name = "${firstName.trim()} ${lastName.trim()}", email = email, password = password)
+                    viewModel.signup(name = "${firstName.trim()} ${lastName.trim()}", email = email.trim(), password = password)
 //                    handleSignup()
 //                    navigateTo(AppDestinations.LOGIN_ROUTE)/*TODO*/
                 },

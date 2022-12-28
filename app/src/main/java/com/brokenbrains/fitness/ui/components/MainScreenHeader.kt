@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.brokenbrains.fitness.ui.screens.user.ProfileScreen
+import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.ui.theme.TitleBarStyle
 import com.brokenbrains.fitness.ui.theme.TitleBarSubtitleStyle
 
@@ -73,12 +73,16 @@ fun MainScreenHeader(
 
                 Avatar(
                     nameInitials = "KH",
-                    onClick = { onAvatarPressed(); profileVisibility = true })
+                    onClick = {
+                        onAvatarPressed();
+//                        profileVisibility = true
+                        navigateTo(UserRoutes.Profile.route)
+                    })
             }
         }
     }
 
-    ProfileScreen(onDismiss = { profileVisibility = false }, visibility = profileVisibility, navigateTo = navigateTo )
+//    ProfileScreen(onDismiss = { profileVisibility = false }, visibility = profileVisibility, navigateTo = navigateTo )
 }
 
 @Composable

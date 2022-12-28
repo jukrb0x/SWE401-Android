@@ -24,8 +24,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.R
+import com.brokenbrains.fitness.data.model.auth.AuthViewModel
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.components.Avatar
 import com.brokenbrains.fitness.ui.components.DialogTopBar
@@ -37,7 +39,10 @@ import compose.icons.feathericons.LogIn
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false, navigateTo: (String) -> Unit) {
+fun ProfileScreen(
+    viewModel: AuthViewModel,
+    onDismiss: () -> Unit, visibility: Boolean = true, navigateTo: (String) -> Unit
+) {
     //TODO: Add background image or theme
     //TODO: Try to figure out hardcoded padding of textfield
     val image = painterResource(id = R.drawable.ic_account)
@@ -54,7 +59,10 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false, navigateTo
             topBar = {
                 DialogTopBar(onDismiss = onDismiss, title = "Profile", actions = {
                     IconButton(
-                        onClick = { navigateTo(AppDestinations.LOGOUT_ROUTE) },
+                        onClick = {
+                            viewModel.logout()
+                            navigateTo(AppDestinations.LOGOUT_ROUTE)
+                        },
                         enabled = /*resetEnabled*/true
                     ) {
                         val alpha = if (/*resetEnabled*/false) {
@@ -98,10 +106,10 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false, navigateTo
 
                     //User name & ID
                     Spacer(modifier = Modifier.height(10.dp))
-                        Text(
-                            "Ke Hu",
-                            fontSize = 20.sp,
-                        )
+                    Text(
+                        viewModel.currentUser?.displayName ?: "User Name",
+                        fontSize = 20.sp,
+                    )
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
@@ -118,7 +126,8 @@ fun ProfileScreen(onDismiss: () -> Unit, visibility: Boolean = false, navigateTo
                             )
                         }
                         Text(
-                            text = "KJJ1233", modifier = Modifier.wrapContentSize(),
+                            text = viewModel.currentUser?.uid?.substring(0,6)?.uppercase() ?: "000000",
+                            modifier = Modifier.wrapContentSize(),
                             fontSize = 13.sp,
                             color = Color.Gray
                         )
@@ -230,5 +239,5 @@ fun ProfileComponent(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    ProfileScreen(onDismiss = {}, navigateTo = {})
+    ProfileScreen(onDismiss = {}, navigateTo = {}, viewModel = hiltViewModel())
 }

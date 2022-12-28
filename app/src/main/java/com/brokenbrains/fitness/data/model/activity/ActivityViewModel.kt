@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.data.viewmodel
+package com.brokenbrains.fitness.data.model.activity
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

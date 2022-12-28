@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.data.viewmodel
+package com.brokenbrains.fitness.data.model.user
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -11,6 +11,9 @@ data class LoginUiState(
     val email: String = "", val password: String = ""
 )
 
+/**
+ * TODO: Deprecated
+ */
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,

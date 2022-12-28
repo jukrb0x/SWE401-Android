@@ -1,8 +1,10 @@
 package com.brokenbrains.fitness.ui.screens.user
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -14,16 +16,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.AppDestinations
+import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.UserRoutes
-import com.brokenbrains.fitness.data.viewmodel.AuthViewModel
+import com.brokenbrains.fitness.data.model.auth.AuthViewModel
+import com.brokenbrains.fitness.network.ResultData
 import com.brokenbrains.fitness.ui.components.FitnessIcon
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,7 +36,17 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     viewModel: AuthViewModel, navigateTo: (String) -> Unit
 ) {
-    //TODO: Add background image or theme
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    val loginFlow = viewModel.loginFlow.collectAsState()
+
+    LaunchedEffect(key1 = viewModel.currentUser){
+        if(viewModel.currentUser != null) {
+            navigateTo(AppDestinations.LOGIN_ROUTE)
+        }
+    }
+
     Box(Modifier.fillMaxSize()) {
 
         Column(
@@ -107,7 +122,8 @@ fun LoginScreen(
                         contentDescription = null
                     )
                 },
-                visualTransformation = PasswordVisualTransformation()
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             )
 
             val coroutineScope = rememberCoroutineScope()
@@ -148,8 +164,7 @@ fun LoginScreen(
             // Login Button
             Button(
                 onClick = {
-//                    handleLogin()
-                    navigateTo(AppDestinations.LOGIN_ROUTE)
+                    viewModel.login(email.trim(), password.trim())
                 },
                 modifier = Modifier
                     .padding(top = 30.dp)
@@ -174,5 +189,19 @@ fun LoginScreen(
             }
 
         }
+        // observing
+        loginFlow.value.let {
+            if (it is ResultData.Success) {
+                navigateTo(AppDestinations.LOGIN_ROUTE)
+            }
+            if (it is ResultData.Failed) {
+                Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
+            }
+            if (it is ResultData.Loading) {
+                // show loading
+            }
+        }
     }
+
+
 }

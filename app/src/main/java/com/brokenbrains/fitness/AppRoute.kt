@@ -40,7 +40,8 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
 
 enum class UserRoutes(val route: String, val title: String) {
     Login("$USER_ROUTE/login", "Login"),
-    Register("$USER_ROUTE/register", "Register")
+    Register("$USER_ROUTE/register", "Register"),
+    Profile("$USER_ROUTE/profile", "Profile")
 //    ShareSettings("$USER_ROUTE/share_settings", "Share Settings")
 }
 

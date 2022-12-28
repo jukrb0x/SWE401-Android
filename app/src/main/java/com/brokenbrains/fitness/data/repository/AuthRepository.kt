@@ -8,13 +8,17 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
-interface IAuthRepository{
-    val currentUser : FirebaseUser?
-    suspend fun login(email : String ,password : String) : ResultData<FirebaseUser>
-    suspend fun signup(name : String, email : String , password : String) : ResultData<FirebaseUser>
+interface IAuthRepository {
+    val currentUser: FirebaseUser?
+    suspend fun login(email: String, password: String): ResultData<FirebaseUser>
+    suspend fun signup(name: String, email: String, password: String): ResultData<FirebaseUser>
     fun logout()
+
 }
 
+/**
+ * Firebase Auth repository
+ */
 @Singleton
 class AuthRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth
@@ -39,7 +43,9 @@ class AuthRepository @Inject constructor(
     ): ResultData<FirebaseUser> {
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            result?.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())?.await()
+            result?.user?.updateProfile(
+                UserProfileChangeRequest.Builder().setDisplayName(name).build()
+            )?.await()
             return ResultData.Success(result.user!!)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -50,4 +56,6 @@ class AuthRepository @Inject constructor(
     override fun logout() {
         firebaseAuth.signOut()
     }
+
+
 }

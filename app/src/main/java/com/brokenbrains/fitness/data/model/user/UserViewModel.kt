@@ -1,4 +1,4 @@
-package com.brokenbrains.fitness.data.viewmodel
+package com.brokenbrains.fitness.data.model.user
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
