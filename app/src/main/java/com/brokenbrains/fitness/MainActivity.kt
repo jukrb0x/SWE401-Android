@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
+import com.brokenbrains.fitness.data.viewmodel.AuthViewModel
 import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
@@ -111,11 +112,11 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         }
 
         composable(UserRoutes.Login.route) { from ->
-            val viewModel = hiltViewModel<UserViewModel>()
+            val viewModel = hiltViewModel<AuthViewModel>()
             LoginScreen(viewModel, navigateTo = { route -> navigateTo(route, from) })
         }
         composable(UserRoutes.Register.route) { from ->
-            val viewModel = hiltViewModel<UserViewModel>()
+            val viewModel = hiltViewModel<AuthViewModel>()
             SignupScreen(viewModel, navigateTo = { route -> navigateTo(route, from) })
         }
 

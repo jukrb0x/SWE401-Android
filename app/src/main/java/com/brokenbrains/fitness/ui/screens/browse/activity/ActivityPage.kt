@@ -20,6 +20,8 @@ import com.brokenbrains.fitness.ui.components.TrendCardData
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import com.brokenbrains.fitness.ui.screens.sharing.ShareWithSomeoneModal
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
+import androidx.compose.runtime.livedata.observeAsState
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun ActivityPage(
@@ -58,16 +60,39 @@ private fun ActivityPageInternal(
     onBack: () -> Unit
 ) {
 //    val activities = viewModel.allActivities.collectAsState(initial = emptyList())
-    val last7daysGraphVals = remember { mutableStateListOf<ColumnarData>() }
-    LaunchedEffect(Unit) {
-        val list = viewModel.getLast7DaysOfActivityByTypes( // FIXME: should wait for data to be loaded
-            listOf(
-                ActivityType.WALKING,
-                ActivityType.RUNNING
-            )
-        )
-        last7daysGraphVals.addAll(list)
+//    val last7daysGraphVals = remember { mutableStateListOf<ColumnarData>() } //bad
+    val move = listOf(
+        ActivityType.WALKING,
+        ActivityType.RUNNING
+    )
+    val defaultGraphVals = listOf(
+        ColumnarData(0f, "M"),
+        ColumnarData(0f, "T"),
+        ColumnarData(0f, "W"),
+        ColumnarData(0f, "T"),
+        ColumnarData(0f, "F"),
+        ColumnarData(0f, "S"),
+        ColumnarData(0f, "S")
+    )
+
+    var last7daysGraphVals by rememberSaveable { mutableStateOf(defaultGraphVals) }
+
+    LaunchedEffect(key1 = last7daysGraphVals){
+//        last7daysGraphVals = viewModel.getLast7DaysOfActivityByTypes(move)
     }
+
+//    LaunchedEffect(Unit) {
+//
+//
+////        /*val list = */viewModel.getLast7DaysOfActivityByTypes( // FIXME: should wait for data to be loaded
+//    )
+////    .observeAsState()
+////    observeAsState(initial = emptyList()){
+////            last7daysGraphVals.addAll(it)
+////        }
+//    }
+    Text(text = "Activity Page")
+    Text(last7daysGraphVals.toString())
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = MainScreenHorizontalPaddingValue)

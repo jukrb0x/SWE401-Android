@@ -10,6 +10,7 @@ import androidx.navigation.NavGraphBuilder
 import com.brokenbrains.fitness.data.viewmodel.ActivityViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
+import com.brokenbrains.fitness.ui.screens.browse.activity.ActivityDetailScreen
 import com.brokenbrains.fitness.ui.screens.browse.activity.AddActivityScreen
 import com.brokenbrains.fitness.ui.screens.browse.components.*
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
@@ -87,6 +88,19 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         val vm = hiltViewModel<ActivityViewModel>();
         AddActivityScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
     }
+
+    composable(ActivityRoutes.AddActivity.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        val vm = hiltViewModel<ActivityViewModel>();
+        ActivityDetailScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
+    }
+
 }
 
 fun NavGraphBuilder.BrowseMeasurementsScreenComposable(

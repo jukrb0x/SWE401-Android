@@ -18,15 +18,17 @@ object CalendarUtils {
 
     val today: Int = LocalDate.now().getDayOfWeek().getValue()
 
+    /**
+     * Returns DayOfWeek ordinal list with today as last element
+     */
     fun getLast7Days(): MutableList<DayOfWeek> {
         val list = mutableListOf<DayOfWeek>()
         for (i in 0..6) {
-//            list.add(DayOfWeek.of((today - i) % 7))
             list.add(
-                DayOfWeek.values()[Math.floorMod((today - i), 7)]
+                DayOfWeek.values()[Math.floorMod(((today - 1) - i), 7)]
             )
         }
-        return list
+        return list.asReversed()
     }
 
 }

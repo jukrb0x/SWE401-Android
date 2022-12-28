@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.data.model.user.UserModel
+import com.brokenbrains.fitness.data.viewmodel.AuthViewModel
 import com.brokenbrains.fitness.data.viewmodel.UserViewModel
 import com.brokenbrains.fitness.ui.components.Avatar
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupScreen(
-    viewModel: UserViewModel,
+    viewModel: AuthViewModel,
     navigateTo: (String) -> Unit
 ) {
     var firstName by rememberSaveable { mutableStateOf("") }

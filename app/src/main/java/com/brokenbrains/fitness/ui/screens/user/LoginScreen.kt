@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.UserRoutes
-import com.brokenbrains.fitness.data.viewmodel.UserViewModel
+import com.brokenbrains.fitness.data.viewmodel.AuthViewModel
 import com.brokenbrains.fitness.ui.components.FitnessIcon
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    viewModel: UserViewModel, navigateTo: (String) -> Unit
+    viewModel: AuthViewModel, navigateTo: (String) -> Unit
 ) {
     //TODO: Add background image or theme
     Box(Modifier.fillMaxSize()) {
@@ -74,10 +74,10 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(30.dp))
 
             //Email TextFiled
-            var text_login_email by rememberSaveable { mutableStateOf("") }
+            var email by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
-                value = text_login_email,
-                onValueChange = { text_login_email = it },
+                value = email,
+                onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier
                     .padding(top = 20.dp),
@@ -92,10 +92,10 @@ fun LoginScreen(
             )
 
             //Password TextField
-            var text_login_password by rememberSaveable { mutableStateOf("") }
+            var password by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
-                value = text_login_password,
-                onValueChange = { text_login_password = it },
+                value = password,
+                onValueChange = { password = it },
                 label = { Text("Password") },
                 modifier = Modifier
                     .padding(top = 10.dp),
@@ -118,7 +118,7 @@ fun LoginScreen(
             // coroutine login
             val handleLogin = {
                 coroutineScope.launch {
-                    val res = viewModel.login(text_login_email, text_login_password)
+                    val res = viewModel.login(email, password)
                     if (res != null) {
                         msg.value = res.firstName!!
                         date.value = res.lastName!!
