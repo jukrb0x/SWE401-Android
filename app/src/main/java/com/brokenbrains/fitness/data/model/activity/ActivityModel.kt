@@ -3,12 +3,10 @@ package com.brokenbrains.fitness.data.model.activity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.*
+import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 
 @Entity(tableName = "activity")
-data class ActivityModel (
+data class ActivityModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int? = null,
@@ -18,10 +16,10 @@ data class ActivityModel (
 
     @ColumnInfo(name = "start_at")
     // store in string
-    var startAt: String? = null,
+    var startAt: Long? = null,
 
     @ColumnInfo(name = "end_at")
-    var endAt: String? = null,
+    var endAt: Long? = null,
 
     @ColumnInfo(name = "activity_type")
     var activityType: ActivityType? = ActivityType.OTHER
@@ -29,3 +27,23 @@ data class ActivityModel (
 )
 
 // as xxxx
+
+fun List<ActivityModel>.asColumnarData(): List<ColumnarData> {
+    val graphValues = mutableListOf<ColumnarData>()
+    for (activity in this) {
+        val duration = activity.endAt?.minus(activity.startAt ?: 0) ?: 0
+        graphValues.add(
+            ColumnarData(
+                value = duration.toFloat()
+                /*Instant.ofEpochSecond(duration).atZone(ZoneId.systemDefault()).toLocalTime().format(
+                    DateTimeFormatterBuilder()
+                        .appendPattern("HH:mm")
+                        .toFormatter(Locale.getDefault())
+                ),
+                */
+                , label = activity.title ?: "No title"
+            )
+        )
+    }
+    return graphValues
+}

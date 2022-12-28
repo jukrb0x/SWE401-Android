@@ -2,7 +2,6 @@ package com.brokenbrains.fitness.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.CardDefaults
@@ -18,7 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brokenbrains.fitness.ui.theme.OceanGreen1
+import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
+import com.brokenbrains.fitness.ui.components.trendcard.TrendCardColumnar
 import com.brokenbrains.fitness.ui.theme.Shapes
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.ChevronRight
@@ -32,22 +32,17 @@ object Styles {
     )
 }
 
-data class Columnar(
-    val value: Float, // percentage in 0...1
-    val label: String // M, T, W, T, F, S, S
-)
-
 data class TrendCardData(
     val title: String,
     val subtitle: String = "Last 7 days",
-    val graphVal: List<Columnar> = listOf(
-        Columnar(0f, "M"),
-        Columnar(0f, "T"),
-        Columnar(0f, "W"),
-        Columnar(0f, "T"),
-        Columnar(0f, "F"),
-        Columnar(0f, "S"),
-        Columnar(0f, "S")
+    val graphVal: List<ColumnarData> = listOf(
+        ColumnarData(0f, "M"),
+        ColumnarData(0f, "T"),
+        ColumnarData(0f, "W"),
+        ColumnarData(0f, "T"),
+        ColumnarData(0f, "F"),
+        ColumnarData(0f, "S"),
+        ColumnarData(0f, "S")
     ),
     val unit: String = "kg",
 )
@@ -57,6 +52,9 @@ data class TrendCardData(
 fun TrendCard(
     modifier: Modifier = Modifier, data: TrendCardData, onClick: () -> Unit = {}, elevation: Int = 1
 ) {
+
+
+    val valueToday = if (data.graphVal.isNotEmpty()) data.graphVal.last().value.toString() else "0"
 
     ElevatedCard(
         onClick = { onClick() },
@@ -91,7 +89,6 @@ fun TrendCard(
                     Row(
                         modifier = Modifier.width(100.dp), verticalAlignment = Alignment.Bottom
                     ) {
-                        var valueToday = data.graphVal.last().value.toString()
                         Text(
                             text = valueToday,
                             style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -132,26 +129,6 @@ fun TrendCard(
 
 }
 
-@Composable
-fun TrendCardColumnar(data: Columnar) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxHeight(),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        Box(
-            modifier = Modifier
-                .width(20.dp)
-                .height((data.value * 40).dp)
-                .clip(RoundedCornerShape(5.dp))
-                .background(OceanGreen1)
-        )
-        Text(
-            text = data.label, style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        )
-    }
-
-}
 /*
 
 @Composable
@@ -180,13 +157,13 @@ fun TrendCardPreview() {
         title = "Weight",
         subtitle = "Last 7 days",
         graphVal = listOf(
-            Columnar(0.28f, "M"),
-            Columnar(0.28f, "T"),
-            Columnar(0.38f, "W"),
-            Columnar(0.28f, "T"),
-            Columnar(0.90f, "F"),
-            Columnar(1f, "S"),
-            Columnar(0.75f, "S")
+            ColumnarData(0.28f, "M"),
+            ColumnarData(0.28f, "T"),
+            ColumnarData(0.38f, "W"),
+            ColumnarData(0.28f, "T"),
+            ColumnarData(0.90f, "F"),
+            ColumnarData(1f, "S"),
+            ColumnarData(0.75f, "S")
         ),
     )
     TrendCard(data = fakeData)

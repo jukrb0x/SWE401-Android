@@ -29,6 +29,7 @@ import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatterBuilder
 
 private var selectTextStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal)
@@ -36,7 +37,7 @@ private var selectTextStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeigh
 @Composable
 fun AddActivityScreen(
     viewModel: ActivityViewModel,
-    navigateTo: (route: String) -> Unit, onBack: () -> Unit /*viewmodel*/
+    navigateTo: (route: String) -> Unit, onBack: () -> Unit
 ) {
     // screen states
     val title = rememberSaveable { mutableStateOf("") }
@@ -45,13 +46,16 @@ fun AddActivityScreen(
     val endTime = rememberSaveable { mutableStateOf(LocalTime.now().plusMinutes(30)) }
     val selectedActivity =
         rememberSaveable { mutableStateOf(ActivityType.WALKING) }
+    val startDateTime = rememberSaveable { mutableStateOf(startDate.value.atTime(startTime.value)) }
+    val endDateTime = rememberSaveable { mutableStateOf(startDate.value.atTime(endTime.value)) }
 
-    // viewmodel...
+
+    // ViewModel
     fun handleAddActivity() = viewModel.addNewActivity(
         ActivityModel(
-            title = title.value,
-            startAt = startTime.value.toString(),
-            endAt = endTime.value.toString(),
+            title = if (title.value.isNotEmpty()) title.value else selectedActivity.value.toReadableString(),
+            startAt = startDateTime.value.toEpochSecond(ZoneOffset.UTC),
+            endAt = endDateTime.value.toEpochSecond(ZoneOffset.UTC),
             activityType = selectedActivity.value
         )
     )

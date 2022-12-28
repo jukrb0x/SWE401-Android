@@ -18,7 +18,7 @@ interface ActivityDao {
     fun getById(id: Int): Flow<ActivityModel>
 
     @Query("SELECT * FROM activity WHERE activity_type = :type")
-    fun getByType(type: ActivityType): Flow<List<ActivityModel>>
+    fun getByType(type: ActivityType): List<ActivityModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(model: ActivityModel)

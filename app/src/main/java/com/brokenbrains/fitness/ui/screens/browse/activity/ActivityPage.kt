@@ -9,23 +9,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.BrowseRoutes
+import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.viewmodel.ActivityViewModel
 import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
-import com.brokenbrains.fitness.ui.screens.browse.activity.AddActivityScreen
+import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import com.brokenbrains.fitness.ui.screens.sharing.ShareWithSomeoneModal
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
-import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
 
 @Composable
-fun ActivityPage(viewModel: ActivityViewModel,
-    navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+fun ActivityPage(
+    viewModel: ActivityViewModel,
+    navigateTo: (route: String) -> Unit, onBack: () -> Unit
+) {
     var addActivityModalVis by rememberSaveable { mutableStateOf(false) }
 
     BrowsePage(
@@ -47,12 +47,27 @@ fun ActivityPage(viewModel: ActivityViewModel,
             Text(s.value.toString())
         }
 
-        ActivityPageInternal(navigateTo = navigateTo, onBack = onBack)
+        ActivityPageInternal(viewModel = viewModel, navigateTo = navigateTo, onBack = onBack)
     }
 }
 
 @Composable
-private fun ActivityPageInternal(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+private fun ActivityPageInternal(
+    viewModel: ActivityViewModel,
+    navigateTo: (route: String) -> Unit,
+    onBack: () -> Unit
+) {
+//    val activities = viewModel.allActivities.collectAsState(initial = emptyList())
+    val last7daysGraphVals = remember { mutableStateListOf<ColumnarData>() }
+    LaunchedEffect(Unit) {
+        val list = viewModel.getLast7DaysOfActivityByTypes( // FIXME: should wait for data to be loaded
+            listOf(
+                ActivityType.WALKING,
+                ActivityType.RUNNING
+            )
+        )
+        last7daysGraphVals.addAll(list)
+    }
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = MainScreenHorizontalPaddingValue)
@@ -65,6 +80,7 @@ private fun ActivityPageInternal(navigateTo: (route: String) -> Unit, onBack: ()
                 data = TrendCardData(
                     title = "Move",
                     subtitle = "Last 7 days",
+                    graphVal = last7daysGraphVals
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
@@ -72,7 +88,7 @@ private fun ActivityPageInternal(navigateTo: (route: String) -> Unit, onBack: ()
                 data = TrendCardData(
                     title = "Weight",
                     subtitle = "Last 7 days",
-                    )
+                )
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
