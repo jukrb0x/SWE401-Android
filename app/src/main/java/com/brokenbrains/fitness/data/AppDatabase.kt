@@ -8,7 +8,6 @@ import com.brokenbrains.fitness.data.dao.UserDao
 import com.brokenbrains.fitness.data.model.activity.ActivityModel
 import com.brokenbrains.fitness.data.model.user.UserModel
 
-// TODO
 @TypeConverters(Converters::class)
 @Database(
     entities = [

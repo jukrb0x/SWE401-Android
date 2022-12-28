@@ -117,18 +117,18 @@ fun LoginScreen(
 
             // coroutine login
             val handleLogin = {
-                coroutineScope.launch {
-                    val res = viewModel.login(email, password)
-                    if (res != null) {
-                        msg.value = res.firstName!!
-                        date.value = res.lastName!!
-                    } else {
-                        msg.value = "Login failed"
-                        date.value = "Please check your email and password"
-                        openDialog.value = true
-                    }
-                    openDialog.value = true
-                }
+//                coroutineScope.launch {
+//                    val res = viewModel.login(email, password)
+//                    if (res != null) {
+//                        msg.value = res.firstName!!
+//                        date.value = res.lastName!!
+//                    } else {
+//                        msg.value = "Login failed"
+//                        date.value = "Please check your email and password"
+//                        openDialog.value = true
+//                    }
+//                    openDialog.value = true
+//                }
             }
 
             if (openDialog.value) {

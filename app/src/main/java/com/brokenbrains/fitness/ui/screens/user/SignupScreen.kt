@@ -1,5 +1,6 @@
 package com.brokenbrains.fitness.ui.screens.user
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -22,6 +24,7 @@ import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.data.model.user.UserModel
 import com.brokenbrains.fitness.data.viewmodel.AuthViewModel
 import com.brokenbrains.fitness.data.viewmodel.UserViewModel
+import com.brokenbrains.fitness.network.ResultData
 import com.brokenbrains.fitness.ui.components.Avatar
 import kotlinx.coroutines.launch
 
@@ -37,20 +40,8 @@ fun SignupScreen(
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
+    val signupFlow = viewModel.signupFlow.collectAsState()
 
-    val coroutineScope = rememberCoroutineScope()
-    var handleSignup = {
-        coroutineScope.launch {
-
-            viewModel.register(
-                    firstName = firstName,
-                    lastName = lastName,
-                    email = email,
-                    password = password
-            )
-        }
-//        navigateTo(AppDestinations.LOGIN_ROUTE)
-    }
     Box() {
 
         Column(
@@ -153,7 +144,8 @@ fun SignupScreen(
             //Sign Up Button
             Button(
                 onClick = {
-                    handleSignup()
+                    viewModel.signup(name = "${firstName.trim()} ${lastName.trim()}", email = email, password = password)
+//                    handleSignup()
 //                    navigateTo(AppDestinations.LOGIN_ROUTE)/*TODO*/
                 },
                 modifier = Modifier
@@ -163,6 +155,16 @@ fun SignupScreen(
                 shape = RoundedCornerShape(40.dp)
             ) {
                 Text(text = "Sign Up", fontWeight = FontWeight.Bold)
+            }
+        }
+
+        // Observing the signupFlow
+        signupFlow.value?.let {
+            if (it is ResultData.Success) {
+                navigateTo(AppDestinations.LOGIN_ROUTE)
+            }
+            if(it is ResultData.Failed){
+                Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
