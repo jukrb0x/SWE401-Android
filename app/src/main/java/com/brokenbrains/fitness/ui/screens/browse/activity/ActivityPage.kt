@@ -145,6 +145,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Running",
                     subtitle = "Last 7 times",
+                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.RUNNING),
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
@@ -156,6 +157,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Swimming",
                     subtitle = "Last 7 times",
+                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.SWIMMING),
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
@@ -167,6 +169,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Cycling",
                     subtitle = "Last 7 times",
+                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.CYCLING),
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")

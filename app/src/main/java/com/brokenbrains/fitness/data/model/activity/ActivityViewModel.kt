@@ -2,7 +2,6 @@ package com.brokenbrains.fitness.data.model.activity
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.ActivityRepository
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
@@ -68,17 +67,31 @@ class ActivityViewModel @Inject constructor(
     fun getLast7DaysColumnarDataByType(activityType: ActivityType): List<ColumnarData> {
         val columnarDataList = mutableListOf<ColumnarData>()
         val dayOfWeeks = CalendarUtils.getLast7Days()
-        if (allActivities.size > 0) {
-            allActivities.filter { it.activityType == activityType }.sortedBy { it.startAt }
-                .takeLast(7)
-                .mapIndexed { index, it ->
-                    columnarDataList.add(
-                        ColumnarData(
-                            value = it.duration().toFloat()/*.coerceIn(0f, 100f)*/,
-                            label = dayOfWeeks[index].label
-                        )
-                    )
+        if (allActivities.isNotEmpty()) {
+            val models =
+                allActivities.filter { it.activityType == activityType }.sortedBy { it.startAt }
+            // sum all activities in a day
+            for (day in dayOfWeeks) {
+                var sum = 0f
+                for (model in models) {
+                    if (CalendarUtils.isSameDay(day, model.startAt)) {
+                        sum += model.duration().toFloat()
+                    }
                 }
+                columnarDataList.add(ColumnarData(label = day.label, value = sum))
+            }
+
+            /*    models
+                    .takeLast(7) // TODO fake: takeLast(7) should then filter by dayOfWeek
+                    .mapIndexed { index, it ->
+                        columnarDataList.add(
+                            ColumnarData(
+                                value = it.duration().toFloat(),
+                                label = dayOfWeeks[index].label
+                            )
+                        )
+                    }
+                    */
             // find the max value
             val maxValue = columnarDataList.maxOf { it.value }
             // normalize the values

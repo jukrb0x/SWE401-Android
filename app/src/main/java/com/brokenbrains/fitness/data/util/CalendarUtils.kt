@@ -43,4 +43,18 @@ object CalendarUtils {
         return dt
     }
 
+    fun getDayOfWeekFromLong(l:Long): DayOfWeek {
+        val dt = Instant.ofEpochSecond(l)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+        return DayOfWeek.values()[dt.dayOfWeek.value - 1]
+    }
+
+    fun isSameDay(day: DayOfWeek, startAt: Long?): Boolean {
+        val dt = Instant.ofEpochSecond(startAt ?: 0)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+        return dt.dayOfWeek.value == day.number
+    }
+
 }
