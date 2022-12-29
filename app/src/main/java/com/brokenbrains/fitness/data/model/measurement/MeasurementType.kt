@@ -1,11 +1,13 @@
 package com.brokenbrains.fitness.data.model.measurement
 
-enum class ActivityType {
+import com.brokenbrains.fitness.data.model.activity.ActivityType
+
+enum class MeasurementType {
     HEIGHT,
     WEIGHT;
 
     companion object {
-        fun fromString(type: String): ActivityType {
+        fun fromString(type: String): MeasurementType {
             return when (type) {
                 "HEIGHT" -> HEIGHT
                 "WEIGHT" -> WEIGHT
@@ -24,9 +26,9 @@ enum class ActivityType {
     }
 }
 
-fun ActivityType.toReadableString(): String {
+fun MeasurementType.toReadableString(): String {
     return when (this) {
-        ActivityType.HEIGHT -> "Height"
-        ActivityType.WEIGHT -> "Weight"
+        MeasurementType.HEIGHT -> "Height"
+        MeasurementType.WEIGHT -> "Weight"
     }
 }

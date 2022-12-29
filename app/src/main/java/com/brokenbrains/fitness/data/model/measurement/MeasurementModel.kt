@@ -15,13 +15,9 @@ data class MeasurementModel(
     var title: String? = null,
 
     @ColumnInfo(name = "start_at")
-    // store in string
-    var startAt: Long? = null,
+    var startAt: Long? = System.currentTimeMillis(), // record time
 
-    @ColumnInfo(name = "end_at")
-    var endAt: Long? = null,
-
-    @ColumnInfo(name = "activity_type")
-    var activityType: ActivityType? = ActivityType.OTHER
+    @ColumnInfo(name = "measurement_type")
+    var measurementType: MeasurementType? = MeasurementType.WEIGHT
 
 )
