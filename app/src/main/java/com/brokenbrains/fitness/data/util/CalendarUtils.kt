@@ -1,5 +1,7 @@
 package com.brokenbrains.fitness.data.util
 
+import com.brokenbrains.fitness.data.model.measurement.MeasurementType
+import com.brokenbrains.fitness.data.model.measurement.toReadableString
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -16,7 +18,55 @@ object CalendarUtils {
         THURSDAY(4, "T"),
         FRIDAY(5, "F"),
         SATURDAY(6, "S"),
-        SUNDAY(7, "S")
+        SUNDAY(7, "S");
+
+        companion object {
+            fun fromString(label: String): DayOfWeek {
+                return when (label) {
+                    "MONDAY" -> MONDAY
+                    "TUESDAY" -> TUESDAY
+                    "WEDNESDAY" -> WEDNESDAY
+                    "THURSDAY" -> THURSDAY
+                    "FRIDAY" -> FRIDAY
+                    "SATURDAY" -> SATURDAY
+                    "SUNDAY" -> SUNDAY
+                    else -> MONDAY
+                }
+            }
+
+            fun getStringList(): List<String> {
+                val strList = mutableListOf<String>()
+                for (type in MeasurementType.values()) {
+                    strList.add(type.toReadableString())
+                }
+                return strList
+
+            }
+        }
+    }
+
+    fun DayOfWeek.toReadableString(): String {
+        return when (this) {
+            DayOfWeek.MONDAY -> "Monday"
+            DayOfWeek.TUESDAY -> "Tuesday"
+            DayOfWeek.WEDNESDAY -> "Wednesday"
+            DayOfWeek.THURSDAY -> "Thursday"
+            DayOfWeek.FRIDAY -> "Friday"
+            DayOfWeek.SATURDAY -> "Saturday"
+            DayOfWeek.SUNDAY -> "Sunday"
+        }
+    }
+
+    fun DayOfWeek.toReadableStringShort(): String {
+        return when (this) {
+            DayOfWeek.MONDAY -> "Mon"
+            DayOfWeek.TUESDAY -> "Tue"
+            DayOfWeek.WEDNESDAY -> "Wed"
+            DayOfWeek.THURSDAY -> "Thu"
+            DayOfWeek.FRIDAY -> "Fri"
+            DayOfWeek.SATURDAY -> "Sat"
+            DayOfWeek.SUNDAY -> "Sun"
+        }
     }
 
     val today: Int = LocalDate.now().getDayOfWeek().getValue()
@@ -73,6 +123,16 @@ object CalendarUtils {
         } else {
             BiggestUnitStringOfTime(seconds.toString(), "sec")
         }
+    }
+
+    fun getListFromDayOfWeekString(str: String): List<DayOfWeek> {
+        val onlyStr = str.substring(1, str.length - 1)  // remove the brackets
+        val newList = mutableListOf<DayOfWeek>()
+        val list = onlyStr.split(",")
+        for (i in list) {
+            newList.add(DayOfWeek.fromString(i.trim()))
+        }
+        return newList
     }
 
 }

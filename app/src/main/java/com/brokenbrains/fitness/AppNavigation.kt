@@ -16,17 +16,20 @@ import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.data.model.measurement.MeasurementType
 import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
+import com.brokenbrains.fitness.data.model.medication.MedicationType
+import com.brokenbrains.fitness.data.model.medication.MedicationViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.browse.activity.ActivityDetailScreen
 import com.brokenbrains.fitness.ui.screens.browse.activity.ActivityPage
 import com.brokenbrains.fitness.ui.screens.browse.activity.AddActivityScreen
 import com.brokenbrains.fitness.ui.screens.browse.components.MeasurementsPage
-import com.brokenbrains.fitness.ui.screens.browse.components.MedicationPage
 import com.brokenbrains.fitness.ui.screens.browse.components.SleepPage
 import com.brokenbrains.fitness.ui.screens.browse.components.VitalsPage
 import com.brokenbrains.fitness.ui.screens.browse.measurements.AddMeasurementScreen
 import com.brokenbrains.fitness.ui.screens.browse.measurements.MeasurementDetailScreen
+import com.brokenbrains.fitness.ui.screens.browse.measurements.MedicationScreen
+import com.brokenbrains.fitness.ui.screens.browse.medication.AddMedicationScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.ArticleWebViewer
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
@@ -219,8 +222,22 @@ fun NavGraphBuilder.BrowseMedicationScreenComposable(
         },
         exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
         val navTo = { route: String -> navigateTo(route, from) }
-        MedicationPage(navigateTo = navTo, onBack = upPress)
+        val vm = hiltViewModel<MedicationViewModel>()
+        MedicationScreen(viewModel = vm , navigateTo = navTo, onBack = upPress)
     }
+
+    composable(MedicationRoutes.AddMedication.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        val vm = hiltViewModel<MedicationViewModel>();
+        AddMedicationScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
+    }
+
 }
 
 fun NavGraphBuilder.ArticleWebViewScreenComposable(

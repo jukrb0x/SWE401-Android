@@ -63,3 +63,8 @@ enum class MeasurementsRoutes(val route: String, val title: String) {
     AddMeasurement("${BrowseRoutes.Measurements.route}/add", "Add Measurement"),
     MeasurementDetails("${BrowseRoutes.Measurements.route}/details", "Measurement Details"),
 }
+
+enum class MedicationRoutes(val route: String, val title: String) {
+    AddMedication("${BrowseRoutes.Medication.route}/add", "Add Medication"),
+//    MedicationDetails("${BrowseRoutes.Medication.route}/details", "Medication Details"),
+}

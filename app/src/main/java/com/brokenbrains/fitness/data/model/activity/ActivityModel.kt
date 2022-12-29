@@ -3,14 +3,17 @@ package com.brokenbrains.fitness.data.model.activity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.brokenbrains.fitness.data.util.UUID
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
-import org.checkerframework.checker.units.qual.m
 
 @Entity(tableName = "activity")
 data class ActivityModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int? = null,
+
+    @ColumnInfo(name = "uuid")
+    var uuid: String = UUID.generateUUID(),
 
     @ColumnInfo(name = "title")
     var title: String? = null,

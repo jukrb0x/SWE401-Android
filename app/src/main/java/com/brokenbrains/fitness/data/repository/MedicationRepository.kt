@@ -24,10 +24,12 @@ class MedicationRepository @Inject constructor(
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
             .collection("medications")
-            .add(medication).addOnSuccessListener { documentReference ->
+            .document(medication.uuid)
+            .set(medication)
+            .addOnSuccessListener {
                 Log.d(
                     this::class.simpleName,
-                    "DocumentSnapshot added with ID: ${documentReference.id}"
+                    "DocumentSnapshot added with ID: ${medication.uuid}"
                 )
             }.addOnFailureListener { e ->
                 Log.w(this::class.simpleName, "Error adding document $e")
@@ -84,11 +86,11 @@ class MedicationRepository @Inject constructor(
     }
 
     @WorkerThread
-    fun deleteMedication(id: String) = callbackFlow {
+    fun deleteMedication(uuid: String) = callbackFlow {
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
             .collection("medications")
-            .document(id)
+            .document(uuid)
             .delete()
             .addOnSuccessListener {
                 Log.d(this::class.simpleName, "DocumentSnapshot successfully deleted!")
