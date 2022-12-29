@@ -25,6 +25,7 @@ import com.brokenbrains.fitness.ui.components.AppBottomBar
 import com.brokenbrains.fitness.ui.components.AppScaffold
 import com.brokenbrains.fitness.ui.screens.home.HomeScreenAddFab
 import com.brokenbrains.fitness.ui.screens.sharing.AddFriendFabScreen
+import com.brokenbrains.fitness.ui.screens.splash.SplashScreen
 import com.brokenbrains.fitness.ui.screens.user.LoginScreen
 import com.brokenbrains.fitness.ui.screens.user.ProfileScreen
 import com.brokenbrains.fitness.ui.screens.user.SignupScreen
@@ -104,8 +105,14 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
 
     // user related routes
     navigation(
-        route = AppDestinations.USER_ROUTE, startDestination = UserRoutes.Login.route
+        route = AppDestinations.USER_ROUTE, startDestination = UserRoutes.Splash.route
     ) {
+        // splash screen
+        composable(UserRoutes.Splash.route) { from ->
+            val vm: AuthViewModel = hiltViewModel()
+            SplashScreen(viewModel = vm, navigateTo = { route -> navigateTo(route, from) })
+//        Icon(imageVector =, contentDescription = null)
+        }
         // login and logout
         composable(AppDestinations.LOGIN_ROUTE) { from ->
             appState.login()

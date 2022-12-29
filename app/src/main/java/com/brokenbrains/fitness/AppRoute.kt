@@ -40,6 +40,7 @@ enum class TabRoutes(val route: String, val title: String, val icon: ImageVector
 
 
 enum class UserRoutes(val route: String, val title: String) {
+    Splash("$USER_ROUTE/splash", "Splash"),
     Login("$USER_ROUTE/login", "Login"),
     Register("$USER_ROUTE/register", "Register"),
     Profile("$USER_ROUTE/profile", "Profile")

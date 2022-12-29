@@ -2,6 +2,7 @@ package com.brokenbrains.fitness.ui.screens.home
 
 import androidx.compose.runtime.*
 import com.brokenbrains.fitness.ActivityRoutes
+import com.brokenbrains.fitness.MeasurementsRoutes
 import com.brokenbrains.fitness.ui.components.FabState
 import com.brokenbrains.fitness.ui.components.MultiFloatingActionButton
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -13,7 +14,7 @@ data class FabNavigation(val title: String, val route: String)
 
 val fabNavs = listOf<FabNavigation>(
     FabNavigation("Activity", ActivityRoutes.AddActivity.route),
-    FabNavigation("Measurement", /*ActivityRoutes.AddMeasurement.route*/"/")
+    FabNavigation("Measurement", MeasurementsRoutes.AddMeasurement.route)
 )
 
 @Composable
