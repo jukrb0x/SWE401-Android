@@ -2,7 +2,7 @@ package com.brokenbrains.fitness.data.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.brokenbrains.fitness.data.model.measurement.MeasurementModel
+import com.brokenbrains.fitness.data.model.medication.MedicationModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -13,18 +13,18 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MeasurementRepository @Inject constructor(
+class MedicationRepository @Inject constructor(
     private val db: FirebaseFirestore,
     private val authRepository: AuthRepository
 ) {
 
-    fun addNewMeasurement(
-        measurementModel: MeasurementModel
+    fun addNewMedication(
+        medication: MedicationModel
     ) {
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
-            .collection("measurements")
-            .add(measurementModel).addOnSuccessListener { documentReference ->
+            .collection("medications")
+            .add(medication).addOnSuccessListener { documentReference ->
                 Log.d(
                     this::class.simpleName,
                     "DocumentSnapshot added with ID: ${documentReference.id}"
@@ -34,41 +34,41 @@ class MeasurementRepository @Inject constructor(
             }
     }
 
-    suspend fun getMeasurementById(id: Int): Flow<MeasurementModel> {
-        var measurementModel = MeasurementModel()
+    suspend fun getMedicationById(id: Int): Flow<MedicationModel> {
+        var medicationModel = MedicationModel()
         return try {
             flow {
                 db.collection("users")
                     .document(authRepository.currentUser!!.uid)
-                    .collection("measurements")
+                    .collection("medications")
                     .document(id.toString())
                     .get()
                     .addOnSuccessListener { document ->
-                        measurementModel = document.toObject(measurementModel::class.java)!!
+                        medicationModel = document.toObject(medicationModel::class.java)!!
                     }
-                emit(measurementModel)
+                emit(medicationModel)
             }
         } catch (e: Exception) {
             flow {
-                emit(measurementModel)
+                emit(medicationModel)
             }
         }
     }
 
 
     @WorkerThread
-    fun getAllMeasurements(): Flow<List<MeasurementModel>> = callbackFlow {
-        val models = mutableListOf<MeasurementModel>()
+    fun getAllMedications(): Flow<List<MedicationModel>> = callbackFlow {
+        val medications = mutableListOf<MedicationModel>()
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
-            .collection("measurements").orderBy("startAt")
+            .collection("medications").orderBy("startAt")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    models.add(document.toObject(MeasurementModel::class.java))
+                    medications.add(document.toObject(MedicationModel::class.java))
                 }
-                Log.d(this::class.simpleName, "DocumentSnapshot added with ID: $models")
-                trySend(models).isSuccess
+                Log.d(this::class.simpleName, "DocumentSnapshot added with ID: $medications")
+                trySend(medications).isSuccess
             }.addOnFailureListener { e ->
                 Log.w(this::class.simpleName, "Error getting documents $e")
                 cancel()
@@ -79,6 +79,31 @@ class MeasurementRepository @Inject constructor(
             }
         } catch (e: Exception) {
             Log.w(this::class.simpleName, "Error getting documents $e")
+            cancel()
+        }
+    }
+
+    @WorkerThread
+    fun deleteMedication(id: String) = callbackFlow {
+        db.collection("users")
+            .document(authRepository.currentUser!!.uid)
+            .collection("medications")
+            .document(id)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(this::class.simpleName, "DocumentSnapshot successfully deleted!")
+                trySend(true).isSuccess
+            }
+            .addOnFailureListener { e ->
+                Log.w(this::class.simpleName, "Error deleting document $e")
+                trySend(false).isSuccess
+            }
+        try {
+            awaitClose {
+                channel.close()
+            }
+        } catch (e: Exception) {
+            Log.w(this::class.simpleName, "Error deleting document $e")
             cancel()
         }
     }

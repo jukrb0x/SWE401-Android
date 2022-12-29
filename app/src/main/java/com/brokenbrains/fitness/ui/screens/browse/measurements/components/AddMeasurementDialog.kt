@@ -1,7 +1,6 @@
 package com.brokenbrains.fitness.ui.screens.browse.measurements.components
 
 import androidx.compose.runtime.Composable
-import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.measurement.MeasurementType
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.MaterialDialogState

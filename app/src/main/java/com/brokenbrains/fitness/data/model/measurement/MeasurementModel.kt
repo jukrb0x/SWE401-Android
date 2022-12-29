@@ -3,7 +3,6 @@ package com.brokenbrains.fitness.data.model.measurement
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.brokenbrains.fitness.data.model.activity.ActivityType
 
 @Entity(tableName = "measurement")
 data class MeasurementModel(
