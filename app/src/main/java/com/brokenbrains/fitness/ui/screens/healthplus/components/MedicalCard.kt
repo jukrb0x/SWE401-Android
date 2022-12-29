@@ -286,19 +286,21 @@ val DoctorCardList: List<DoctorCardData> = listOf(
         type = "Cardiologist",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.8"
-    ), DoctorCardData(
+    ),
+    DoctorCardData(
         id = "3",
         name = "Dr. Jenny",
         type = "Dentist",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "0"
-    ), DoctorCardData(
+    ),
+    DoctorCardData(
         id = "4",
         name = "Dr. John Doe",
         type = "Cardiologist",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.5"
-    )
+    ),
 )
 
 val HospitalCardList: List<HospitalCardData> = listOf(
