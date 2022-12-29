@@ -32,3 +32,10 @@ fun MeasurementType.toReadableString(): String {
         MeasurementType.WEIGHT -> "Weight"
     }
 }
+
+fun MeasurementType.getUnitString(): String {
+    return when (this) {
+        MeasurementType.HEIGHT -> "cm"
+        MeasurementType.WEIGHT -> "kg"
+    }
+}

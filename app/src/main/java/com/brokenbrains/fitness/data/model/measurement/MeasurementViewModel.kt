@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.MeasurementRepository
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,15 +15,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class MeasurementTodayState(
-    val MeasurementType: MeasurementType,
+    val measurementType: MeasurementType,
     val value: String,
     val unit: String,
 )
 
 data class MeasurementUiState(
     var allMeasurements: List<MeasurementModel> = listOf(),
-    var MeasurementColumnarDataByType: Map<MeasurementType, List<ColumnarData>> = mapOf(),
-    var MeasurementTodayByType: Map<MeasurementType, MeasurementTodayState> = mapOf(),
+    var measurementColumnarDataByType: Map<MeasurementType, List<ColumnarData>> = mapOf(),
+    var measurementTodayByType: Map<MeasurementType, MeasurementTodayState> = mapOf(),
 )
 
 @HiltViewModel
@@ -51,8 +50,8 @@ class MeasurementViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         allMeasurements = _allMeasurements,
-                        MeasurementColumnarDataByType = columnarDataList,
-                        MeasurementTodayByType = _MeasurementTodayByType
+                        measurementColumnarDataByType = columnarDataList,
+                        measurementTodayByType = _MeasurementTodayByType
                     )
                 }
             }
@@ -63,20 +62,61 @@ class MeasurementViewModel @Inject constructor(
     var _MeasurementTodayByType = mutableMapOf<MeasurementType, MeasurementTodayState>()
 
 
-    fun addNewMeasurement(MeasurementModel: MeasurementModel) {
+    fun addNewMeasurement(measurementModel: MeasurementModel) {
         viewModelScope.launch(Dispatchers.Default) {
-//            if (MeasurementModel.startAt!! < MeasurementModel.endAt!!) {
-            repository.addNewMeasurement(measurementModel = MeasurementModel)
-//            }
+            repository.addNewMeasurement(measurementModel = measurementModel)
         }
     }
 
-    fun getLast7DataByType(MeasurementType: MeasurementType): List<MeasurementModel> {
-        return _allMeasurements.filter {
-            it.measurementType == MeasurementType
-        }.sortedByDescending {
-            it.startAt
-        }.take(7)
+    fun getLast7DataByType(measurementType: MeasurementType): List<ColumnarData> {
+        val columnarDataList = mutableListOf<ColumnarData>()
+        // initialize the list with 7 empty values
+        for (i in 0..6) {
+            columnarDataList.add(ColumnarData(0f, ""))
+        }
+
+        if (_allMeasurements.isNotEmpty()) {
+            val measurementModels = _allMeasurements.filter {
+                it.measurementType == measurementType
+            }.sortedByDescending { // the bigger, the more recent, [today, yesterday, 2d ago...]
+                it.startAt
+            }.take(7)
+            // store today (the last)
+            // size safety
+            measurementModels.forEach {
+                columnarDataList.add(
+                    ColumnarData(
+                        it.value, ""
+                    )
+                )
+            }
+            val todayVal = if (measurementModels.isNotEmpty()) measurementModels.first().value else 0.0
+            _MeasurementTodayByType.put(
+                measurementType,
+                MeasurementTodayState(
+                    measurementType = measurementType,
+                    value = todayVal.toString(),
+                    unit = measurementType.getUnitString()
+                )
+            )
+
+            // find the max value in the list and normalize the values
+            val maxValue = columnarDataList.maxOf { it.value } // seconds
+            columnarDataList.map {
+                it.value = it.value / maxValue
+            }
+        } else {
+            _MeasurementTodayByType.put(
+                measurementType,
+                MeasurementTodayState(
+                    measurementType = measurementType,
+                    value = "0",
+                    unit = measurementType.getUnitString()
+                )
+            )
+        }
+
+        return columnarDataList.reversed()
     }
 
 
@@ -84,12 +124,7 @@ class MeasurementViewModel @Inject constructor(
         val columnarDataList = mutableMapOf<MeasurementType, List<ColumnarData>>()
         MeasurementType.values().map {
             val columnarData = getLast7DataByType(it)
-            columnarDataList.put(it, columnarData.map {
-                ColumnarData(
-                    it.value,
-                    ""
-                )
-            })
+            columnarDataList.put(it, columnarData)
         }
         return columnarDataList
     }

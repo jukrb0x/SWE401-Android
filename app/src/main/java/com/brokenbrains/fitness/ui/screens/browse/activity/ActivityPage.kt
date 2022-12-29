@@ -29,7 +29,8 @@ import com.brokenbrains.fitness.ui.theme.FitnessTheme
 @Composable
 fun ActivityPage(
     viewModel: ActivityViewModel,
-    navigateTo: (route: String) -> Unit, onBack: () -> Unit
+    navigateTo: (route: String) -> Unit,
+    onBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle(initialValue = ActivityUiState())
 

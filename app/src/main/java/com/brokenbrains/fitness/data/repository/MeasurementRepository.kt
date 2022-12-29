@@ -61,7 +61,7 @@ class MeasurementRepository @Inject constructor(
         val activities = mutableListOf<MeasurementModel>()
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
-            .collection("activities").orderBy("startAt")
+            .collection("measurements").orderBy("startAt")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {

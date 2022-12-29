@@ -24,6 +24,7 @@ import com.brokenbrains.fitness.ui.screens.browse.components.MeasurementsPage
 import com.brokenbrains.fitness.ui.screens.browse.components.MedicationPage
 import com.brokenbrains.fitness.ui.screens.browse.components.SleepPage
 import com.brokenbrains.fitness.ui.screens.browse.components.VitalsPage
+import com.brokenbrains.fitness.ui.screens.browse.measurements.AddMeasurementScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.ArticleWebViewer
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
@@ -114,11 +115,10 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         val vm = hiltViewModel<ActivityViewModel>();
         val arguments = requireNotNull(from.arguments)
         val activityType = arguments.getString("activityType")
-        val activityViewModel = hiltViewModel<ActivityViewModel>()
         ActivityDetailScreen(viewModel = vm,
             activityType = ActivityType.fromString(activityType!!),
             navigateTo = navTo,
-            onBack = { activityViewModel.refresh();upPress() })
+            onBack = { /*activityViewModel.refresh();*/upPress() })
     }
 
 }
@@ -137,6 +137,18 @@ fun NavGraphBuilder.BrowseMeasurementsScreenComposable(
         val navTo = { route: String -> navigateTo(route, from) }
         val viewModel = hiltViewModel<MeasurementViewModel>()
         MeasurementsPage(viewModel = viewModel, navigateTo = navTo, onBack = upPress)
+    }
+
+    composable(MeasurementsRoutes.AddMeasurement.route,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        val vm = hiltViewModel<MeasurementViewModel>();
+        AddMeasurementScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
     }
 }
 

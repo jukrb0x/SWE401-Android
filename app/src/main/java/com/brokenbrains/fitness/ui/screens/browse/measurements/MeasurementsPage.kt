@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brokenbrains.fitness.BrowseRoutes
+import com.brokenbrains.fitness.MeasurementsRoutes
 import com.brokenbrains.fitness.data.model.measurement.MeasurementType
 import com.brokenbrains.fitness.data.model.measurement.MeasurementUiState
 import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
@@ -23,14 +23,17 @@ import com.brokenbrains.fitness.ui.components.TrendCardData
 
 @OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun MeasurementsPage(viewModel: MeasurementViewModel, navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
-//    val state by viewModel.uiState.collectAsStateWithLifecycle();
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+fun MeasurementsPage(
+    viewModel: MeasurementViewModel,
+    navigateTo: (route: String) -> Unit,
+    onBack: () -> Unit
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle(initialValue = MeasurementUiState())
     BrowsePage(
         title = BrowseRoutes.Measurements.title,
         navigateTo = navigateTo,
         onBack = onBack,
-        onAdd = { /*TODO*/ }) {
+        onAdd = {navigateTo(MeasurementsRoutes.AddMeasurement.route) }) {
         MeasurementsPageInternal(state = state, navigateTo = navigateTo, onBack = onBack)
     }
 
@@ -54,8 +57,8 @@ private fun MeasurementsPageInternal(
                 data = TrendCardData(
                     title = "Weight",
                     subtitle = "Last 7 records",
-                    graphVal = state.MeasurementColumnarDataByType[MeasurementType.WEIGHT],
-                    todayValue = state.MeasurementTodayByType[MeasurementType.WEIGHT]?.value,
+                    graphVal = state.measurementColumnarDataByType[MeasurementType.WEIGHT],
+                    todayValue = state.measurementTodayByType[MeasurementType.WEIGHT]?.value,
                     todayUnit = "kg",
                 )
             )
@@ -64,8 +67,8 @@ private fun MeasurementsPageInternal(
                 data = TrendCardData(
                     title = "Height",
                     subtitle = "Last 7 records",
-                    graphVal = state.MeasurementColumnarDataByType[MeasurementType.HEIGHT],
-                    todayValue = state.MeasurementTodayByType[MeasurementType.HEIGHT]?.value,
+                    graphVal = state.measurementColumnarDataByType[MeasurementType.HEIGHT],
+                    todayValue = state.measurementTodayByType[MeasurementType.HEIGHT]?.value,
                     todayUnit = "cm",
                 )
             )

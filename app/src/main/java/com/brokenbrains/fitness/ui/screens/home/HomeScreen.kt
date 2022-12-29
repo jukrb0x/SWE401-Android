@@ -19,6 +19,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brokenbrains.fitness.data.model.HomeViewModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
+import com.brokenbrains.fitness.data.model.measurement.MeasurementType
+import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
 import com.brokenbrains.fitness.ui.components.*
 import com.brokenbrains.fitness.ui.screens.home.ElevatedMedicationNotificationCard
 import com.brokenbrains.fitness.ui.screens.home.MedNotificationData
@@ -35,6 +37,9 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
     val activityViewModel = hiltViewModel<ActivityViewModel>();
     val activityState by activityViewModel.uiState.collectAsStateWithLifecycle()
 
+    val measurementViewModel = hiltViewModel<MeasurementViewModel>();
+    val measurementState by measurementViewModel.uiState.collectAsStateWithLifecycle()
+
     val data: List<TrendCardData> = listOf(
         TrendCardData(
             title = "Walking",
@@ -48,7 +53,10 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
         ),
         TrendCardData(
             title = "Weight",
-            subtitle = "2 Dec",
+            subtitle = "Last 7 records",
+            graphVal = measurementState.measurementColumnarDataByType[MeasurementType.WEIGHT],
+            todayValue = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.value,
+            todayUnit = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.unit,
         ),
         TrendCardData(
             title = "Heart rate",

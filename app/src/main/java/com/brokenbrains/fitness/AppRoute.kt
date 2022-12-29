@@ -58,3 +58,7 @@ enum class ActivityRoutes(val route: String, val title: String) {
     AddActivity("${BrowseRoutes.Activity.route}/add", "Add Activity"),
     ActivityDetails("${BrowseRoutes.Activity.route}/details", "Activity Details"),
 }
+enum class MeasurementsRoutes(val route: String, val title: String) {
+    AddMeasurement("${BrowseRoutes.Measurements.route}/add", "Add Measurement"),
+    MeasurementDetails("${BrowseRoutes.Measurements.route}/details", "Measurement Details"),
+}

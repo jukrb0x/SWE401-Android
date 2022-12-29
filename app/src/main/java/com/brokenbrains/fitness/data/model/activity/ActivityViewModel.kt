@@ -128,6 +128,7 @@ class ActivityViewModel @Inject constructor(
                     )
                 )
             }
+
             // find the max value in the list and normalize the values
             val maxValue = columnarDataList.maxOf { it.value } // seconds
             columnarDataList.map {
