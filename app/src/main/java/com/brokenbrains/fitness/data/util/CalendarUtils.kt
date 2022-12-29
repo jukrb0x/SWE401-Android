@@ -38,21 +38,21 @@ object CalendarUtils {
 
     fun getDateTimeFronLong(l:Long): LocalDateTime? {
         val dt = Instant.ofEpochSecond(l)
-            .atZone(ZoneId.systemDefault())
+            .atZone(ZoneId.of("UTC"))
             .toLocalDateTime()
         return dt
     }
 
     fun getDayOfWeekFromLong(l:Long): DayOfWeek {
         val dt = Instant.ofEpochSecond(l)
-            .atZone(ZoneId.systemDefault())
+            .atZone(ZoneId.of("UTC"))
             .toLocalDateTime()
         return DayOfWeek.values()[dt.dayOfWeek.value - 1]
     }
 
     fun isSameDay(day: DayOfWeek, startAt: Long?): Boolean {
         val dt = Instant.ofEpochSecond(startAt ?: 0)
-            .atZone(ZoneId.systemDefault())
+            .atZone(/*ZoneId.systemDefault()*/ZoneId.of("UTC")) // we store the dt in UTC, the comparison should be done in UTC
             .toLocalDateTime()
         return dt.dayOfWeek.value == day.number
     }
