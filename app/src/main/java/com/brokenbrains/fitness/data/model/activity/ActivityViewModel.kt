@@ -27,7 +27,6 @@ data class ActivityUiState(
     var activityTodayByType: Map<ActivityType, ActivityTodayState> = mapOf(),
 )
 
-
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
@@ -86,20 +85,20 @@ class ActivityViewModel @Inject constructor(
                 columnarDataList.add(ColumnarData(label = day.label, value = sum))
             }
 
-            // find the max value
-            val maxValue = columnarDataList.maxOf { it.value } // seconds
-            // store in uiState if it's today
-            if (dayOfWeeks.last().label === columnarDataList.last().label) { // cannot do this, we have same label in Tue and Thur
+            // store today's value
+            columnarDataList.last().let {
+                val formatted = CalendarUtils.getBiggestUnitStringOfTime(it.value.toLong())
                 _activityTodayByType.put(
                     activityType,
                     ActivityTodayState(
                         activityType = activityType,
-                        value = CalendarUtils.getBiggestUnitStringOfTime(maxValue.toLong()).value,
-                        unit = CalendarUtils.getBiggestUnitStringOfTime(maxValue.toLong()).unit
+                        value = formatted.value,
+                        unit = formatted.unit
                     )
                 )
             }
-            // normalize the values
+            // find the max value in the list and normalize the values
+            val maxValue = columnarDataList.maxOf { it.value } // seconds
             columnarDataList.map {
                 it.value = it.value / maxValue
             }

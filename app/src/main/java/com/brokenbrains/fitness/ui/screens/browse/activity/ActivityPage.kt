@@ -67,16 +67,6 @@ private fun ActivityPageInternal(
         ActivityType.WALKING,
         ActivityType.RUNNING
     )
-    val defaultGraphVals = listOf(
-        ColumnarData(0f, "M"),
-        ColumnarData(0f, "T"),
-        ColumnarData(0f, "W"),
-        ColumnarData(0f, "T"),
-        ColumnarData(0f, "F"),
-        ColumnarData(0f, "S"),
-        ColumnarData(0f, "S")
-    )
-
 
 //    Text(text = "Size is " + state.ColumnarDataByType[ActivityType.WALKING]?.size.toString())
 //    Text(text = state.ColumnarDataByType[ActivityType.WALKING].toString())
@@ -92,7 +82,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Move",
                     subtitle = "Last 7 times",
-                    graphVal = state.activityColumnarDataByType[ActivityType.WALKING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.WALKING],
                     todayValue = state.activityTodayByType[ActivityType.WALKING]?.value,
                     todayUnit = state.activityTodayByType[ActivityType.WALKING]?.unit,
                 ),
@@ -122,7 +112,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Running",
                     subtitle = "Last 7 times",
-                    graphVal = state.activityColumnarDataByType[ActivityType.RUNNING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.RUNNING] ,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
@@ -134,7 +124,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Swimming",
                     subtitle = "Last 7 times",
-                    graphVal = state.activityColumnarDataByType[ActivityType.SWIMMING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.SWIMMING],
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
@@ -146,7 +136,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Cycling",
                     subtitle = "Last 7 times",
-                    graphVal = state.activityColumnarDataByType[ActivityType.CYCLING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.CYCLING] ,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")

@@ -35,7 +35,7 @@ object Styles {
 data class TrendCardData(
     val title: String,
     val subtitle: String = "Last 7 days",
-    val graphVal: List<ColumnarData> = listOf(
+    val graphVal: List<ColumnarData>? = listOf(
         ColumnarData(0f, "M"),
         ColumnarData(0f, "T"),
         ColumnarData(0f, "W"),
@@ -53,6 +53,18 @@ data class TrendCardData(
 fun TrendCard(
     modifier: Modifier = Modifier, data: TrendCardData, onClick: () -> Unit = {}, elevation: Int = 1
 ) {
+    var graphVal = data.graphVal;
+    if (graphVal.isNullOrEmpty()) {
+        graphVal = listOf(
+            ColumnarData(0f, "M"),
+            ColumnarData(0f, "T"),
+            ColumnarData(0f, "W"),
+            ColumnarData(0f, "T"),
+            ColumnarData(0f, "F"),
+            ColumnarData(0f, "S"),
+            ColumnarData(0f, "S")
+        )
+    }
 
 
 
@@ -115,7 +127,7 @@ fun TrendCard(
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        data.graphVal.forEach { i ->
+                        graphVal.forEach { i ->
                             TrendCardColumnar(data = i)
                         }
                     }
