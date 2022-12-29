@@ -70,7 +70,10 @@ private fun ActivityPageInternal(
     )
 
     var last7daysGraphVals by rememberSaveable { mutableStateOf(defaultGraphVals) }
-    var allActivities = viewModel.allActivities
+//    var allActivities = viewModel.allActivities
+    var allActivities = rememberSaveable {
+        viewModel.allActivities
+    }
 
     LaunchedEffect(key1 = last7daysGraphVals) {
         // TODO

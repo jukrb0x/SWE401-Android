@@ -11,12 +11,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+data class ColumnarDataOf(
+    var activityType: ActivityType,
+    var columnarData: ColumnarData
+)
+data class ActivityUiState(
+    var allActivities: List<ActivityModel> = listOf(),
+    var ColumnarDataByType: List<ColumnarDataOf> = listOf(),
+)
+
+
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
     private val repository: ActivityRepository
 
 ) : ViewModel() {
+
+    val uiState = ActivityUiState()
 
 //    val uiState = repository.uiState
 
@@ -60,7 +72,7 @@ class ActivityViewModel @Inject constructor(
 
     fun addNewActivity(activityModel: ActivityModel) {
         CoroutineScope(Dispatchers.IO).launch {
-            if(activityModel.startAt!! < activityModel.endAt!!){
+            if (activityModel.startAt!! < activityModel.endAt!!) {
                 repository.addNewActivity(activityModel = activityModel)
             }
         }
@@ -117,6 +129,12 @@ class ActivityViewModel @Inject constructor(
 
     }
 
+    fun getLast7DaysColumnarData() {
+        ActivityType.values().map {
+            getLast7DaysColumnarDataByType(it)
+        }
+    }
+
 
 /*
 
@@ -141,3 +159,4 @@ class ActivityViewModel @Inject constructor(
 
 
 }
+
