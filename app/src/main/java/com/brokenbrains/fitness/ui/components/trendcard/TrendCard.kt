@@ -36,13 +36,13 @@ data class TrendCardData(
     val title: String,
     val subtitle: String = "Last 7 days",
     val graphVal: List<ColumnarData>? = listOf(
-        ColumnarData(0f, "M"),
-        ColumnarData(0f, "T"),
-        ColumnarData(0f, "W"),
-        ColumnarData(0f, "T"),
-        ColumnarData(0f, "F"),
-        ColumnarData(0f, "S"),
-        ColumnarData(0f, "S")
+        ColumnarData(0f, " "),
+        ColumnarData(0f, " "),
+        ColumnarData(0f, " "),
+        ColumnarData(0f, " "),
+        ColumnarData(0f, " "),
+        ColumnarData(0f, " "),
+        ColumnarData(0f, " ")
     ),
     val todayValue: String? = "0",
     val todayUnit: String? = "kg",
@@ -56,13 +56,13 @@ fun TrendCard(
     var graphVal = data.graphVal;
     if (graphVal.isNullOrEmpty()) {
         graphVal = listOf(
-            ColumnarData(0f, "M"),
-            ColumnarData(0f, "T"),
-            ColumnarData(0f, "W"),
-            ColumnarData(0f, "T"),
-            ColumnarData(0f, "F"),
-            ColumnarData(0f, "S"),
-            ColumnarData(0f, "S")
+            ColumnarData(0f, " "),
+            ColumnarData(0f, " "),
+            ColumnarData(0f, " "),
+            ColumnarData(0f, " "),
+            ColumnarData(0f, " "),
+            ColumnarData(0f, " "),
+            ColumnarData(0f, " ")
         )
     }
 

@@ -56,17 +56,23 @@ fun AddActivityScreen(
     val endDateTime = rememberSaveable { mutableStateOf(startDate.value.atTime(endTime.value)) }
 
 
-    val showToast = remember { mutableStateOf(false) }
+    val toast = object {
+        val isShow = remember { mutableStateOf(false) }
+        val message = remember { mutableStateOf("") }
+    }
 
-    // ViewModel
     fun handleAddActivity(): Boolean {
         startDateTime.value = startDate.value.atTime(startTime.value)
         endDateTime.value = startDate.value.atTime(endTime.value)
-        if (startDateTime.value.isAfter(endDateTime.value) || startDateTime.value.isAfter(
-                LocalDate.now().atTime(LocalTime.now())
-            )
-        ) {
-            showToast.value = true
+        if (startDateTime.value.isAfter(LocalDate.now().atTime(LocalTime.now()))) {
+            // FIXME: (low priority) this message text will be replaced by the next one
+            toast.message.value = "Start date must be before current date"
+            toast.isShow.value = true
+            return false;
+        }
+        if (startDateTime.value.isAfter(endDateTime.value)) {
+            toast.message.value = "Start time must be before end time"
+            toast.isShow.value = true
             return false;
         }
         viewModel.addNewActivity(
@@ -79,15 +85,14 @@ fun AddActivityScreen(
         )
         return true;
     }
-    if (showToast.value) {
+    if (toast.isShow.value) {
         Toast.makeText(
             LocalContext.current,
             "Start time must be before end time",
             Toast.LENGTH_SHORT
         ).show()
-        showToast.value = false
+        toast.isShow.value = false
     }
-
 
 
     BrowsePage(
