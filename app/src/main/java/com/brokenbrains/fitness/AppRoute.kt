@@ -24,6 +24,7 @@ object AppDestinations {
     const val LOGOUT_ROUTE = "logout"
     const val LOGIN_ROUTE = "login"
     const val BROWSE_ROUTE = "browse"
+    const val ARTICLE_ROUTE = "article"
 }
 
 enum class TabRoutes(val route: String, val title: String, val icon: ImageVector) {

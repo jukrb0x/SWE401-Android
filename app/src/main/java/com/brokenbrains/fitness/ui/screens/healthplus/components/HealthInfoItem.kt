@@ -59,7 +59,7 @@ object HealthItemStyles {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfoItemData) {
+fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfoItemData, onClick: ()->Unit) {
     val articleIC = painterResource(R.drawable.ic_article)
     val videoIC = painterResource(R.drawable.ic_video)
     val visbilityOffIC = painterResource(R.drawable.ic_visibility_off)
@@ -85,7 +85,7 @@ fun HealthInfoItem(modifier: Modifier = Modifier, healthInfoItemData: HealthInfo
             .height(110.dp),
         //.clip(RoundedCornerShape(20.dp))
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        onClick = { /*TODO*/ },
+        onClick = { onClick() },
         colors = CardDefaults.elevatedCardColors(
             containerColor = Color(0xFFE5E5E5),
         )
@@ -165,7 +165,7 @@ fun HealthInfoItemPreview() {
         type = "Article",
         description = "The Tao that can be trodden is not the enduring and unchanging Tao. The name that can be named is not the enduring and unchanging name.",
         timeSet = "42 mins ago",
-    ).let { HealthInfoItem(healthInfoItemData = it) }
+    ).let { HealthInfoItem(healthInfoItemData = it, onClick = {}) }
 }
 
 val HealtInfoItemList: List<HealthInfoItemData> = listOf(

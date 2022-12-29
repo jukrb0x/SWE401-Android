@@ -35,7 +35,7 @@ class ActivityViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default)  {
             refresh()
         }
     }

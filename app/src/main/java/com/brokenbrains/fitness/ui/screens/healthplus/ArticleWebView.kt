@@ -6,11 +6,15 @@ import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
+import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 
 @Composable
-fun ArticleWebViewer() {
-    val webURL = "https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_22"
-    ArticleWebIndex(webURL)
+fun ArticleWebViewer(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+    val webURL =
+        "https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_22"
+    BrowsePage(title = "Healthline", navigateTo = navigateTo, onBack = { onBack() }) {
+        ArticleWebIndex(webURL)
+    }
 }
 
 
@@ -33,5 +37,5 @@ fun ArticleWebIndex(webSite: String) {
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
-    ArticleWebViewer()
+    ArticleWebViewer(navigateTo = {}, onBack = {})
 }

@@ -1,11 +1,10 @@
 package com.brokenbrains.fitness.ui.screens.browse.components
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -14,31 +13,36 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brokenbrains.fitness.BrowseRoutes
-import com.brokenbrains.fitness.data.model.measurement.MeasurementModel
 import com.brokenbrains.fitness.data.model.measurement.MeasurementType
+import com.brokenbrains.fitness.data.model.measurement.MeasurementUiState
 import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
 import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
 
+@OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun MeasurementsPage(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+fun MeasurementsPage(viewModel: MeasurementViewModel, navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
+//    val state by viewModel.uiState.collectAsStateWithLifecycle();
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     BrowsePage(
         title = BrowseRoutes.Measurements.title,
         navigateTo = navigateTo,
         onBack = onBack,
         onAdd = { /*TODO*/ }) {
-        MeasurementsPageInternal(navigateTo = navigateTo, onBack = onBack)
+        MeasurementsPageInternal(state = state, navigateTo = navigateTo, onBack = onBack)
     }
+
+
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-private fun MeasurementsPageInternal(navigateTo: (route: String) -> Unit, onBack: () -> Unit) {
-    val viewModel = hiltViewModel<MeasurementViewModel>()
-    val state by viewModel.uiState.collectAsStateWithLifecycle();
-
+private fun MeasurementsPageInternal(
+    state: MeasurementUiState,
+    navigateTo: (route: String) -> Unit,
+    onBack: () -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = MainScreenHorizontalPaddingValue)
@@ -68,21 +72,11 @@ private fun MeasurementsPageInternal(navigateTo: (route: String) -> Unit, onBack
             Spacer(modifier = Modifier.padding(5.dp))
 
         }
-        item{
-            Button(onClick = {
-                viewModel.addNewMeasurement(
-                    MeasurementModel(
-                        value = 1.0f,
-                        startAt = System.currentTimeMillis(),
-                        measurementType = MeasurementType.WEIGHT
-                    )
-                )
+        item {
 
-            }) {
-                Text("TEST")
-            }
-            Divider()
         }
 
     }
+
+
 }

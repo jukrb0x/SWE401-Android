@@ -11,6 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.TabRoutes
 import com.brokenbrains.fitness.ui.components.MainScreenColumn
 import com.brokenbrains.fitness.ui.components.MainScreenHeader
@@ -31,15 +32,16 @@ data class HealthPlusTab(
     val component: @Composable () -> Unit
 )
 
-val healthPlusTab = listOf(
-    HealthPlusTab("Info") { HealthInfoPage() },
-    HealthPlusTab("Doctor") { DoctorColumn() },
-    HealthPlusTab("Hospital") { HospitalColumn() },
-)
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
+    val healthPlusTab = listOf(
+        HealthPlusTab("Info") { HealthInfoPage(navigateTo) },
+        HealthPlusTab("Doctor") { DoctorColumn(navigateTo) },
+        HealthPlusTab("Hospital") { HospitalColumn(navigateTo) },
+    )
+
     MainScreenColumn(horizontalPadding = 0.dp) {
         Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
             MainScreenHeader(
@@ -73,14 +75,14 @@ fun HealthPlusScreen(navigateTo: (route: String) -> Unit) {
 }
 
 @Composable
-fun HealthInfoPage() { // media
+fun HealthInfoPage(navigateTo: (route: String) -> Unit) { // media
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
         }
         itemsIndexed(HealtInfoItemList) { index, healthItem ->
             Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
-                HealthInfoItem(healthInfoItemData = healthItem)
+                HealthInfoItem(healthInfoItemData = healthItem, onClick = {navigateTo(AppDestinations.ARTICLE_ROUTE)})
             }
         }
         item {
@@ -90,15 +92,14 @@ fun HealthInfoPage() { // media
 }
 
 @Composable
-@Preview
-fun DoctorColumn() { // doctor
+fun DoctorColumn(navigateTo: (route: String) -> Unit) { // doctor
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
         }
         itemsIndexed(DoctorCardList) { index, doctorCardItem ->
             Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
-                DoctorCard(doctorCardData = doctorCardItem)
+                DoctorCard(doctorCardData = doctorCardItem, onClick = {navigateTo(AppDestinations.ARTICLE_ROUTE)})
             }
         }
         item {
@@ -108,14 +109,14 @@ fun DoctorColumn() { // doctor
 }
 
 @Composable
-fun HospitalColumn() { // hospital
+fun HospitalColumn(navigateTo: (route: String) -> Unit) { // hospital
     LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         item {
             Spacer(modifier = Modifier.height(3.dp))
         }
         itemsIndexed(HospitalCardList) { index, hospitalCardItem ->
             Box(modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)) {
-                HospitalCard(hospitalCardData = hospitalCardItem)
+                HospitalCard(hospitalCardData = hospitalCardItem, onClick = {navigateTo(AppDestinations.ARTICLE_ROUTE)})
             }
         }
         item {

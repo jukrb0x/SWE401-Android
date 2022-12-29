@@ -34,16 +34,17 @@ class MeasurementViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MeasurementUiState())
-    var uiState = _uiState.asStateFlow()
+    val uiState
+        get() = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             refresh()
         }
     }
 
-    suspend fun refresh() {
-        viewModelScope.launch {
+    fun refresh() {
+        viewModelScope.launch(Dispatchers.Default) {
             repository.getAllMeasurements().flowOn(Dispatchers.IO).collect {
                 _allMeasurements = it.toMutableList()
                 val columnarDataList = getLast7ColumnarData()
@@ -63,9 +64,9 @@ class MeasurementViewModel @Inject constructor(
 
 
     fun addNewMeasurement(MeasurementModel: MeasurementModel) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.Default) {
 //            if (MeasurementModel.startAt!! < MeasurementModel.endAt!!) {
-                repository.addNewMeasurement(measurementModel = MeasurementModel)
+            repository.addNewMeasurement(measurementModel = MeasurementModel)
 //            }
         }
     }

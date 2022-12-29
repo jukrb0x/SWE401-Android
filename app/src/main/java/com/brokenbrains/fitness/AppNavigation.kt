@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalAnimationApi::class, ExperimentalAnimationApi::class)
+@file:OptIn(ExperimentalAnimationApi::class, ExperimentalAnimationApi::class,
+    ExperimentalAnimationApi::class
+)
 
 package com.brokenbrains.fitness
 
@@ -12,6 +14,7 @@ import androidx.navigation.navArgument
 import com.brokenbrains.fitness.data.model.HomeViewModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
+import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.browse.activity.ActivityDetailScreen
@@ -21,6 +24,7 @@ import com.brokenbrains.fitness.ui.screens.browse.components.MeasurementsPage
 import com.brokenbrains.fitness.ui.screens.browse.components.MedicationPage
 import com.brokenbrains.fitness.ui.screens.browse.components.SleepPage
 import com.brokenbrains.fitness.ui.screens.browse.components.VitalsPage
+import com.brokenbrains.fitness.ui.screens.healthplus.ArticleWebViewer
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.google.accompanist.navigation.animation.composable
@@ -131,7 +135,8 @@ fun NavGraphBuilder.BrowseMeasurementsScreenComposable(
         },
         exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
         val navTo = { route: String -> navigateTo(route, from) }
-        MeasurementsPage(navigateTo = navTo, onBack = upPress)
+        val viewModel = hiltViewModel<MeasurementViewModel>()
+        MeasurementsPage(viewModel = viewModel, navigateTo = navTo, onBack = upPress)
     }
 }
 
@@ -181,5 +186,22 @@ fun NavGraphBuilder.BrowseMedicationScreenComposable(
         exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
         val navTo = { route: String -> navigateTo(route, from) }
         MedicationPage(navigateTo = navTo, onBack = upPress)
+    }
+}
+
+fun NavGraphBuilder.ArticleWebViewScreenComposable(
+    navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
+    upPress: () -> Unit,
+) {
+    composable(
+        AppDestinations.ARTICLE_ROUTE,
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        ArticleWebViewer(navTo, upPress)
     }
 }

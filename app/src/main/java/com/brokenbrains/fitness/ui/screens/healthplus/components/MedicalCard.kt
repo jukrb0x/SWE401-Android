@@ -73,7 +73,7 @@ object MedicalItemStyles {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
+fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData, onClick: ()->Unit) {
     val doctorIC = painterResource(com.brokenbrains.fitness.R.drawable.ic_doctor)
     ElevatedCard(
         modifier = modifier
@@ -81,7 +81,7 @@ fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
             .height(100.dp),
         //.clip(RoundedCornerShape(20.dp))
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        onClick = { /*TODO*/ },
+        onClick = { onClick() },
         colors = CardDefaults.elevatedCardColors(
             containerColor = Color(0xFFEEECEC)
         )
@@ -156,7 +156,7 @@ fun DoctorCard(modifier: Modifier = Modifier, doctorCardData: DoctorCardData) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HospitalCard(modifier: Modifier = Modifier, hospitalCardData: HospitalCardData) {
+fun HospitalCard(modifier: Modifier = Modifier, hospitalCardData: HospitalCardData, onClick: () -> Unit) {
     val hospitalIC = painterResource(com.brokenbrains.fitness.R.drawable.ic_hospital)
     ElevatedCard(
         modifier = modifier
@@ -164,7 +164,7 @@ fun HospitalCard(modifier: Modifier = Modifier, hospitalCardData: HospitalCardDa
             .height(100.dp),
         //.clip(RoundedCornerShape(20.dp))
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        onClick = { /*TODO*/ },
+        onClick = { onClick() },
         colors = CardDefaults.elevatedCardColors(
             containerColor = Color(0xFFEEECEC)
         )
@@ -257,7 +257,7 @@ fun MedicalCardPreview1() {
         type = "Cardiologist",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.5"
-    ).let { DoctorCard(doctorCardData = it) }
+    ).let { DoctorCard(doctorCardData = it, onClick = {}) }
 }
 
 @Preview(showBackground = true)
@@ -269,7 +269,7 @@ fun MedicalCardPreview2() {
         address = "adsgaasgagadsgasdgadsgasdga",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         score = "4.5"
-    ).let { HospitalCard(hospitalCardData = it) }
+    ).let { HospitalCard(hospitalCardData = it, onClick = {}) }
 }
 
 val DoctorCardList: List<DoctorCardData> = listOf(

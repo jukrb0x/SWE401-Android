@@ -43,7 +43,6 @@ fun ActivityPage(
     }
 }
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun ActivityPageInternal(
     state: ActivityUiState,

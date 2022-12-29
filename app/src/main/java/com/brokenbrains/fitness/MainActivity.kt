@@ -35,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val authViewModel:AuthViewModel by viewModels<AuthViewModel>();
+    val authViewModel: AuthViewModel by viewModels<AuthViewModel>();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,9 +122,13 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
             val viewModel = hiltViewModel<AuthViewModel>()
             SignupScreen(viewModel, navigateTo = { route -> navigateTo(route, from) })
         }
-        composable(UserRoutes.Profile.route){ from ->
+        composable(UserRoutes.Profile.route) { from ->
             val viewModel = hiltViewModel<AuthViewModel>()
-            ProfileScreen(viewModel=viewModel, navigateTo = { route -> navigateTo(route, from) }, onDismiss = upPress)
+            ProfileScreen(
+                viewModel = viewModel,
+                navigateTo = { route -> navigateTo(route, from) },
+                onDismiss = upPress
+            )
         }
 
 
@@ -139,5 +143,6 @@ private fun NavGraphBuilder.appNavGraph( // custom name..
         BrowseVitalsScreenComposable(navigateTo, upPress)
         BrowseSleepScreenComposable(navigateTo, upPress)
         BrowseMedicationScreenComposable(navigateTo, upPress)
+        ArticleWebViewScreenComposable(navigateTo, upPress)
     }
 }
