@@ -1,5 +1,6 @@
 package com.brokenbrains.fitness.ui.screens.browse.activity
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.OutlinedTextField
@@ -8,10 +9,12 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,27 +56,42 @@ fun AddActivityScreen(
     val endDateTime = rememberSaveable { mutableStateOf(startDate.value.atTime(endTime.value)) }
 
 
+    val showToast = remember { mutableStateOf(false) }
+
     // ViewModel
-    fun handleAddActivity() {
+    fun handleAddActivity(): Boolean {
         startDateTime.value = startDate.value.atTime(startTime.value)
         endDateTime.value = startDate.value.atTime(endTime.value)
-
+        if (startDateTime.value.isAfter(endDateTime.value)) {
+            showToast.value = true
+            return false;
+        }
         viewModel.addNewActivity(
-        ActivityModel(
-            title = if (title.value.isNotEmpty()) title.value else selectedActivity.value.toReadableString(),
-            startAt = startDateTime.value.toEpochSecond(ZoneOffset.UTC),
-            endAt = endDateTime.value.toEpochSecond(ZoneOffset.UTC),
-            activityType = selectedActivity.value
+            ActivityModel(
+                title = if (title.value.isNotEmpty()) title.value else selectedActivity.value.toReadableString(),
+                startAt = startDateTime.value.toEpochSecond(ZoneOffset.UTC),
+                endAt = endDateTime.value.toEpochSecond(ZoneOffset.UTC),
+                activityType = selectedActivity.value
+            )
         )
-    )}
+        return true;
+    }
+    if (showToast.value) {
+        Toast.makeText(
+            LocalContext.current,
+            "Start time must be before end time",
+            Toast.LENGTH_SHORT
+        ).show()
+        showToast.value = false
+    }
+
 
 
     BrowsePage(
         title = ActivityRoutes.AddActivity.title, navigateTo = navigateTo, onBack = onBack,
         onAdd = {
             // TODO handle Add viewmodel
-            handleAddActivity()
-            onBack()
+            if (handleAddActivity()) onBack()
         }
     ) {
 
@@ -177,28 +195,31 @@ fun AddActivityScreen(
                 )
             }
 
-            TimePickerDialog(
-                dialogState = startTimePickerDialog,
-                onDateSelected = { startTime.value = it },
-                initialTime = startTime.value
-            )
-
-            TimePickerDialog(
-                dialogState = endTimePickerDialog,
-                onDateSelected = { endTime.value = it },
-                initialTime = endTime.value
-            )
-
-
-            DatePickerDialog(
-                dialogState = startDateDialog,
-                onDateSelected = { startDate.value = it }
-            )
-
-
-
 
         }
+
+        // ----------
+        // Dialogs
+        // ----------
+
+        TimePickerDialog(
+            dialogState = startTimePickerDialog,
+            onDateSelected = { startTime.value = it },
+            initialTime = startTime.value
+        )
+
+        TimePickerDialog(
+            dialogState = endTimePickerDialog,
+            onDateSelected = { endTime.value = it },
+            initialTime = endTime.value
+        )
+
+
+        DatePickerDialog(
+            dialogState = startDateDialog,
+            onDateSelected = { startDate.value = it }
+        )
+
     }
 }
 
