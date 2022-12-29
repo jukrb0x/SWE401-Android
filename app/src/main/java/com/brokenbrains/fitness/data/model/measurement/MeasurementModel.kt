@@ -11,13 +11,12 @@ data class MeasurementModel(
     @ColumnInfo(name = "id")
     var id: Int? = null,
 
-    @ColumnInfo(name = "title")
-    var title: String? = null,
+    @ColumnInfo(name = "value")
+    var value: Float = 0f,
 
     @ColumnInfo(name = "start_at")
     var startAt: Long? = System.currentTimeMillis(), // record time
 
     @ColumnInfo(name = "measurement_type")
     var measurementType: MeasurementType? = MeasurementType.WEIGHT
-
 )

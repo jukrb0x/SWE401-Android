@@ -102,11 +102,11 @@ fun TrendCard(
                         modifier = Modifier.width(100.dp), verticalAlignment = Alignment.Bottom
                     ) {
                         Text(
-                            text = data.todayValue ?: "N/A",
+                            text = data.todayValue ?: "0",
                             style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         )
                         Text(
-                            text = data.todayUnit ?: "n/a",
+                            text = data.todayUnit ?: "",
                             style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal),
                             modifier = Modifier.offset(x = (2).dp)
                         )

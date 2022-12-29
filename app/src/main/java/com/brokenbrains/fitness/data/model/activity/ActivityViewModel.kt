@@ -7,11 +7,8 @@ import com.brokenbrains.fitness.data.repository.ActivityRepository
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,8 +30,9 @@ class ActivityViewModel @Inject constructor(
     private val repository: ActivityRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(ActivityUiState())
-    var uiState = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<ActivityUiState>(ActivityUiState())
+    val uiState
+        get() = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -43,15 +41,22 @@ class ActivityViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             repository.getAllActivities().flowOn(Dispatchers.IO).collect {
                 _allActivities = it.toMutableList()
                 val columnarDataList = getLast7DaysColumnarData()
-                _uiState.value = ActivityUiState(
-                    allActivities = _allActivities,
-                    activityColumnarDataByType = columnarDataList,
-                    activityTodayByType = _activityTodayByType,
-                )
+                _uiState.update {
+                    it.copy(
+                        allActivities = _allActivities,
+                        activityColumnarDataByType = columnarDataList,
+                        activityTodayByType = _activityTodayByType
+                    )
+                }
+//                _uiState.value = ActivityUiState(
+//                    allActivities = _allActivities,
+//                    activityColumnarDataByType = columnarDataList,
+//                    activityTodayByType = _activityTodayByType,
+//                )
             }
         }
     }
@@ -61,12 +66,38 @@ class ActivityViewModel @Inject constructor(
 
 
     fun addNewActivity(activityModel: ActivityModel) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.Default) {
             if (activityModel.startAt!! < activityModel.endAt!!) {
                 repository.addNewActivity(activityModel = activityModel)
             }
+            updateData()
         }
     }
+
+    fun updateData(){
+        viewModelScope.launch {
+            _uiState.emit(uiState.value.copy())
+        }
+    }
+
+    /*   fun calculateEnergyExpandLast7Days(): Int {
+           var totalEnergyExpand = 0
+           val scale = 10；
+           val columnarDataList = mutableListOf<ColumnarData>()
+           val dayOfWeeks = CalendarUtils.getLast7Days()
+           if (_allActivities.isNotEmpty()) {
+               for (dayOfWeek in dayOfWeeks) {
+                   val activities = _allActivities.filter { it.startAt?.dayOfWeek == dayOfWeek }
+                   var energyExpand = 0
+                   for (activity in activities) {
+                       energyExpand += activity.energyExpand
+                   }
+                   totalEnergyExpand += energyExpand
+                   columnarDataList.add(ColumnarData(dayOfWeek, energyExpand / scale))
+               }
+           }
+           return totalEnergyExpand
+       }*/
 
     fun getLast7DaysColumnarDataByType(activityType: ActivityType): List<ColumnarData> {
         val columnarDataList = mutableListOf<ColumnarData>()

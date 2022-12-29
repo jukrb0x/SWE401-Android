@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import com.brokenbrains.fitness.data.model.activity.*
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
+import com.brokenbrains.fitness.ui.screens.browse.activity.components.ActivityNotFound
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Bike
@@ -58,6 +59,9 @@ private fun ActivityColumn(
     // filter type
     val filteredActivities = allActivities.filter { it.activityType == activityType }
     val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+    if (filteredActivities.isEmpty()) {
+        ActivityNotFound()
+    }
     LazyColumn {
         items(items = filteredActivities) { item ->
             val startDate = CalendarUtils.getDateTimeFromLong(item.startAt!!)!!.format(formatter)

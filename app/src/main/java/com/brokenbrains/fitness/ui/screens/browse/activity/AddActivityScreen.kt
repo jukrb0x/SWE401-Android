@@ -64,17 +64,23 @@ fun AddActivityScreen(
     fun handleAddActivity(): Boolean {
         startDateTime.value = startDate.value.atTime(startTime.value)
         endDateTime.value = startDate.value.atTime(endTime.value)
+        // handle if the time across the day
+        if (startDateTime.value.isAfter(endDateTime.value)) {
+            endDateTime.value = endDateTime.value.plusDays(1)
+            toast.message.value = "Start time must be before end time, the end time is set to the next day."
+            toast.isShow.value = true
+
+        }
         if (startDateTime.value.isAfter(LocalDate.now().atTime(LocalTime.now()))) {
-            // FIXME: (low priority) this message text will be replaced by the next one
             toast.message.value = "Start date must be before current date"
             toast.isShow.value = true
             return false;
         }
-        if (startDateTime.value.isAfter(endDateTime.value)) {
-            toast.message.value = "Start time must be before end time"
-            toast.isShow.value = true
-            return false;
-        }
+//        if (startDateTime.value.isAfter(endDateTime.value)) {
+//            toast.message.value = "Start time must be before end time"
+//            toast.isShow.value = true
+//            return false;
+//        }
         viewModel.addNewActivity(
             ActivityModel(
                 title = if (title.value.isNotEmpty()) title.value else selectedActivity.value.toReadableString(),
@@ -88,7 +94,7 @@ fun AddActivityScreen(
     if (toast.isShow.value) {
         Toast.makeText(
             LocalContext.current,
-            "Start time must be before end time",
+            toast.message.value,
             Toast.LENGTH_SHORT
         ).show()
         toast.isShow.value = false
@@ -102,7 +108,7 @@ fun AddActivityScreen(
             if (handleAddActivity()) {
                 // FIXME: workaround since the activity page doesn't automatically update
                 onBack()
-                onBack()
+//                onBack()
             }
         }
     ) {

@@ -2,8 +2,7 @@ package com.brokenbrains.fitness.data.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.brokenbrains.fitness.data.model.activity.ActivityModel
-import com.brokenbrains.fitness.data.model.activity.ActivityType
+import com.brokenbrains.fitness.data.model.measurement.MeasurementModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -19,15 +18,13 @@ class MeasurementRepository @Inject constructor(
     private val authRepository: AuthRepository
 ) {
 
-    // TODO
-
-    fun addNewActivity(
-        activityModel: ActivityModel
+    fun addNewMeasurement(
+        measurementModel: MeasurementModel
     ) {
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
-            .collection("activities")
-            .add(activityModel).addOnSuccessListener { documentReference ->
+            .collection("measurements")
+            .add(measurementModel).addOnSuccessListener { documentReference ->
                 Log.d(
                     this::class.simpleName,
                     "DocumentSnapshot added with ID: ${documentReference.id}"
@@ -37,38 +34,38 @@ class MeasurementRepository @Inject constructor(
             }
     }
 
-    suspend fun getActivityById(id: Int): Flow<ActivityModel> {
-        var activityModel = ActivityModel()
+    suspend fun getMeasurementById(id: Int): Flow<MeasurementModel> {
+        var measurementModel = MeasurementModel()
         return try {
             flow {
                 db.collection("users")
                     .document(authRepository.currentUser!!.uid)
-                    .collection("activities")
+                    .collection("measurements")
                     .document(id.toString())
                     .get()
                     .addOnSuccessListener { document ->
-                        activityModel = document.toObject(ActivityModel::class.java)!!
+                        measurementModel = document.toObject(measurementModel::class.java)!!
                     }
-                emit(activityModel)
+                emit(measurementModel)
             }
         } catch (e: Exception) {
             flow {
-                emit(activityModel)
+                emit(measurementModel)
             }
         }
     }
 
 
     @WorkerThread
-    fun getAllActivities(): Flow<List<ActivityModel>> = callbackFlow {
-        val activities = mutableListOf<ActivityModel>()
+    fun getAllMeasurements(): Flow<List<MeasurementModel>> = callbackFlow {
+        val activities = mutableListOf<MeasurementModel>()
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
             .collection("activities").orderBy("startAt")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    activities.add(document.toObject(ActivityModel::class.java))
+                    activities.add(document.toObject(MeasurementModel::class.java))
                 }
                 Log.d(this::class.simpleName, "DocumentSnapshot added with ID: $activities")
                 trySend(activities).isSuccess
@@ -84,11 +81,6 @@ class MeasurementRepository @Inject constructor(
             Log.w(this::class.simpleName, "Error getting documents $e")
             cancel()
         }
-    }
-
-
-    fun getActivityByType(type: ActivityType): List<ActivityModel> {
-        return listOf()
     }
 
 

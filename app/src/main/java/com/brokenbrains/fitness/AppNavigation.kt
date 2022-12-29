@@ -9,13 +9,18 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.brokenbrains.fitness.data.model.HomeViewModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
 import com.brokenbrains.fitness.ui.screens.browse.activity.ActivityDetailScreen
+import com.brokenbrains.fitness.ui.screens.browse.activity.ActivityPage
 import com.brokenbrains.fitness.ui.screens.browse.activity.AddActivityScreen
-import com.brokenbrains.fitness.ui.screens.browse.components.*
+import com.brokenbrains.fitness.ui.screens.browse.components.MeasurementsPage
+import com.brokenbrains.fitness.ui.screens.browse.components.MedicationPage
+import com.brokenbrains.fitness.ui.screens.browse.components.SleepPage
+import com.brokenbrains.fitness.ui.screens.browse.components.VitalsPage
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
 import com.google.accompanist.navigation.animation.composable
@@ -29,8 +34,8 @@ fun NavGraphBuilder.HomeScreenComposable(
     navigateTo: (route: String, from: NavBackStackEntry) -> Unit,
 ) {
     composable(TabRoutes.Home.route) { from ->
-//            val viewModel = hiltViewModel<HomeViewModel>()
-        HomeScreen(navigateTo = { route -> navigateTo(route, from) })
+        val viewModel = hiltViewModel<HomeViewModel>()
+        HomeScreen(navigateTo = { route -> navigateTo(route, from) }, viewModel = viewModel)
     }
 
 }

@@ -38,12 +38,12 @@ private fun SleepPageInternal(navigateTo: (route: String) -> Unit, onBack: () ->
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
-            TrendCard(
-                data = TrendCardData(
-                    title = "Bedtime schdule",
-                    subtitle = "Sep 13 - Dec 5"
-                )
-            )
+//            TrendCard(
+//                data = TrendCardData(
+//                    title = "Bedtime schdule",
+//                    subtitle = "Sep 13 - Dec 5"
+//                )
+//            )
         }
     }
 }

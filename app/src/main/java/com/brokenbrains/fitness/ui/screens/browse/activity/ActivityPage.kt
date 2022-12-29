@@ -1,14 +1,13 @@
-package com.brokenbrains.fitness.ui.screens.browse.components
+package com.brokenbrains.fitness.ui.screens.browse.activity
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,8 +22,7 @@ import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
 import com.brokenbrains.fitness.ui.components.TrendCardData
-import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
-import com.brokenbrains.fitness.ui.screens.sharing.ShareWithSomeoneModal
+import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -33,23 +31,14 @@ fun ActivityPage(
     viewModel: ActivityViewModel,
     navigateTo: (route: String) -> Unit, onBack: () -> Unit
 ) {
-    var addActivityModalVis by rememberSaveable { mutableStateOf(false) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle(initialValue = ActivityUiState())
 
     BrowsePage(
         title = BrowseRoutes.Activity.title, navigateTo = navigateTo, onBack = onBack, onAdd = {
-//            addActivityModalVis = true
             navigateTo(ActivityRoutes.AddActivity.route)
         }
     ) {
-
-        ShareWithSomeoneModal(
-            onDismiss = { addActivityModalVis = false },
-            visibility = addActivityModalVis,
-            onActionButtonPressed = { }
-        )
-
-
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle(lifecycle = LocalLifecycleOwner.current.lifecycle)
+//        val uiState by viewModel.uiState.collectAsState(initial = ActivityUiState())
         ActivityPageInternal(state = uiState, navigateTo = navigateTo, onBack = onBack)
     }
 }
@@ -61,15 +50,7 @@ private fun ActivityPageInternal(
     navigateTo: (route: String) -> Unit,
     onBack: () -> Unit
 ) {
-//    val activities = viewModel.allActivities.collectAsState(initial = emptyList())
-//    val last7daysGraphVals = remember { mutableStateListOf<ColumnarData>() } // bad
-    val move = listOf(
-        ActivityType.WALKING,
-        ActivityType.RUNNING
-    )
 
-//    Text(text = "Size is " + state.ColumnarDataByType[ActivityType.WALKING]?.size.toString())
-//    Text(text = state.ColumnarDataByType[ActivityType.WALKING].toString())
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = MainScreenHorizontalPaddingValue)
@@ -81,7 +62,7 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Move",
-                    subtitle = "Last 7 times",
+                    subtitle = "Last 7 days",
                     graphVal = state.activityColumnarDataByType[ActivityType.WALKING],
                     todayValue = state.activityTodayByType[ActivityType.WALKING]?.value,
                     todayUnit = state.activityTodayByType[ActivityType.WALKING]?.unit,
@@ -94,7 +75,7 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Weight",
-                    subtitle = "Last 7 times",
+                    subtitle = "Last 7 days",
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
@@ -111,11 +92,11 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Running",
-                    subtitle = "Last 7 times",
-                    graphVal = state.activityColumnarDataByType[ActivityType.RUNNING] ,
+                    subtitle = "Last 7 days",
+                    graphVal = state.activityColumnarDataByType[ActivityType.RUNNING],
                     todayValue = state.activityTodayByType[ActivityType.RUNNING]?.value,
                     todayUnit = state.activityTodayByType[ActivityType.RUNNING]?.unit,
-                    ),
+                ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
                 }
@@ -125,11 +106,11 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Swimming",
-                    subtitle = "Last 7 times",
+                    subtitle = "Last 7 days",
                     graphVal = state.activityColumnarDataByType[ActivityType.SWIMMING],
                     todayValue = state.activityTodayByType[ActivityType.SWIMMING]?.value,
                     todayUnit = state.activityTodayByType[ActivityType.SWIMMING]?.unit,
-                    ),
+                ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
                 }
@@ -139,21 +120,31 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Cycling",
-                    subtitle = "Last 7 times",
-                    graphVal = state.activityColumnarDataByType[ActivityType.CYCLING] ,
+                    subtitle = "Last 7 days",
+                    graphVal = state.activityColumnarDataByType[ActivityType.CYCLING],
                     todayValue = state.activityTodayByType[ActivityType.CYCLING]?.value,
                     todayUnit = state.activityTodayByType[ActivityType.CYCLING]?.unit,
-                    ),
+                ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")
                 }
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
+            TrendCard(data = TrendCardData(
+                title = "Other workouts",
+                subtitle = "Last 7 days",
+                graphVal = state.activityColumnarDataByType[ActivityType.OTHER],
+                todayValue = state.activityTodayByType[ActivityType.OTHER]?.value,
+                todayUnit = state.activityTodayByType[ActivityType.OTHER]?.unit,
+            ),
+                onClick = {
+                    navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.OTHER}")
+                }
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
 
         }
-//        items()
-
     }
 }
 

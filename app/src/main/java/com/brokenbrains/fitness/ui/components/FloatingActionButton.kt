@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.theme.YaleBlue4
 
@@ -111,7 +112,7 @@ fun AppFloatingActionButtonPreview() {
         }
     ) {
         Column(modifier = Modifier.padding(it)) {
-            HomeScreen(navigateTo = {})
+            HomeScreen(navigateTo = {}, viewModel = hiltViewModel())
         }
     }
 }
