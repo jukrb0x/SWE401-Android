@@ -58,31 +58,10 @@ class ActivityRepository @Inject constructor(
         }
     }
 
-//    suspend fun getAllActivities(): List<ActivityModel> {
-//        val activities = mutableListOf<ActivityModel>()
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            db.collection("users")
-//                .document(authRepository.currentUser!!.uid)
-//                .collection("activities").orderBy("startAt")
-//                .get()
-//                .addOnSuccessListener { documents ->
-//                    for (document in documents) {
-//                        activities.add(document.toObject(ActivityModel::class.java))
-//                    }
-//                    Log.d(this::class.simpleName, "DocumentSnapshot added with ID: $activities")
-//                }.addOnFailureListener { e ->
-//                    Log.w(this::class.simpleName, "Error getting documents $e")
-//                }.await()
-//        }
-//        return activities
-//    }
 
     @WorkerThread
     fun getAllActivities(): Flow<List<ActivityModel>> = callbackFlow {
         val activities = mutableListOf<ActivityModel>()
-
-//        CoroutineScope(Dispatchers.IO).launch {
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
             .collection("activities").orderBy("startAt")
@@ -98,14 +77,13 @@ class ActivityRepository @Inject constructor(
                 cancel()
             }
         try {
-            awaitClose{
+            awaitClose {
                 channel.close()
             }
         } catch (e: Exception) {
             Log.w(this::class.simpleName, "Error getting documents $e")
             cancel()
         }
-//        }
     }
 
 

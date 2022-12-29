@@ -44,8 +44,8 @@ data class TrendCardData(
         ColumnarData(0f, "S"),
         ColumnarData(0f, "S")
     ),
-    val todayValue : String = "0",
-    val todayUnit: String = "kg",
+    val todayValue: String? = "0",
+    val todayUnit: String? = "kg",
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,11 +90,11 @@ fun TrendCard(
                         modifier = Modifier.width(100.dp), verticalAlignment = Alignment.Bottom
                     ) {
                         Text(
-                            text = data.todayValue,
+                            text = data.todayValue ?: "N/A",
                             style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
                         )
                         Text(
-                            text = data.todayUnit,
+                            text = data.todayUnit ?: "n/a",
                             style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Normal),
                             modifier = Modifier.offset(x = (2).dp)
                         )

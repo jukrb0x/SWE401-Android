@@ -34,14 +34,14 @@ object CalendarUtils {
         return list.asReversed()
     }
 
-    fun getDateTimeFromLong(l:Long): LocalDateTime? {
+    fun getDateTimeFromLong(l: Long): LocalDateTime? {
         val dt = Instant.ofEpochSecond(l)
             .atZone(ZoneId.of("UTC"))
             .toLocalDateTime()
         return dt
     }
 
-    fun getDayOfWeekFromLong(l:Long): DayOfWeek {
+    fun getDayOfWeekFromLong(l: Long): DayOfWeek {
         val dt = Instant.ofEpochSecond(l)
             .atZone(ZoneId.of("UTC"))
             .toLocalDateTime()
@@ -53,6 +53,26 @@ object CalendarUtils {
             .atZone(/*ZoneId.systemDefault()*/ZoneId.of("UTC")) // we store the dt in UTC, the comparison should be done in UTC
             .toLocalDateTime()
         return dt.dayOfWeek.value == day.number
+    }
+
+
+    data class BiggestUnitStringOfTime(
+        val value: String,
+        val unit: String
+    )
+
+    fun getBiggestUnitStringOfTime(l: Long): BiggestUnitStringOfTime {
+        val hours = l / 3600
+        val mid = Math.floorMod(l, 3600)
+        val minutes = mid / 60
+        val seconds = Math.floorMod(mid, 60)
+        return if (hours > 0) {
+            BiggestUnitStringOfTime(hours.toString(), "hr")
+        } else if (minutes > 0) {
+            BiggestUnitStringOfTime(minutes.toString(), "mim")
+        } else {
+            BiggestUnitStringOfTime(seconds.toString(), "sec")
+        }
     }
 
 }

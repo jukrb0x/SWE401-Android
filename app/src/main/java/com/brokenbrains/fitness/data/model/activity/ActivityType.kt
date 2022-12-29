@@ -24,17 +24,8 @@ enum class ActivityType {
                 strList.add(type.toReadableString())
             }
             return strList
-
-
-//            return listOf(
-//                for (type in values()) type.toReadableString()
-//                WALKING.toReadableString(),
-//                RUNNING.toReadableString(),
-//                CYCLING.toReadableString(),
-//                SWIMMING.toReadableString(),
-//                OTHER.toReadableString()
-//            )
         }
+
     }
 }
 
@@ -45,5 +36,16 @@ fun ActivityType.toReadableString(): String {
         ActivityType.CYCLING -> "Cycling"
         ActivityType.SWIMMING -> "Swimming"
         ActivityType.OTHER -> "Other"
+    }
+}
+
+// avoid using this, because it may be larger than 60 min -> 1 h
+fun ActivityType.getUnit(): String {
+    return when (this) {
+        ActivityType.WALKING -> "min"
+        ActivityType.RUNNING -> "min"
+        ActivityType.CYCLING -> "min"
+        ActivityType.SWIMMING -> "min"
+        else -> "min"
     }
 }

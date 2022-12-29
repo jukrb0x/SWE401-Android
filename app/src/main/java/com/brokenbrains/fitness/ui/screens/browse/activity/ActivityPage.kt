@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -93,9 +92,9 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Move",
                     subtitle = "Last 7 times",
-                    graphVal = state.ColumnarDataByType[ActivityType.WALKING] ?: defaultGraphVals,
-                    todayValue = "0",
-                    todayUnit = "min",
+                    graphVal = state.activityColumnarDataByType[ActivityType.WALKING] ?: defaultGraphVals,
+                    todayValue = state.activityTodayByType[ActivityType.WALKING]?.value,
+                    todayUnit = state.activityTodayByType[ActivityType.WALKING]?.unit,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.WALKING}")
@@ -123,7 +122,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Running",
                     subtitle = "Last 7 times",
-                    graphVal = state.ColumnarDataByType[ActivityType.RUNNING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.RUNNING] ?: defaultGraphVals,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
@@ -135,7 +134,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Swimming",
                     subtitle = "Last 7 times",
-                    graphVal = state.ColumnarDataByType[ActivityType.SWIMMING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.SWIMMING] ?: defaultGraphVals,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
@@ -147,7 +146,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Cycling",
                     subtitle = "Last 7 times",
-                    graphVal = state.ColumnarDataByType[ActivityType.CYCLING] ?: defaultGraphVals,
+                    graphVal = state.activityColumnarDataByType[ActivityType.CYCLING] ?: defaultGraphVals,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")
