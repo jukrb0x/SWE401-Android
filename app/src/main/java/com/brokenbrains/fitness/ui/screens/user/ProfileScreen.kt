@@ -47,6 +47,7 @@ fun ProfileScreen(
     var text_sex by rememberSaveable { mutableStateOf("Enter your sex") }
     var text_bt by rememberSaveable { mutableStateOf("Enter your blood type") }
     var text_email by rememberSaveable { mutableStateOf("Enter your email") }
+    text_email = viewModel.currentUser?.email ?: "Enter your email"
 
     FullScreenDialog(
         onDismissRequest = onDismiss,

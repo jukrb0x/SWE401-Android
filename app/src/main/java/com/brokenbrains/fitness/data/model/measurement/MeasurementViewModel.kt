@@ -78,7 +78,7 @@ class MeasurementViewModel @Inject constructor(
         if (_allMeasurements.isNotEmpty()) {
             val measurementModels = _allMeasurements.filter {
                 it.measurementType == measurementType
-            }.sortedByDescending { // the bigger, the more recent, [today, yesterday, 2d ago...]
+            }.sortedBy { // the bigger, the more recent, [today, yesterday, 2d ago...]
                 it.startAt
             }.take(7)
             // store today (the last)
@@ -90,7 +90,8 @@ class MeasurementViewModel @Inject constructor(
                     )
                 )
             }
-            val todayVal = if (measurementModels.isNotEmpty()) measurementModels.first().value else 0.0
+            val todayVal =
+                if (measurementModels.isNotEmpty()) measurementModels.first().value else 0.0
             _MeasurementTodayByType.put(
                 measurementType,
                 MeasurementTodayState(
@@ -116,7 +117,7 @@ class MeasurementViewModel @Inject constructor(
             )
         }
 
-        return columnarDataList.reversed()
+        return columnarDataList
     }
 
 

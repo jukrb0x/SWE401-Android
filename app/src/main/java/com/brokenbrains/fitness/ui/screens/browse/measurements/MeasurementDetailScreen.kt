@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import com.brokenbrains.fitness.data.model.activity.*
+import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.activity.components.ActivityNotFound

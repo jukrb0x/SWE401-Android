@@ -9,11 +9,13 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brokenbrains.fitness.data.model.activity.*
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
@@ -34,7 +36,8 @@ fun ActivityDetailScreen(
     onBack: () -> Unit
 ) {
 
-    val allActivities = viewModel._allActivities
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle(initialValue = ActivityUiState())
+    val allActivities = uiState.allActivities
     BrowsePage(
         title = activityType.toReadableString(),
         navigateTo = navigateTo,
