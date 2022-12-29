@@ -119,7 +119,7 @@ fun TrendCard(
                 Box(
                     modifier = Modifier
                         .clip(Shapes.medium)
-                        .height(60.dp)
+                        .height(65.dp)
                         .background(Color./*LightGray*/Transparent)
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center

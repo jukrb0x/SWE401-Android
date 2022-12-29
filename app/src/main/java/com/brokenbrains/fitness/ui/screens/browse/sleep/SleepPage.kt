@@ -33,8 +33,10 @@ private fun SleepPageInternal(navigateTo: (route: String) -> Unit, onBack: () ->
             ColumnListSectionTitle(title = "DATA")
             TrendCard(
                 data = TrendCardData(
-                    title = "Sleep Duration",
-                    subtitle = "Sep 13 - Dec 5"
+                    title = "Sleep time",
+                    subtitle = "Dec 29 - Dec 30",
+                    todayValue = "7",
+                    todayUnit = "hr",
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))

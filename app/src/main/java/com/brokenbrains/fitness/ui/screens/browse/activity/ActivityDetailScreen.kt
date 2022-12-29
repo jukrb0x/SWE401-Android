@@ -36,7 +36,7 @@ fun ActivityDetailScreen(
     onBack: () -> Unit
 ) {
 
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle(initialValue = ActivityUiState())
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val allActivities = uiState.allActivities
     BrowsePage(
         title = activityType.toReadableString(),

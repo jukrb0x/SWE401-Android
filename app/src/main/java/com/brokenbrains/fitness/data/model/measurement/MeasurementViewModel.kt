@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.MeasurementRepository
+import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -70,11 +71,6 @@ class MeasurementViewModel @Inject constructor(
 
     fun getLast7DataByType(measurementType: MeasurementType): List<ColumnarData> {
         val columnarDataList = mutableListOf<ColumnarData>()
-        // initialize the list with 7 empty values
-        for (i in 0..6) {
-            columnarDataList.add(ColumnarData(0f, ""))
-        }
-
         if (_allMeasurements.isNotEmpty()) {
             val measurementModels = _allMeasurements.filter {
                 it.measurementType == measurementType
@@ -90,8 +86,18 @@ class MeasurementViewModel @Inject constructor(
                     )
                 )
             }
+            // padding to left
+            if (columnarDataList.size < 7) {
+                columnarDataList.reverse()
+                for (i in 0..6) {
+                    if (columnarDataList.size < 7) {
+                        columnarDataList.add(ColumnarData(0f, ""))
+                    }
+                }
+                columnarDataList.reverse()
+            }
             val todayVal =
-                if (measurementModels.isNotEmpty()) measurementModels.first().value else 0.0
+                if (measurementModels.isNotEmpty()) measurementModels.last().value else 0.0
             _MeasurementTodayByType.put(
                 measurementType,
                 MeasurementTodayState(

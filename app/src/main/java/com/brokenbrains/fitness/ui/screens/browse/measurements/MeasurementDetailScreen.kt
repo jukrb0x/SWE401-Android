@@ -9,70 +9,65 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import com.brokenbrains.fitness.data.model.activity.*
-import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brokenbrains.fitness.data.model.measurement.*
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.activity.components.ActivityNotFound
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
+import compose.icons.FontAwesomeIcons
 import compose.icons.TablerIcons
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.Ruler
+import compose.icons.fontawesomeicons.solid.Weight
 import compose.icons.tablericons.Bike
-import compose.icons.tablericons.Run
-import compose.icons.tablericons.Swimming
 import compose.icons.tablericons.Walk
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun MeasurementDetailScreen(
-    viewModel: ActivityViewModel,
-    activityType: ActivityType,
+    viewModel: MeasurementViewModel,
+    measurementType: MeasurementType,
     navigateTo: (route: String) -> Unit,
     onBack: () -> Unit
 ) {
 
-    val allActivities = viewModel._allActivities
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val allMeasurements = uiState.allMeasurements
     BrowsePage(
-        title = activityType.toReadableString(),
+        title = measurementType.toReadableString(),
         navigateTo = navigateTo,
         onBack = onBack
     ) {
-        ActivityColumn(activityType = activityType, allActivities = allActivities)
-
-        LazyColumn {
-            item {
-//                ActivityColumn(activityType = activityType, allActivities = allActivities)
-            }
-
-        }
+        InsideColumn(measurementType = measurementType, allActivities = allMeasurements)
     }
+
 }
 
 @Composable
-private fun ActivityColumn(
-    activityType: ActivityType,
-    allActivities: List<ActivityModel>
+private fun InsideColumn(
+    measurementType: MeasurementType,
+    allActivities: List<MeasurementModel>
 ) {
     // filter type
-    val filteredActivities = allActivities.filter { it.activityType == activityType }
+    val filteredActivities = allActivities.filter { it.measurementType == measurementType }
     val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     if (filteredActivities.isEmpty()) {
-        ActivityNotFound()
+        ActivityNotFound(message = "No ${measurementType.toReadableString()} records found")
     }
     LazyColumn {
         items(items = filteredActivities) { item ->
             val startDate = CalendarUtils.getDateTimeFromLong(item.startAt!!)!!.format(formatter)
-            val duration = item.getDuration()
-            val icon = when (item.activityType) {
-                ActivityType.WALKING -> TablerIcons.Walk
-                ActivityType.RUNNING -> TablerIcons.Run
-                ActivityType.CYCLING -> TablerIcons.Bike
-                ActivityType.SWIMMING -> TablerIcons.Swimming
-                ActivityType.OTHER -> TablerIcons.Walk
+//            val duration = item.getDuration()
+            val icon = when (item.measurementType) {
+                MeasurementType.HEIGHT -> FontAwesomeIcons.Solid.Ruler
+                MeasurementType.WEIGHT -> FontAwesomeIcons.Solid.Weight
                 else -> {
                     TablerIcons.Walk
                 }
@@ -95,7 +90,7 @@ private fun ActivityColumn(
                             .size(24.dp)
                     )
                     Text(
-                        text = item.activityType!!.toReadableString(),
+                        text = item.measurementType!!.toReadableString(),
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -103,7 +98,8 @@ private fun ActivityColumn(
                     horizontalAlignment = Alignment.End,
                 ) {
                     Text(text = startDate)
-                    Text(text = "${duration.hours}:${duration.minutes}:${duration.seconds}")
+                    Text(text = "${item.value} ${item.measurementType?.getUnitString()}")
+//                    Text(text = "${duration.hours}:${duration.minutes}:${duration.seconds}")
                 }
             }
             Divider()

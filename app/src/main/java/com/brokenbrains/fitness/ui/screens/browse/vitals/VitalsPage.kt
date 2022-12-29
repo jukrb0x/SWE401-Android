@@ -33,15 +33,19 @@ private fun VitalsPageIntenrnal(navigateTo: (route: String) -> Unit, onBack: () 
             ColumnListSectionTitle(title = "DATA")
             TrendCard(
                 data = TrendCardData(
-                    title = "Heart Rate",
-                    subtitle = "Sep 13 - Dec 5"
+                    title = "Heart rate",
+                    subtitle = "Sep 13 - Dec 5",
+                    todayValue = "72",
+                    todayUnit = "bpm",
                 )
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
                 data = TrendCardData(
-                    title = "Blood Pressure",
-                    subtitle = "Sep 13 - Dec 5"
+                    title = "Blood pressure",
+                    subtitle = "Sep 13 - Dec 5",
+                    todayValue = "120/80",
+                    todayUnit = "mmHg",
                 )
             )
         }

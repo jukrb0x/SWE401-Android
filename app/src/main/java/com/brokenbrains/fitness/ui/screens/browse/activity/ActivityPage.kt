@@ -15,9 +15,12 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.BrowseRoutes
+import com.brokenbrains.fitness.MeasurementsRoutes
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityUiState
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
+import com.brokenbrains.fitness.data.model.measurement.MeasurementType
+import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
 import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.components.TrendCard
@@ -32,24 +35,26 @@ fun ActivityPage(
     navigateTo: (route: String) -> Unit,
     onBack: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle(initialValue = ActivityUiState())
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     BrowsePage(
         title = BrowseRoutes.Activity.title, navigateTo = navigateTo, onBack = onBack, onAdd = {
             navigateTo(ActivityRoutes.AddActivity.route)
         }
     ) {
-//        val uiState by viewModel.uiState.collectAsState(initial = ActivityUiState())
         ActivityPageInternal(state = uiState, navigateTo = navigateTo, onBack = onBack)
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun ActivityPageInternal(
     state: ActivityUiState,
     navigateTo: (route: String) -> Unit,
     onBack: () -> Unit
 ) {
+    val measurementViewModel = hiltViewModel<MeasurementViewModel>()
+    val measurementState by measurementViewModel.uiState.collectAsStateWithLifecycle()
 
     LazyColumn(
         modifier = Modifier
@@ -75,14 +80,23 @@ private fun ActivityPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Weight",
-                    subtitle = "Last 7 days",
-                )
+                    subtitle = "Latest",
+                    graphVal = measurementState.measurementColumnarDataByType[MeasurementType.WEIGHT],
+                    todayValue = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.value,
+                    todayUnit = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.unit,
+                ),
+                onClick = {
+                    navigateTo(MeasurementsRoutes.MeasurementDetails.route + "/${MeasurementType.WEIGHT}")
+                }
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
                 data = TrendCardData(
                     title = "Energy expended",
-                    subtitle = "Last 7 days"
+                    subtitle = "Last 7 days",
+                    todayUnit = "Pts",
+                    graphVal = state.exercisePointsLast7Days.columnarDataList,
+                    todayValue = state.exercisePointsLast7Days.totalEnergyExpand.toString(),
                 )
             )
         }

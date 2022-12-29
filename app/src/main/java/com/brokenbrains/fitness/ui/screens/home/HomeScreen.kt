@@ -49,22 +49,29 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
         ),
         TrendCardData(
             title = "Sleep time",
-            subtitle = "Last week",
+            subtitle = "Dec 29 - Dec 30",
+            todayValue = "7",
+            todayUnit = "hr",
         ),
         TrendCardData(
             title = "Weight",
-            subtitle = "Last 7 records",
+            subtitle = "Latest",
             graphVal = measurementState.measurementColumnarDataByType[MeasurementType.WEIGHT],
             todayValue = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.value,
             todayUnit = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.unit,
         ),
         TrendCardData(
             title = "Heart rate",
-            subtitle = "2 Dec",
-        ),
+            subtitle = "today",
+            todayValue = "72",
+            todayUnit = "bpm",
+            ),
         TrendCardData(
             title = "Exercise",
-            subtitle = "2 Dec",
+            subtitle = "Last 7 days",
+            graphVal = activityState.exercisePointsLast7Days.columnarDataList,
+            todayValue = activityState.exercisePointsLast7Days.totalEnergyExpand.toString(),
+            todayUnit = "Pts",
         )
     )
 

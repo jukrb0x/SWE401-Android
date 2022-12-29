@@ -14,6 +14,7 @@ import androidx.navigation.navArgument
 import com.brokenbrains.fitness.data.model.HomeViewModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
+import com.brokenbrains.fitness.data.model.measurement.MeasurementType
 import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
 import com.brokenbrains.fitness.ui.screens.HomeScreen
 import com.brokenbrains.fitness.ui.screens.browse.BrowseScreen
@@ -25,6 +26,7 @@ import com.brokenbrains.fitness.ui.screens.browse.components.MedicationPage
 import com.brokenbrains.fitness.ui.screens.browse.components.SleepPage
 import com.brokenbrains.fitness.ui.screens.browse.components.VitalsPage
 import com.brokenbrains.fitness.ui.screens.browse.measurements.AddMeasurementScreen
+import com.brokenbrains.fitness.ui.screens.browse.measurements.MeasurementDetailScreen
 import com.brokenbrains.fitness.ui.screens.healthplus.ArticleWebViewer
 import com.brokenbrains.fitness.ui.screens.healthplus.HealthPlusScreen
 import com.brokenbrains.fitness.ui.screens.sharing.SharingScreen
@@ -150,6 +152,26 @@ fun NavGraphBuilder.BrowseMeasurementsScreenComposable(
         val vm = hiltViewModel<MeasurementViewModel>();
         AddMeasurementScreen(viewModel = vm, navigateTo = navTo, onBack = upPress)
     }
+
+    composable(
+        "${MeasurementsRoutes.MeasurementDetails.route}/{measurementType}",
+        arguments = listOf(navArgument("measurementType") { type = NavType.StringType }),
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Start
+            )
+        },
+        exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }) { from ->
+        val navTo = { route: String -> navigateTo(route, from) }
+        val vm = hiltViewModel<MeasurementViewModel>();
+        val arguments = requireNotNull(from.arguments)
+        val activityType = arguments.getString("measurementType")
+        MeasurementDetailScreen(viewModel = vm,
+            measurementType = MeasurementType.fromString(activityType!!),
+            navigateTo = navTo,
+            onBack = { upPress() })
+    }
+
 }
 
 fun NavGraphBuilder.BrowseVitalsScreenComposable(

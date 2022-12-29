@@ -8,9 +8,18 @@ import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class ExercisePointsLast7Days(
+    val totalEnergyExpand: Int,
+    val columnarDataList: List<ColumnarData>
+)
+
 
 data class ActivityTodayState(
     val activityType: ActivityType,
@@ -22,6 +31,7 @@ data class ActivityUiState(
     var allActivities: List<ActivityModel> = listOf(),
     var activityColumnarDataByType: Map<ActivityType, List<ColumnarData>> = mapOf(),
     var activityTodayByType: Map<ActivityType, ActivityTodayState> = mapOf(),
+    var exercisePointsLast7Days: ExercisePointsLast7Days = ExercisePointsLast7Days(0, listOf()),
 )
 
 @HiltViewModel
@@ -35,7 +45,7 @@ class ActivityViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch(Dispatchers.Default)  {
+        viewModelScope.launch(Dispatchers.Default) {
             refresh()
         }
     }
@@ -45,11 +55,13 @@ class ActivityViewModel @Inject constructor(
             repository.getAllActivities().flowOn(Dispatchers.IO).collect {
                 _allActivities = it.toMutableList()
                 val columnarDataList = getLast7DaysColumnarData()
+                val exercisePointsLast7Days = getExercisePointsLast7Days()
                 _uiState.update {
                     it.copy(
                         allActivities = _allActivities,
                         activityColumnarDataByType = columnarDataList,
-                        activityTodayByType = _activityTodayByType
+                        activityTodayByType = _activityTodayByType,
+                        exercisePointsLast7Days = exercisePointsLast7Days
                     )
                 }
 //                _uiState.value = ActivityUiState(
@@ -74,7 +86,7 @@ class ActivityViewModel @Inject constructor(
         }
     }
 
-    fun updateData(){
+    fun updateData() {
         viewModelScope.launch {
             _uiState.emit(uiState.value.copy())
         }
@@ -149,14 +161,39 @@ class ActivityViewModel @Inject constructor(
 
 
     private fun getLast7DaysColumnarData(): MutableMap<ActivityType, List<ColumnarData>> {
-        val columnarDataList = mutableMapOf<ActivityType, List<ColumnarData>>()
+        val columnarDataMap = mutableMapOf<ActivityType, List<ColumnarData>>()
         ActivityType.values().map {
             val columnarData = getLast7DaysColumnarDataByType(it)
-            columnarDataList.put(it, columnarData)
+            columnarDataMap.put(it, columnarData)
         }
-        return columnarDataList
+        return columnarDataMap
     }
 
+
+    private fun getExercisePointsLast7Days(): ExercisePointsLast7Days {
+        val columnarDataList = mutableListOf<ColumnarData>()
+        var totalEnergyExpand = 0
+
+        val dayOfWeeks = CalendarUtils.getLast7Days()
+        if (_allActivities.isNotEmpty()) {
+            for (dayOfWeek in dayOfWeeks) {
+                val activities = // find the activities in the day
+                    _allActivities.filter { CalendarUtils.getDayOfWeekFromLong(it.startAt!!) == dayOfWeek }
+                var energyExpand = 0
+                for (activity in activities) {
+                    energyExpand += activity.duration().toInt() / 1000
+                }
+                totalEnergyExpand += energyExpand
+                columnarDataList.add(ColumnarData(energyExpand.toFloat(), dayOfWeek.label))
+            }
+        }
+        // find the max value in the list and normalize the values
+        val maxValue = columnarDataList.maxOf { it.value }
+        columnarDataList.map {
+            it.value = it.value / maxValue
+        }
+        return ExercisePointsLast7Days(totalEnergyExpand, columnarDataList)
+    }
 
 }
 

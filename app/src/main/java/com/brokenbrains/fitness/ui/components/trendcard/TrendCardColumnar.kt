@@ -30,7 +30,7 @@ fun TrendCardColumnar(data: ColumnarData) {
         Box(
             modifier = Modifier
                 .width(20.dp)
-                .height((data.value * 40).dp)
+                .height((data.value * 45).dp)
                 .clip(RoundedCornerShape(5.dp))
                 .background(OceanGreen1)
         )

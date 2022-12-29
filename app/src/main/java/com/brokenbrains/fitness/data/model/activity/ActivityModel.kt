@@ -59,7 +59,6 @@ fun ActivityModel.duration(): Long {
         return 0
     }
 }
-// as xxxx
 
 fun List<ActivityModel>.asColumnarData(): List<ColumnarData> {
     val graphValues = mutableListOf<ColumnarData>()

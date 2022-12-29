@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -36,10 +38,9 @@ fun MeasurementsPage(
         onAdd = {navigateTo(MeasurementsRoutes.AddMeasurement.route) }) {
         MeasurementsPageInternal(state = state, navigateTo = navigateTo, onBack = onBack)
     }
-
-
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MeasurementsPageInternal(
     state: MeasurementUiState,
@@ -56,21 +57,27 @@ private fun MeasurementsPageInternal(
             TrendCard(
                 data = TrendCardData(
                     title = "Weight",
-                    subtitle = "Last 7 records",
+                    subtitle = "Latest",
                     graphVal = state.measurementColumnarDataByType[MeasurementType.WEIGHT],
                     todayValue = state.measurementTodayByType[MeasurementType.WEIGHT]?.value,
                     todayUnit = "kg",
-                )
+                ),
+                onClick = {
+                    navigateTo(MeasurementsRoutes.MeasurementDetails.route + "/${MeasurementType.WEIGHT}")
+                }
             )
             Spacer(modifier = Modifier.padding(5.dp))
             TrendCard(
                 data = TrendCardData(
                     title = "Height",
-                    subtitle = "Last 7 records",
+                    subtitle = "Latest",
                     graphVal = state.measurementColumnarDataByType[MeasurementType.HEIGHT],
                     todayValue = state.measurementTodayByType[MeasurementType.HEIGHT]?.value,
                     todayUnit = "cm",
-                )
+                ),
+                onClick = {
+                    navigateTo(MeasurementsRoutes.MeasurementDetails.route + "/${MeasurementType.HEIGHT}")
+                }
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
