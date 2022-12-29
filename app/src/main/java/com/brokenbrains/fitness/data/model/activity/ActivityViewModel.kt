@@ -1,23 +1,27 @@
 package com.brokenbrains.fitness.data.model.activity
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.ActivityRepository
 import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class ColumnarDataOf(
-    var activityType: ActivityType,
-    var columnarData: ColumnarData
-)
 data class ActivityUiState(
     var allActivities: List<ActivityModel> = listOf(),
-    var ColumnarDataByType: List<ColumnarDataOf> = listOf(),
+    var ColumnarDataByType: Map<ActivityType, List<ColumnarData>> = mapOf(),
 )
 
 
@@ -28,46 +32,34 @@ class ActivityViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    val uiState = ActivityUiState()
+    private val _uiState = MutableStateFlow(ActivityUiState())
+    var uiState = _uiState.asStateFlow()
 
-//    val uiState = repository.uiState
+    init {
+        viewModelScope.launch {
+            refresh()
+        }
+    }
 
-//    init {
-//
-//    }
-//
-//    private fun setupObservers() {
-//        val move = listOf(
-//            ActivityType.WALKING,
-//            ActivityType.RUNNING
-//        )
-//    }
+    fun refresh() {
+        viewModelScope.launch {
+            /*_allActivities = */repository.getAllActivities().flowOn(Dispatchers.IO).collect {
+//                _uiState.value = _uiState.value.copy(allActivities = it)
+            _allActivities = it.toMutableList()
+            val columnarDataList = getLast7DaysColumnarData()
+            _uiState.value = ActivityUiState(
+                allActivities = _allActivities,
+                ColumnarDataByType = columnarDataList
+            )
+        }
+//            _uiState.value = _uiState.value.copy(allActivities = _allActivities)
+//            _allActivities = newActivities.toMutableList()
+//            uiState = uiState.copy(allActivities = newActivities)
+//            uiState = uiState.copy(ColumnarDataByType = columnarDataList.toMap())
+        }
+    }
 
-//    var _allActivities = MutableStateFlow(listOf<ActivityModel>())
-
-    //    val allActivities: StateFlow<List<ActivityModel>>
-//        get() = _allActivities
-//    var _allActivities = emptyList<ActivityModel>();
-    val allActivities = repository.getAllActivities()
-//      get() = {
-//        viewModelScope.launch(Dispatchers.IO) {
-//          _allActivities = repository.getAllActivities()
-//        }
-//        _allActivities
-//      }
-
-//    init{
-//        getAllActivities()
-//    }
-//    fun getAllActivities() {
-//        viewModelScope.launch {
-//            repository.getAllActivities().catch { e ->
-//                e.printStackTrace()
-//            }.collect {
-//                _allActivities.value = it
-//            }
-//        }
-//    }
+    var _allActivities = mutableListOf<ActivityModel>()
 
 
     fun addNewActivity(activityModel: ActivityModel) {
@@ -81,9 +73,9 @@ class ActivityViewModel @Inject constructor(
     fun getLast7DaysColumnarDataByType(activityType: ActivityType): List<ColumnarData> {
         val columnarDataList = mutableListOf<ColumnarData>()
         val dayOfWeeks = CalendarUtils.getLast7Days()
-        if (allActivities.isNotEmpty()) {
+        if (_allActivities.isNotEmpty()) {
             val models =
-                allActivities.filter { it.activityType == activityType }.sortedBy { it.startAt }
+                _allActivities.filter { it.activityType == activityType }.sortedBy { it.startAt }
             // sum all activities in a day
             for (day in dayOfWeeks) {
                 var sum = 0f
@@ -125,14 +117,14 @@ class ActivityViewModel @Inject constructor(
         return columnarDataList
     }
 
-    fun getTodayTrendCardValueAndUnitByType(activityType: ActivityType) {
 
-    }
-
-    fun getLast7DaysColumnarData() {
+    private fun getLast7DaysColumnarData(): MutableMap<ActivityType, List<ColumnarData>> {
+        val columnarDataList = mutableMapOf<ActivityType, List<ColumnarData>>()
         ActivityType.values().map {
-            getLast7DaysColumnarDataByType(it)
+            val columnarData = getLast7DaysColumnarDataByType(it)
+            columnarDataList.put(it, columnarData)
         }
+        return columnarDataList
     }
 
 

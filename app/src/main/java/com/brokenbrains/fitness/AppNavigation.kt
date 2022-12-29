@@ -105,8 +105,11 @@ fun NavGraphBuilder.BrowseActivityScreenComposable(
         val vm = hiltViewModel<ActivityViewModel>();
         val arguments = requireNotNull(from.arguments)
         val activityType = arguments.getString("activityType")
-        ActivityDetailScreen(viewModel = vm, activityType = ActivityType.fromString(activityType!!)
-            , navigateTo = navTo, onBack = upPress)
+        val activityViewModel = hiltViewModel<ActivityViewModel>()
+        ActivityDetailScreen(viewModel = vm,
+            activityType = ActivityType.fromString(activityType!!),
+            navigateTo = navTo,
+            onBack = { activityViewModel.refresh();upPress() })
     }
 
 }

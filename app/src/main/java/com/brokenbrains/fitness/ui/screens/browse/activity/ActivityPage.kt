@@ -5,15 +5,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.BrowseRoutes
 import com.brokenbrains.fitness.data.model.activity.ActivityType
+import com.brokenbrains.fitness.data.model.activity.ActivityUiState
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.ui.components.ColumnListSectionTitle
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
@@ -23,6 +28,7 @@ import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import com.brokenbrains.fitness.ui.screens.sharing.ShareWithSomeoneModal
 import com.brokenbrains.fitness.ui.theme.FitnessTheme
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun ActivityPage(
     viewModel: ActivityViewModel,
@@ -43,13 +49,16 @@ fun ActivityPage(
             onActionButtonPressed = { }
         )
 
-        ActivityPageInternal(viewModel = viewModel, navigateTo = navigateTo, onBack = onBack)
+
+        val uiState by viewModel.uiState.collectAsStateWithLifecycle(lifecycle = LocalLifecycleOwner.current.lifecycle)
+        ActivityPageInternal(state = uiState, navigateTo = navigateTo, onBack = onBack)
     }
 }
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 private fun ActivityPageInternal(
-    viewModel: ActivityViewModel,
+    state: ActivityUiState,
     navigateTo: (route: String) -> Unit,
     onBack: () -> Unit
 ) {
@@ -69,43 +78,9 @@ private fun ActivityPageInternal(
         ColumnarData(0f, "S")
     )
 
-    var last7daysGraphVals by rememberSaveable { mutableStateOf(defaultGraphVals) }
-//    var allActivities = viewModel.allActivities
-    var allActivities = rememberSaveable {
-        viewModel.allActivities
-    }
 
-    LaunchedEffect(key1 = last7daysGraphVals) {
-        // TODO
-//        val last7activities = allActivities.takeLast(7)
-//        allActivities.filter { move.contains(it.activityType) }.forEach { it ->
-        // get last 7 item
-
-
-        //            last7daysGraphVals = last7daysGraphVals.mapIndexed { index, columnarData ->
-        //                if (index == it.date.dayOfWeek.value - 1) {
-        //                    columnarData.copy(value = columnarData.value + it.duration)
-        //                } else {
-        //                    columnarData
-        //                }
-        //            }
-//        }
-//        last7daysGraphVals = viewModel.getLast7DaysOfActivityByTypes(move)
-    }
-
-//    LaunchedEffect(Unit) {
-//
-//
-////        /*val list = */viewModel.getLast7DaysOfActivityByTypes( // FIXME: should wait for data to be loaded
-//    )
-////    .observeAsState()
-////    observeAsState(initial = emptyList()){
-////            last7daysGraphVals.addAll(it)
-////        }
-//    }
-    // debug:
-//    Text(text = "Activity Page")
-//    Text(last7daysGraphVals.toString())
+//    Text(text = "Size is " + state.ColumnarDataByType[ActivityType.WALKING]?.size.toString())
+//    Text(text = state.ColumnarDataByType[ActivityType.WALKING].toString())
     LazyColumn(
         modifier = Modifier
             .padding(horizontal = MainScreenHorizontalPaddingValue)
@@ -118,7 +93,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Move",
                     subtitle = "Last 7 times",
-                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.WALKING),
+                    graphVal = state.ColumnarDataByType[ActivityType.WALKING] ?: defaultGraphVals,
                     todayValue = "0",
                     todayUnit = "min",
                 ),
@@ -148,7 +123,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Running",
                     subtitle = "Last 7 times",
-                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.RUNNING),
+                    graphVal = state.ColumnarDataByType[ActivityType.RUNNING] ?: defaultGraphVals,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
@@ -160,7 +135,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Swimming",
                     subtitle = "Last 7 times",
-                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.SWIMMING),
+                    graphVal = state.ColumnarDataByType[ActivityType.SWIMMING] ?: defaultGraphVals,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
@@ -172,7 +147,7 @@ private fun ActivityPageInternal(
                 data = TrendCardData(
                     title = "Cycling",
                     subtitle = "Last 7 times",
-                    graphVal = viewModel.getLast7DaysColumnarDataByType(ActivityType.CYCLING),
+                    graphVal = state.ColumnarDataByType[ActivityType.CYCLING] ?: defaultGraphVals,
                 ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")

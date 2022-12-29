@@ -33,7 +33,7 @@ fun ActivityDetailScreen(
     onBack: () -> Unit
 ) {
 
-    val allActivities = viewModel.allActivities
+    val allActivities = viewModel._allActivities
     BrowsePage(
         title = activityType.toReadableString(),
         navigateTo = navigateTo,
@@ -60,7 +60,7 @@ private fun ActivityColumn(
     val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     LazyColumn {
         items(items = filteredActivities) { item ->
-            val startDate = CalendarUtils.getDateTimeFronLong(item.startAt!!)!!.format(formatter)
+            val startDate = CalendarUtils.getDateTimeFromLong(item.startAt!!)!!.format(formatter)
             val duration = item.getDuration()
             val icon = when (item.activityType) {
                 ActivityType.WALKING -> TablerIcons.Walk

@@ -62,7 +62,10 @@ fun AddActivityScreen(
     fun handleAddActivity(): Boolean {
         startDateTime.value = startDate.value.atTime(startTime.value)
         endDateTime.value = startDate.value.atTime(endTime.value)
-        if (startDateTime.value.isAfter(endDateTime.value)) {
+        if (startDateTime.value.isAfter(endDateTime.value) || startDateTime.value.isAfter(
+                LocalDate.now().atTime(LocalTime.now())
+            )
+        ) {
             showToast.value = true
             return false;
         }
@@ -217,7 +220,7 @@ fun AddActivityScreen(
 
         DatePickerDialog(
             dialogState = startDateDialog,
-            onDateSelected = { startDate.value = it }
+            onDateSelected = { startDate.value = it },
         )
 
     }
