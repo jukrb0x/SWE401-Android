@@ -94,7 +94,11 @@ fun AddActivityScreen(
         title = ActivityRoutes.AddActivity.title, navigateTo = navigateTo, onBack = onBack,
         onAdd = {
             // TODO handle Add viewmodel
-            if (handleAddActivity()) onBack()
+            if (handleAddActivity()) {
+                // FIXME: workaround since the activity page doesn't automatically update
+                onBack()
+                onBack()
+            }
         }
     ) {
 

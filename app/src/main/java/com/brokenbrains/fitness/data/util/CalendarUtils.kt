@@ -69,7 +69,7 @@ object CalendarUtils {
         return if (hours > 0) {
             BiggestUnitStringOfTime(hours.toString(), "hr")
         } else if (minutes > 0) {
-            BiggestUnitStringOfTime(minutes.toString(), "mim")
+            BiggestUnitStringOfTime(minutes.toString(), "min")
         } else {
             BiggestUnitStringOfTime(seconds.toString(), "sec")
         }

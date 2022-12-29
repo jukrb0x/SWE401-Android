@@ -113,7 +113,9 @@ private fun ActivityPageInternal(
                     title = "Running",
                     subtitle = "Last 7 times",
                     graphVal = state.activityColumnarDataByType[ActivityType.RUNNING] ,
-                ),
+                    todayValue = state.activityTodayByType[ActivityType.RUNNING]?.value,
+                    todayUnit = state.activityTodayByType[ActivityType.RUNNING]?.unit,
+                    ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.RUNNING}")
                 }
@@ -125,7 +127,9 @@ private fun ActivityPageInternal(
                     title = "Swimming",
                     subtitle = "Last 7 times",
                     graphVal = state.activityColumnarDataByType[ActivityType.SWIMMING],
-                ),
+                    todayValue = state.activityTodayByType[ActivityType.SWIMMING]?.value,
+                    todayUnit = state.activityTodayByType[ActivityType.SWIMMING]?.unit,
+                    ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.SWIMMING}")
                 }
@@ -137,7 +141,9 @@ private fun ActivityPageInternal(
                     title = "Cycling",
                     subtitle = "Last 7 times",
                     graphVal = state.activityColumnarDataByType[ActivityType.CYCLING] ,
-                ),
+                    todayValue = state.activityTodayByType[ActivityType.CYCLING]?.value,
+                    todayUnit = state.activityTodayByType[ActivityType.CYCLING]?.unit,
+                    ),
                 onClick = {
                     navigateTo(ActivityRoutes.ActivityDetails.route + "/${ActivityType.CYCLING}")
                 }
