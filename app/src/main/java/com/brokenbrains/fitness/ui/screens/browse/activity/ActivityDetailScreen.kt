@@ -63,7 +63,7 @@ private fun ActivityColumn(
     val filteredActivities = allActivities.filter { it.activityType == activityType }
     val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     if (filteredActivities.isEmpty()) {
-        ActivityNotFound()
+        ActivityNotFound("No ${activityType.toReadableString()} activities found")
     }
     LazyColumn {
         items(items = filteredActivities) { item ->

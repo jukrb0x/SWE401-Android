@@ -22,22 +22,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.brokenbrains.fitness.MeasurementsRoutes
+import com.brokenbrains.fitness.MedicationRoutes
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
-import com.brokenbrains.fitness.data.model.measurement.*
-import com.brokenbrains.fitness.data.model.medication.MedicationModel
-import com.brokenbrains.fitness.data.model.medication.MedicationType
-import com.brokenbrains.fitness.data.model.medication.MedicationViewModel
+import com.brokenbrains.fitness.data.model.medication.*
+import com.brokenbrains.fitness.data.util.CalendarUtils
+import com.brokenbrains.fitness.data.util.CalendarUtils.toReadableStringShort
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.activity.AddActivityScreen
-import com.brokenbrains.fitness.ui.screens.browse.activity.components.DatePickerDialog
 import com.brokenbrains.fitness.ui.screens.browse.activity.components.TimePickerDialog
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
-import com.brokenbrains.fitness.ui.screens.browse.measurements.components.AddMeasurementDialog
 import com.brokenbrains.fitness.ui.screens.browse.medication.components.MedicationDaysOfWeekDialog
+import com.brokenbrains.fitness.ui.screens.browse.medication.components.MedicationTypeDialog
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatterBuilder
@@ -50,8 +47,10 @@ fun AddMedicationScreen(
     navigateTo: (route: String) -> Unit, onBack: () -> Unit
 ) {
     // screen states
-    val selectedMeasurementType = rememberSaveable { mutableStateOf(MeasurementType.WEIGHT) }
-    val title = rememberSaveable { mutableStateOf("") }
+    val medicationName = rememberSaveable { mutableStateOf("") }
+    val medicationType = rememberSaveable { mutableStateOf(MedicationType.PILLS) }
+    val dosageInput = rememberSaveable { mutableStateOf("") }
+    val dosage = rememberSaveable { mutableStateOf(0f) }
 
 
     // -------
@@ -75,37 +74,54 @@ fun AddMedicationScreen(
     // ----------
     val startDate = rememberSaveable { mutableStateOf(LocalDate.now()) }
     val startTime = rememberSaveable { mutableStateOf(LocalTime.now()) }
+    // we only care about the time: hour and minute
     val startDateTime = rememberSaveable { mutableStateOf(startDate.value.atTime(startTime.value)) }
 
-    val measurementTypeDialog = rememberMaterialDialogState()
+    val DaysOfWeekDialog = rememberMaterialDialogState()
+    val medicationTypeDialog = rememberMaterialDialogState()
     val startDateDialog = rememberMaterialDialogState()
     val startTimePickerDialog = rememberMaterialDialogState()
-    val endTimePickerDialog = rememberMaterialDialogState()
+    val selectedDaysOfWeek = rememberSaveable { mutableStateOf(listOf<CalendarUtils.DayOfWeek>()) }
 
 
-    fun handleAddMeasurement(): Boolean {
+    fun handleAddMedication(): Boolean {
         // convert input to float, if failed, raise up a toast
-        if (startDateTime.value.isAfter(LocalDate.now().atTime(LocalTime.now()))) {
-            toast.message.value = "Start date must be before current date"
+//        if(dosage.value.toFloatOrNull() == null) {
+//            toast.isShow.value = true
+//            toast.message.value = "Invalid dosage"
+//            return false
+//        }
+        if (medicationName.value.isEmpty()) {
+            toast.message.value = "Medication name is required"
             toast.isShow.value = true
-            return false;
+            return false
         }
-
-        try {
-            measurementValue.value = title.value.toFloat()
-        } catch (e: Exception) {
+        if (selectedDaysOfWeek.value.isEmpty()) {
+            toast.message.value = "Days of week is required"
             toast.isShow.value = true
-            toast.message.value = "Invalid input"
+            return false
+        }
+        try {
+            dosage.value = dosageInput.value.toFloat()
+        } catch (e: Exception) {
+            toast.message.value = "Invalid dosage"
+            toast.isShow.value = true
+            return false
+        }
+        if (dosage.value <= 0) {
+            toast.message.value = "Dosage is required"
+            toast.isShow.value = true
             return false
         }
 
+
         viewModel.addNewMedication(
             MedicationModel(
-                title = title.value.trim(),
-                medicationType = MedicationType.PILLS,
-                dose = "1",
-                daysOfWeek = "[MONDAY,SUNDAY]",
-                startAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+                title = medicationName.value.trim(),
+                medicationType = medicationType.value,
+                dose = dosage.value.toString(),
+                daysOfWeek = selectedDaysOfWeek.value.toString(),
+                startAt = startDateTime.value.toEpochSecond(ZoneOffset.UTC)
             )
         )
         return true;
@@ -113,9 +129,9 @@ fun AddMedicationScreen(
 
 
     BrowsePage(
-        title = MeasurementsRoutes.AddMeasurement.title, navigateTo = navigateTo, onBack = onBack,
+        title = MedicationRoutes.AddMedication.title, navigateTo = navigateTo, onBack = onBack,
         onAdd = {
-            if (handleAddMeasurement()) {
+            if (handleAddMedication()) {
                 onBack()
             }
         }
@@ -137,16 +153,16 @@ fun AddMedicationScreen(
         ) {
 
             RowItem(modifier = Modifier.clickable(
-                onClick = { measurementTypeDialog.show() }
+                onClick = { medicationTypeDialog.show() }
             ), label = "Medication Name") {
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 0.dp),
                     colors = textFieldColors,
-                    value = title.value,
+                    value = medicationName.value,
                     singleLine = true,
-                    onValueChange = { title.value = it },
+                    onValueChange = { medicationName.value = it },
                     placeholder = {
                         Text(
                             "Enter the value",
@@ -158,17 +174,15 @@ fun AddMedicationScreen(
                 )
 
             }
-            AddMeasurementDialog(dialogState = measurementTypeDialog, onSelected = {
-                selectedMeasurementType.value = it
-            })
             Divider()
 
             RowItem(
-                modifier = Modifier.clickable(onClick = { startDateDialog.show() }),
-                label = "Date"
+                modifier = Modifier.clickable(onClick = { DaysOfWeekDialog.show() }),
+                label = "Days of Week"
             ) {
                 Text(
-                    text = startDate.value.toString(),
+                    text = selectedDaysOfWeek.value.map { it.toReadableStringShort() }
+                        .joinToString(", "),
                     style = selectTextStyle,
                     modifier = Modifier
                         .padding(start = MainScreenHorizontalPaddingValue)
@@ -180,7 +194,7 @@ fun AddMedicationScreen(
                 modifier = Modifier.clickable(onClick = {
                     startTimePickerDialog.show()
                 }),
-                label = "Record Time"
+                label = "Time of Day"
             ) {
                 Text(
                     text = startTime.value.format(
@@ -192,15 +206,28 @@ fun AddMedicationScreen(
                 )
             }
             Divider()
-            RowItem(label = "Value (${selectedMeasurementType.value.getUnitString()})") {
+            RowItem(
+                modifier = Modifier.clickable(onClick = { medicationTypeDialog.show() }),
+                label = "Medication Type"
+            ) {
+                Text(
+                    text = medicationType.value.toReadableString(),
+                    style = selectTextStyle,
+                    modifier = Modifier
+                        .padding(start = MainScreenHorizontalPaddingValue)
+                )
+            }
+
+
+            RowItem(label = "Dosage (${medicationType.value.getUnitString()})") {
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 0.dp),
                     colors = textFieldColors,
-                    value = title.value,
+                    value = dosageInput.value,
                     singleLine = true,
-                    onValueChange = { title.value = it },
+                    onValueChange = { dosageInput.value = it },
                     placeholder = {
                         Text(
                             "Enter value",
@@ -214,20 +241,28 @@ fun AddMedicationScreen(
             }
 
         }
-
     }
 
-    MedicationDaysOfWeekDialog(dialogState = , onSelected = )
+
+
+    MedicationDaysOfWeekDialog(
+        dialogState = DaysOfWeekDialog,
+        onSelected = { selectedDaysOfWeek.value = it })
+
+    MedicationTypeDialog(
+        dialogState = medicationTypeDialog,
+        onSelected = { medicationType.value = it })
+
     TimePickerDialog(
         dialogState = startTimePickerDialog,
         onDateSelected = { startTime.value = it },
         initialTime = startTime.value
     )
-
-    DatePickerDialog(
-        dialogState = startDateDialog,
-        onDateSelected = { startDate.value = it },
-    )
+//
+//    DatePickerDialog(
+//        dialogState = startDateDialog,
+//        onDateSelected = { startDate.value = it },
+//    )
 
 }
 

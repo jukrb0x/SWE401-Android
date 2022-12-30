@@ -86,7 +86,7 @@ class MedicationRepository @Inject constructor(
     }
 
     @WorkerThread
-    fun deleteMedication(uuid: String) = callbackFlow {
+    fun deleteMedication(uuid: String) {
         db.collection("users")
             .document(authRepository.currentUser!!.uid)
             .collection("medications")
@@ -94,20 +94,12 @@ class MedicationRepository @Inject constructor(
             .delete()
             .addOnSuccessListener {
                 Log.d(this::class.simpleName, "DocumentSnapshot successfully deleted!")
-                trySend(true).isSuccess
+//                trySend(true).isSuccess
             }
             .addOnFailureListener { e ->
                 Log.w(this::class.simpleName, "Error deleting document $e")
-                trySend(false).isSuccess
+//                trySend(false).isSuccess
             }
-        try {
-            awaitClose {
-                channel.close()
-            }
-        } catch (e: Exception) {
-            Log.w(this::class.simpleName, "Error deleting document $e")
-            cancel()
-        }
     }
 
 

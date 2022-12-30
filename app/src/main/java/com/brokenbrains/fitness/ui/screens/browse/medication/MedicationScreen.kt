@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -18,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brokenbrains.fitness.MedicationRoutes
 import com.brokenbrains.fitness.data.model.medication.MedicationModel
 import com.brokenbrains.fitness.data.model.medication.MedicationType
 import com.brokenbrains.fitness.data.model.medication.MedicationViewModel
@@ -27,12 +27,12 @@ import com.brokenbrains.fitness.data.util.CalendarUtils.toReadableString
 import com.brokenbrains.fitness.ui.components.MainScreenHorizontalPaddingValue
 import com.brokenbrains.fitness.ui.screens.browse.activity.components.ActivityNotFound
 import com.brokenbrains.fitness.ui.screens.browse.components.BrowsePage
+import com.brokenbrains.fitness.ui.screens.browse.medication.components.DeleteMedicationDialog
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Pills
 import compose.icons.fontawesomeicons.solid.Syringe
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -47,22 +47,22 @@ fun MedicationScreen(
         title = "Medication",
         navigateTo = navigateTo,
         onBack = onBack,
-//        onAdd = { navigateTo() }
+        onAdd = { navigateTo(MedicationRoutes.AddMedication.route) }
     ) {
-        InsideColumn(viewModel = viewModel, allMedications = allMedications)
-        Button(onClick = {
-            viewModel.addNewMedication(
-                MedicationModel(
-                    title = "Bohan",
-                    medicationType = MedicationType.PILLS,
-                    dose = "1",
-                    daysOfWeek = "[MONDAY,SUNDAY]",
-                    startAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
-                )
-            )
-        }) {
-            Text(text = "Add")
-        }
+        InsideColumn(viewModel = viewModel, allMedications = allMedications, onBack = onBack)
+//        Button(onClick = {
+//            viewModel.addNewMedication(
+//                MedicationModel(
+//                    title = "Bohan",
+//                    medicationType = MedicationType.PILLS,
+//                    dose = "1",
+//                    daysOfWeek = "[MONDAY,SUNDAY]",
+//                    startAt = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+//                )
+//            )
+//        }) {
+//            Text(text = "Add")
+//        }
     }
 
 }
@@ -70,14 +70,26 @@ fun MedicationScreen(
 @Composable
 private fun InsideColumn(
     viewModel: MedicationViewModel,
-    allMedications: List<MedicationModel>
+    allMedications: List<MedicationModel>,
+    onBack: () -> Unit
 ) {
     if (allMedications.isEmpty()) {
         ActivityNotFound(message = "No medication records found")
     }
+
     val formatter = DateTimeFormatter.ofPattern("hh:mm")
     LazyColumn {
         items(items = allMedications) { item ->
+
+            val deleteConfirmDialogState = rememberMaterialDialogState()
+
+            DeleteMedicationDialog(
+                dialogState = deleteConfirmDialogState,
+                onConfirm = {
+                    viewModel.deleteMedication(item)
+                    onBack()
+                }
+            )
 
             val tod = CalendarUtils.getDateTimeFromLong(item.startAt!!)!!.format(formatter)
             val dowList = item.daysOfWeek?.let { CalendarUtils.getListFromDayOfWeekString(it) }
@@ -91,7 +103,10 @@ private fun InsideColumn(
                 MedicationType.OTHER -> FontAwesomeIcons.Solid.Pills
                 else -> FontAwesomeIcons.Solid.Pills
             }
-            Box(modifier = Modifier.clickable(onClick = {/*TODO*/})) {
+            Box(modifier = Modifier.clickable(onClick = {
+                deleteConfirmDialogState.show()
+//                viewModel.deleteMedication(item)
+            })) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

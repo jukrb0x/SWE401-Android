@@ -11,15 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.R
-import com.brokenbrains.fitness.UserRoutes
 import com.brokenbrains.fitness.data.model.auth.AuthViewModel
 import com.brokenbrains.fitness.ui.components.FitnessIcon
-import com.brokenbrains.fitness.ui.theme.OceanGreen1
 import com.brokenbrains.fitness.ui.theme.YaleBlue3
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -33,7 +29,8 @@ fun SplashScreen(viewModel: AuthViewModel, navigateTo: (String) -> Unit) {
             if (viewModel.currentUser != null) { // if FireAuth has a user
                 navigateTo(AppDestinations.LOGIN_ROUTE) // login action
             } else {
-                navigateTo(UserRoutes.Login.route) // login screen
+                navigateTo(AppDestinations.LOGOUT_ROUTE) // login action
+//                navigateTo(UserRoutes.Login.route) // login screen
             }
         }
     }

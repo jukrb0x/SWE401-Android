@@ -186,12 +186,13 @@ class ActivityViewModel @Inject constructor(
                 totalEnergyExpand += energyExpand
                 columnarDataList.add(ColumnarData(energyExpand.toFloat(), dayOfWeek.label))
             }
+            // find the max value in the list and normalize the values
+            val maxValue = columnarDataList.maxOf { it.value }
+            columnarDataList.map {
+                it.value = it.value / maxValue
+            }
         }
-        // find the max value in the list and normalize the values
-        val maxValue = columnarDataList.maxOf { it.value }
-        columnarDataList.map {
-            it.value = it.value / maxValue
-        }
+
         return ExercisePointsLast7Days(totalEnergyExpand, columnarDataList)
     }
 

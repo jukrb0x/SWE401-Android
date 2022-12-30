@@ -36,7 +36,7 @@ object CalendarUtils {
 
             fun getStringList(): List<String> {
                 val strList = mutableListOf<String>()
-                for (type in MeasurementType.values()) {
+                for (type in DayOfWeek.values()) {
                     strList.add(type.toReadableString())
                 }
                 return strList
