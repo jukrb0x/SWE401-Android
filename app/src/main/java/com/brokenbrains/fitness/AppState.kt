@@ -117,6 +117,8 @@ class AppState(
 }
 
 /**
+ * FIXME: the current tab route onBack is not working properly
+ *
  * If the lifecycle is not resumed it means this NavBackStackEntry already processed a nav event.
  *
  * This is used to de-duplicate navigation events.
