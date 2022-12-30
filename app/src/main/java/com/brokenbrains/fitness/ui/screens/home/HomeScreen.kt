@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -16,14 +17,19 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brokenbrains.fitness.BrowseRoutes
 import com.brokenbrains.fitness.data.model.HomeViewModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
 import com.brokenbrains.fitness.data.model.measurement.MeasurementType
 import com.brokenbrains.fitness.data.model.measurement.MeasurementViewModel
+import com.brokenbrains.fitness.data.model.medication.MedicationViewModel
+import com.brokenbrains.fitness.data.model.medication.getUnitString
+import com.brokenbrains.fitness.data.util.CalendarUtils
 import com.brokenbrains.fitness.ui.components.*
 import com.brokenbrains.fitness.ui.screens.home.ElevatedMedicationNotificationCard
 import com.brokenbrains.fitness.ui.screens.home.MedNotificationData
+import java.time.format.DateTimeFormatterBuilder
 
 var fakeMedNotificationData = MedNotificationData(
     title = "Time to take medication",
@@ -39,6 +45,10 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
 
     val measurementViewModel = hiltViewModel<MeasurementViewModel>();
     val measurementState by measurementViewModel.uiState.collectAsStateWithLifecycle()
+
+
+    val medicationViewModel = hiltViewModel<MedicationViewModel>();
+    val medicationState by medicationViewModel.uiState.collectAsStateWithLifecycle()
 
     val data: List<TrendCardData> = listOf(
         TrendCardData(
@@ -65,7 +75,7 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
             subtitle = "today",
             todayValue = "72",
             todayUnit = "bpm",
-            ),
+        ),
         TrendCardData(
             title = "Exercise",
             subtitle = "Last 7 days",
@@ -91,11 +101,27 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
         ) {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
-                ElevatedMedicationNotificationCard(
-                    modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
-                    data = fakeMedNotificationData,
-                    onClick = {}
-                )
+                if (medicationState.recentHalfHourMedication.title !== null
+                    && medicationState.recentHalfHourMedication.daysOfWeek !== null
+                ) {
+                    val medToTake = medicationState.recentHalfHourMedication
+                    ElevatedMedicationNotificationCard(
+                        modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
+                        data = MedNotificationData(
+                            title = "Time to take medication",
+                            subtitle = "You have ${medToTake.dose} ${medToTake.medicationType?.getUnitString()} of ${medToTake.title} ",
+                            overline = "Today at ${
+                                CalendarUtils.getDateTimeFromLong(medToTake.startAt!!)?.format(
+                                    DateTimeFormatterBuilder().appendPattern("HH:mm").toFormatter()
+                                )
+                            }",
+                        ),
+                        onClick = {
+                            navigateTo(BrowseRoutes.Medication.route)
+                        }
+                    )
+                }
+
             }
 
             item {

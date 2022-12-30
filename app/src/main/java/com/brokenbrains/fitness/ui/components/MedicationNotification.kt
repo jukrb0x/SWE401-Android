@@ -83,7 +83,7 @@ fun ElevatedMedicationNotificationCard(
         elevation = CardDefaults.elevatedCardElevation(elevation.dp, (elevation+2).dp),
     ) {
         MedicationNotificationCard(
-            data = fakeMedNotificationData,
+            data = data,
             onClick = { onClick() },
             showDivider = showDivider,
             backgroundColor = backgroundColor,

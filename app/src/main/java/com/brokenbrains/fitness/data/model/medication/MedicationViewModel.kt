@@ -1,10 +1,10 @@
 package com.brokenbrains.fitness.data.model.medication
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brokenbrains.fitness.data.repository.MedicationRepository
+import com.brokenbrains.fitness.data.util.CalendarUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 //data class MeasurementTodayState(
@@ -22,6 +24,7 @@ import javax.inject.Inject
 
 data class MedicationUiState(
     var allMedications: List<MedicationModel> = listOf(),
+    var recentHalfHourMedication: MedicationModel = MedicationModel(),
 )
 
 @HiltViewModel
@@ -44,9 +47,11 @@ class MedicationViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Default) {
             repository.getAllMedications().flowOn(Dispatchers.IO).collect {
                 _allMedications = it.toMutableList()
+                val _recentHalfHourMedication = getRecentHalfHourMedication()
                 _uiState.update {
                     it.copy(
-                        allMedications = _allMedications
+                        allMedications = _allMedications,
+                        recentHalfHourMedication = _recentHalfHourMedication
                     )
                 }
             }
@@ -67,11 +72,39 @@ class MedicationViewModel @Inject constructor(
             repository.deleteMedication(medication.uuid)
         }
     }
-//
-//    fun getMostRecentMedication(): MedicationModel {
-//        //        medication has a
-//
-//    }
+
+    fun getRecentHalfHourMedication(): MedicationModel {
+        val recentMedication =
+            _allMedications.filter {
+                // extract only hour and minute and compare with current time
+                val medicationTime = CalendarUtils.getDateTimeFromLong(it.startAt!!)
+                val now = CalendarUtils.getDateTimeFromLong(
+                    LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+                )
+                val medicationDOW = medicationTime?.dayOfWeek
+                val nowDOW = now?.dayOfWeek
+
+                // determine the hhmm duration
+                val medicationHHMM =
+                    medicationTime?.hour?.times(3600)?.plus(medicationTime.minute)?.times(60)
+                val nowHHMM = now?.hour?.times(3600)?.plus(now.minute)?.times(60)
+                Math.abs(medicationHHMM!! - nowHHMM!!) < 1800 && medicationDOW == nowDOW
+
+
+
+//                medicationTime!!.hour == now!!.hour && medicationTime!!.minute == now!!.minute && medicationDOW == nowDOW
+
+//                Duration.between(medicationTime, Instant.now()).toMinutes() < 30
+//                medicationTime.get(Calendar.HOUR_OF_DAY) == currentTime.get(Calendar.HOUR_OF_DAY) &&
+//                        medicationTime.get(Calendar.MINUTE) == currentTime.get(Calendar.MINUTE)
+//                medicationTime > currentTime - 1800000
+            }
+        return if (recentMedication.isNotEmpty()) {
+            recentMedication[0]
+        } else {
+            MedicationModel()
+        }
+    }
 
 /*
 
