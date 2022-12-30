@@ -3,6 +3,7 @@ This repository holds for both the client-side application (Android Native) and 
 
 **Techstack:**
 
+- Jetpack Compose
 - Dagger Hilt
 - Room
 - Flow
