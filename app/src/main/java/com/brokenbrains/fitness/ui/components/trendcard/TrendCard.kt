@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.brokenbrains.fitness.AppDestinations
 import com.brokenbrains.fitness.ui.components.trendcard.ColumnarData
 import com.brokenbrains.fitness.ui.components.trendcard.TrendCardColumnar
 import com.brokenbrains.fitness.ui.theme.Shapes
@@ -46,6 +47,7 @@ data class TrendCardData(
     ),
     val todayValue: String? = "0",
     val todayUnit: String? = "kg",
+    val navRoute: String? = null // DANGER: ONLY USE IN HOME SCREEN
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

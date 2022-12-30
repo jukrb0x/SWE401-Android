@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brokenbrains.fitness.ActivityRoutes
 import com.brokenbrains.fitness.BrowseRoutes
+import com.brokenbrains.fitness.MeasurementsRoutes
 import com.brokenbrains.fitness.data.model.HomeViewModel
 import com.brokenbrains.fitness.data.model.activity.ActivityType
 import com.brokenbrains.fitness.data.model.activity.ActivityViewModel
@@ -56,6 +58,7 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
             graphVal = activityState.activityColumnarDataByType[ActivityType.WALKING],
             todayValue = activityState.activityTodayByType[ActivityType.WALKING]?.value,
             todayUnit = activityState.activityTodayByType[ActivityType.WALKING]?.unit,
+            navRoute = ActivityRoutes.ActivityDetails.route + "/${ActivityType.WALKING}",
         ),
         TrendCardData(
             title = "Sleep time",
@@ -69,6 +72,7 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
             graphVal = measurementState.measurementColumnarDataByType[MeasurementType.WEIGHT],
             todayValue = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.value,
             todayUnit = measurementState.measurementTodayByType[MeasurementType.WEIGHT]?.unit,
+            navRoute = MeasurementsRoutes.MeasurementDetails.route + "/${MeasurementType.WEIGHT}",
         ),
         TrendCardData(
             title = "Heart rate",
@@ -100,10 +104,10 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             item {
-                Spacer(modifier = Modifier.height(10.dp))
                 if (medicationState.recentHalfHourMedication.title !== null
                     && medicationState.recentHalfHourMedication.daysOfWeek !== null
                 ) {
+                    Spacer(modifier = Modifier.height(10.dp))
                     val medToTake = medicationState.recentHalfHourMedication
                     ElevatedMedicationNotificationCard(
                         modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
@@ -135,7 +139,12 @@ fun HomeScreen(viewModel: HomeViewModel, navigateTo: (route: String) -> Unit) {
             itemsIndexed(data) { index, item ->
                 TrendCard(
                     data = item,
-                    modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue)
+                    modifier = Modifier.padding(horizontal = MainScreenHorizontalPaddingValue),
+                    onClick = {
+                        if(item.navRoute !== null) {
+                            navigateTo(item.navRoute)
+                        }
+                    }
                 )
             }
 
